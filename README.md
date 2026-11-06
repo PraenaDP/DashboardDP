@@ -4,10 +4,6 @@ DashboardDP es una extensión de nueva pestaña, local y de código abierto, par
 
 La versión 1.10.48 incorpora correcciones de seguridad. Lee la [auditoría y sus límites](AUDITORIA_SEGURIDAD_2026-09-07.md) antes de distribuir. El estado recomendado es beta controlada, no certificación de seguridad.
 
-![Ventana principal ilustrada de DashboardDP](docs/images/dashboard-principal.svg)
-
-> Ilustración de la ventana principal con datos ficticios. No contiene favoritos, cuentas ni información personal de ningún usuario.
-
 ## Qué es DashboardDP
 
 DashboardDP convierte la nueva pestaña del navegador en una biblioteca personal y local. Centraliza marcadores, categorías, grupos fijados y espacios de trabajo; añade notas, tareas, widgets y conexiones de calendario opcionales. No requiere una cuenta de DashboardDP ni un servidor propio.

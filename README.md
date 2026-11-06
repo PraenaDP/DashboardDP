@@ -6,7 +6,7 @@ La versión 1.10.48 incorpora correcciones de seguridad. Lee la [auditoría y su
 
 ![Ventana principal ilustrada de DashboardDP](docs/images/dashboard-principal.svg)
 
-> Captura tomada en un perfil aislado con datos ficticios. No contiene favoritos, cuentas ni información personal de ningún usuario.
+> Ilustración de la ventana principal con datos ficticios. No contiene favoritos, cuentas ni información personal de ningún usuario.
 
 ## Qué es DashboardDP
 

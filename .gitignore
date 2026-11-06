@@ -1,0 +1,17 @@
+# Datos y copias de seguridad personales
+dashboard-backup-*.json
+marcadores-*.html
+*.zip
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Entorno y resultados de pruebas: nunca forman parte de la extension
+node_modules/
+test-results/
+playwright-report/
+isolated-profile-*/
+.env
+.env.*

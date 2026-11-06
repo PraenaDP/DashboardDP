@@ -1,0 +1,53 @@
+{
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Dashboard"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "chrome_url_overrides": {
+    "newtab": "dashboard/index.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src https:"
+  },
+  "description": "Nueva pestaña personal con sincronización de marcadores nativos.",
+  "host_permissions": [
+    "https://api.open-meteo.com/*",
+    "https://geocoding-api.open-meteo.com/*"
+  ],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png"
+  },
+  "manifest_version": 3,
+  "name": "Dashboard de Favoritos",
+  "optional_host_permissions": [
+    "http://*/*",
+    "https://*/*",
+    "https://accounts.google.com/*",
+    "https://oauth2.googleapis.com/*",
+    "https://www.googleapis.com/*",
+    "https://login.microsoftonline.com/*",
+    "https://graph.microsoft.com/*",
+    "https://suggestqueries.google.com/*",
+    "https://duckduckgo.com/*",
+    "https://api.bing.com/*",
+    "https://search.brave.com/*"
+  ],
+  "permissions": [
+    "bookmarks",
+    "contextMenus",
+    "favicon",
+    "storage",
+    "activeTab",
+    "alarms",
+    "notifications",
+    "identity"
+  ],
+  "version": "1.10.48"
+}

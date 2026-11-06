@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dashboard personal de favoritos - Nueva pestaña">
+  <title>DashboardDP</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app" id="app">
+    <!-- Top Bar -->
+    <header class="topbar" role="banner">
+      <div class="topbar-left">
+        <button class="icon-btn" id="sidebarToggle" aria-label="Alternar barra lateral" aria-expanded="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <div class="brand">
+          <button class="brand-icon-btn" id="themeToggle" type="button" aria-label="Cambiar a modo claro" title="Cambiar a modo claro">
+            <svg class="brand-icon" id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M21 12.79A9 9 0 1 1 14.21 3 3 3 0 0 0 21 12.79z"></path></svg>
+          </button>
+          <span class="brand-name" id="brandName">Dashboard</span>
+        </div>
+      </div>
+
+      <div class="topbar-center">
+        <div class="greeting sr-only" id="greeting" aria-live="polite">Buenos días</div>
+        <form class="websearch topbar-websearch" id="webSearchForm" role="search" aria-label="Buscar en la web">
+          <div class="websearch-engine">
+            <label for="webEngine" class="sr-only">Motor de búsqueda</label>
+            <select id="webEngine" class="websearch-select" aria-label="Motor de búsqueda">
+              <option value="google">Google</option>
+              <option value="duckduckgo">DuckDuckGo</option>
+              <option value="bing">Bing</option>
+              <option value="brave">Brave</option>
+              <option value="youtube">YouTube</option>
+            </select>
+          </div>
+          <div class="websearch-input-wrap">
+            <svg class="websearch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="search" id="webSearchInput" class="websearch-input" placeholder="Buscar en la web…" autocomplete="off" spellcheck="false" aria-label="Buscar en la web" aria-autocomplete="list" aria-controls="webSuggestions">
+            <ul class="websearch-suggestions hidden" id="webSuggestions" role="listbox" aria-label="Sugerencias de búsqueda"></ul>
+          </div>
+          <button type="submit" class="btn primary websearch-btn" aria-label="Buscar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <span>Buscar</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="topbar-right">
+        <div class="datetime" id="datetime" aria-live="polite">
+          <time id="clock">00:00</time>
+          <span id="date" class="date">Lunes, 1 de Enero</span>
+        </div>
+        <button class="icon-btn calendar-sync-topbar" id="calendarSyncBtn" aria-label="Sincronizar calendario" title="Sincronizar calendario">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path></svg>
+        </button>
+        <button class="icon-btn" id="settingsBtn" aria-label="Ajustes" title="Ajustes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </button>
+        <button class="icon-btn primary" id="addBookmarkBtn" aria-label="Añadir favorito" title="Nuevo favorito (N)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Layout -->
+    <main class="layout" role="main">
+      <!-- Left Sidebar -->
+      <aside class="sidebar" id="sidebar" role="navigation" aria-label="Navegación principal">
+        <nav class="sidebar-nav">
+          <section class="sidebar-section">
+            <h2 class="sidebar-section-title">Navegación</h2>
+            <ul class="sidebar-list" role="list">
+              <li><button class="sidebar-item active" data-view="home" role="tab" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg><span>Inicio</span></button></li>
+              <li><button class="sidebar-item" data-view="all" role="tab" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8"></path><path d="M12 17v4"></path></svg><span>Todos los favoritos</span></button></li>
+              <li><button class="sidebar-item" data-view="pinned" role="tab" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M12 17v5"></path><path d="M19 9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"></path></svg><span>Fijados</span></button></li>
+              <li><button class="sidebar-item" data-view="later" role="tab" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M21 12a9 9 0 1 1-3-6.7"></path><polyline points="21 3 21 9 15 9"></polyline><path d="M12 7v5l3 2"></path></svg><span>Para después</span></button></li>
+              <li><button class="sidebar-item" data-view="recent" role="tab" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span>Recientes</span></button></li>
+              <li><button class="sidebar-item" data-view="frequent" role="tab" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="17 3 22 3 22 8"></path><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line><line x1="6" y1="12" x2="18" y2="12"></line><line x1="3" y1="9" x2="21" y2="9"></line></svg><span>Más usados</span></button></li>
+            </ul>
+          </section>
+
+          <section class="sidebar-section">
+            <form class="search-form sidebar-search" id="searchForm" role="search" aria-label="Buscar favoritos">
+              <label for="searchInput" class="sr-only">Buscar favoritos</label>
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="search" id="searchInput" class="search-input" placeholder="Buscar favoritos..." autocomplete="off" spellcheck="false" aria-label="Buscar favoritos">
+              <kbd class="search-shortcut" aria-hidden="true">Ctrl K</kbd>
+            </form>
+            <div class="sidebar-section-header">
+              <h2 class="sidebar-section-title">Categorías</h2>
+              <div class="sidebar-header-actions">
+                <button class="icon-btn small" id="collapseAllBtn" aria-label="Contraer todas las categorías" title="Contraer todas las categorías">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
+                </button>
+                <button class="icon-btn small" id="sortCategoriesBtn" aria-label="Ordenar categorías alfabéticamente" title="Ordenar categorías alfabéticamente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M4 6h10"></path><path d="M4 12h7"></path><path d="M4 18h4"></path><path d="m17 6 3 3-3 3"></path><path d="M20 9h-6"></path></svg></button>
+                <button class="icon-btn small" id="addCategoryBtn" aria-label="Añadir categoría"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+              </div>
+            </div>
+            <ul class="sidebar-list" id="categoriesList" role="list">
+              <!-- Categorías dinámicas -->
+            </ul>
+          </section>
+        </nav>
+      </aside>
+      <div class="sidebar-resizer" id="sidebarResizer" role="separator" aria-orientation="vertical" aria-valuemin="210" aria-valuemax="520" aria-valuenow="240" tabindex="0" aria-label="Cambiar ancho de la barra lateral" title="Arrastra para cambiar el ancho de la barra lateral"></div>
+
+      <!-- Main Content -->
+      <section class="content" id="content" role="region" aria-label="Favoritos">
+        <!-- Vista Inicio -->
+        <div class="view" id="view-home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="home-context"><span class="home-greeting" id="heroTitle">Buenos días</span></div>
+          <section class="workspaces" id="workspaces" aria-label="Espacios de trabajo">
+            <div class="quick-header">
+              <h2 class="section-title">Espacios de trabajo</h2>
+              <div class="quick-controls">
+                <label for="workspaceSortMode" class="sr-only">Ordenar espacios de trabajo</label>
+                <select id="workspaceSortMode" class="select home-sort-select" aria-label="Ordenar espacios de trabajo" title="Ordenar espacios de trabajo">
+                  <option value="custom">Personalizado</option>
+                  <option value="name-asc">Nombre: A–Z</option>
+                  <option value="name-desc">Nombre: Z–A</option>
+                  <option value="recent-desc">Fecha: reciente → antiguo</option>
+                  <option value="recent-asc">Fecha: antiguo → reciente</option>
+                </select>
+                <button class="icon-btn small" id="addWorkspaceBtn" aria-label="Crear espacio de trabajo" title="Crear espacio de trabajo">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                </button>
+              </div>
+            </div>
+            <div class="workspace-grid" id="workspaceArea"></div>
+          </section>
+          <div class="quick-access" id="quickAccess">
+            <div class="quick-header">
+              <h2 class="section-title">Fijados y Grupos</h2>
+              <div class="quick-controls">
+                <label for="quickSortMode" class="sr-only">Ordenar fijados y grupos</label>
+                <select id="quickSortMode" class="select home-sort-select" aria-label="Ordenar fijados y grupos" title="Ordenar fijados y grupos">
+                  <option value="custom">Personalizado</option>
+                  <option value="name-asc">Nombre: A–Z</option>
+                  <option value="name-desc">Nombre: Z–A</option>
+                  <option value="recent-desc">Fecha: reciente → antiguo</option>
+                  <option value="recent-asc">Fecha: antiguo → reciente</option>
+                </select>
+                <button class="icon-btn small" id="quickEditModeBtn" aria-label="Modo edición" aria-pressed="false" title="Modo edición (E)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
+                </button>
+                <button class="icon-btn small" id="addQuickGroupBtn" aria-label="Crear grupo de accesos" title="Crear grupo de accesos">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M3 7a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
+                </button>
+                <div class="segmented" id="quickViewMode" role="group" aria-label="Modo de vista de acceso rápido">
+                  <button class="segmented-btn active" data-mode="icon" title="Iconos" aria-label="Vista iconos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="6" cy="6" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="18" r="2.5"></circle></svg>
+                  </button>
+                  <button class="segmented-btn" data-mode="list" title="Lista" aria-label="Vista lista">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                  </button>
+                  <button class="segmented-btn" data-mode="cards" title="Flashcards" aria-label="Vista flashcards">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="quick-area" id="quickArea"></div>
+          </div>
+        </div>
+
+        <!-- Vista Categorías / Listados -->
+        <div class="view hidden" id="view-category" role="tabpanel">
+          <div class="view-header">
+            <h1 class="view-title" id="viewTitle">Categoría</h1>
+            <div class="view-controls">
+              <div class="control-group">
+                <label class="sr-only">Modo de vista</label>
+                <div class="segmented" id="viewMode" role="group" aria-label="Modo de vista">
+                  <button class="segmented-btn active" data-mode="grid" title="Vista tarjetas" aria-label="Vista tarjetas">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg>
+                  </button>
+                  <button class="segmented-btn" data-mode="list" title="Vista lista" aria-label="Vista lista">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                  </button>
+                  <button class="segmented-btn" data-mode="icon" title="Vista solo iconos" aria-label="Vista solo iconos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="6" cy="6" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="18" r="2.5"></circle></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="sortMode" class="sr-only">Ordenar por</label>
+                <select id="sortMode" class="select" aria-label="Ordenar por">
+                  <option value="custom">Personalizado</option>
+                  <option value="name-asc">Nombre: A–Z</option>
+                  <option value="name-desc">Nombre: Z–A</option>
+                  <option value="frequent-desc">Uso: mayor → menor</option>
+                  <option value="frequent-asc">Uso: menor → mayor</option>
+                  <option value="recent-desc">Acceso: reciente → antiguo</option>
+                  <option value="recent-asc">Acceso: antiguo → reciente</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <nav class="breadcrumb hidden" id="breadcrumb" aria-label="Ruta de categoría"></nav>
+          <div class="subcats hidden" id="subcats"></div>
+          <div class="results-info" id="resultsInfo"><span id="resultsCount">0</span> favoritos</div>
+          <div class="bookmarks-grid" id="bookmarksGrid" role="list"></div>
+          <div class="empty-state hidden" id="emptyState">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="64" height="64"><path d="M21 12.79A9 9 0 1 1 14.21 3 3 3 0 0 0 21 12.79z"></path></svg>
+            <h3 id="emptyTitle">No hay favoritos</h3>
+            <p id="emptyText">Añade tu primer favorito para empezar</p>
+            <button class="btn primary" id="emptyAddBtn">Añadir favorito</button>
+            <button class="btn hidden" id="clearSearchBtn">Limpiar búsqueda</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel -->
+      <div class="panel-resizer" id="panelResizer" role="separator" aria-orientation="vertical" aria-valuemin="260" aria-valuemax="900" aria-valuenow="300" tabindex="0" aria-label="Cambiar ancho del panel derecho" title="Arrastra para cambiar el ancho del panel derecho"></div>
+      <aside class="panel" id="panel" role="complementary" aria-label="Información y acciones">
+        <div class="panel-mode-control" id="panelModeControl">
+          <span class="panel-mode-label" id="panelModeLabel">Barra por Defecto</span>
+          <div class="panel-mode-actions">
+            <button class="icon-btn small danger panel-reset-layout-btn hidden" id="panelResetLayoutBtn" type="button" title="Restablecer mosaico" aria-label="Restablecer mosaico">↺</button>
+            <button class="icon-btn small hidden" id="panelLayoutBtn" type="button" title="Cambiar distribución" aria-label="Cambiar distribución"></button>
+            <button class="icon-btn small" id="panelFullBtn" type="button" title="Abrir vista amplia" aria-label="Abrir vista amplia" aria-pressed="false"></button>
+            <button class="icon-btn small panel-mode-btn" id="panelModeBtn" type="button" title="Mostrar Barra Personal" aria-label="Mostrar Barra Personal">▥</button>
+          </div>
+        </div>
+        <div class="panel-content" id="panelContent">
+          <section class="panel-section" id="panelRecentSection">
+            <div class="panel-section-header">
+              <h2 class="panel-section-title">Recientes</h2>
+            </div>
+            <ul class="panel-list" id="recentList" role="list"></ul>
+          </section>
+
+          <section class="panel-section" id="panelStatsSection">
+            <h2 class="panel-section-title">Estadísticas</h2>
+            <dl class="stats" id="stats">
+              <div class="stat"><dt>Total favoritos</dt><dd id="statTotal">0</dd></div>
+              <div class="stat"><dt>Categorías</dt><dd id="statCategories">0</dd></div>
+              <div class="stat"><dt>Fijados</dt><dd id="statPinned">0</dd></div>
+            </dl>
+            <p class="sync-status" id="syncStatus">Marcadores del navegador: no sincronizados</p>
+          </section>
+
+          <section class="panel-section widgets-section" id="panelToolsSection" aria-label="Widgets">
+            <h2 class="panel-section-title">Widgets</h2>
+            <div class="widget-toolbar" role="toolbar" aria-label="Widgets">
+              <button class="widget-toggle" id="widgetPlayerBtn" title="Reproductor" aria-label="Reproductor" aria-expanded="false" aria-controls="widgetPlayer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </button>
+              <button class="widget-toggle" id="widgetWeatherBtn" title="Clima" aria-label="Clima" aria-expanded="false" aria-controls="widgetWeather">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"></path></svg>
+              </button>
+              <button class="widget-toggle" id="widgetCalendarBtn" title="Calendario" aria-label="Calendario" aria-expanded="false" aria-controls="widgetCalendar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              </button>
+              <button class="widget-toggle" id="widgetTasksBtn" title="Gestor de tareas" aria-label="Gestor de tareas">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="m8 9 1.5 1.5L12 7.5"></path><line x1="13.5" y1="9" x2="17" y2="9"></line><path d="m8 15 1.5 1.5 2.5-3"></path><line x1="13.5" y1="15" x2="17" y2="15"></line></svg>
+              </button>
+              <button class="widget-toggle" id="widgetNotesBtn" title="Notas adhesivas" aria-label="Notas adhesivas">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="14" y2="17"></line></svg>
+              </button>
+              <button class="widget-toggle" id="widgetBraveBtn" title="Atajos de Brave" aria-label="Atajos de Brave">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"></path><path d="M12 6v9"></path></svg>
+              </button>
+              <button class="widget-toggle" id="widgetFirefoxBtn" title="Atajos de Firefox" aria-label="Atajos de Firefox">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C7 3 3.5 7 3.5 12.5 3.5 17.5 7 21.5 11.5 22c-1-2-1.5-4-.5-5.5C9 14 7 12.5 7 9.5 8 7 9.5 5.5 12 2z"></path><circle cx="14.5" cy="15" r="4.5"></circle></svg>
+              </button>
+              <button class="widget-toggle" id="widgetChromeBtn" title="Atajos de Google Chrome" aria-label="Atajos de Google Chrome">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3"></circle><path d="M12 3v9"></path><path d="M4.5 7.5L12 12"></path><path d="M19.5 7.5L12 12"></path></svg>
+              </button>
+              <button class="widget-toggle" id="widgetEdgeBtn" title="Atajos de Microsoft Edge" aria-label="Atajos de Microsoft Edge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M4 12h13c1 0 1.5-1 1.5-2.5S16.5 6 14 6c-3 0-5.5 2-6.5 5.5"></path></svg>
+              </button>
+              <button class="widget-toggle" id="widgetWindowsBtn" title="Atajos de Windows" aria-label="Atajos de Windows">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="8" height="8" rx="1"></rect><rect x="12.5" y="3.5" width="8" height="8" rx="1"></rect><rect x="3.5" y="12.5" width="8" height="8" rx="1"></rect><rect x="12.5" y="12.5" width="8" height="8" rx="1"></rect></svg>
+              </button>
+              <button class="widget-toggle" id="widgetLinuxBtn" title="Comandos de Linux" aria-label="Comandos de Linux">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><polyline points="7 9 10 12 7 15"></polyline><line x1="13" y1="15" x2="17" y2="15"></line></svg>
+              </button>
+            </div>
+
+            <div class="widget-body hidden" id="widgetPlayer" role="region" aria-label="Reproductor">
+              <div class="player-track" id="playerTrack">Ninguna canción</div>
+              <div class="player-meta" id="playerMeta">Reproduce audio local o una carpeta con varias canciones</div>
+              <div class="player-controls">
+                <button class="player-btn player-btn-small" id="playerPrevBtn" aria-label="Anterior" title="Anterior">
+                  <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line></svg>
+                </button>
+                <button class="player-btn" id="playerPlayBtn" aria-label="Reproducir">
+                  <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </button>
+                <button class="player-btn player-btn-small" id="playerNextBtn" aria-label="Siguiente" title="Siguiente">
+                  <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line></svg>
+                </button>
+                <span class="player-time" id="playerTime">0:00 / 0:00</span>
+              </div>
+              <input type="range" class="player-seek" id="playerSeek" min="0" max="100" value="0" aria-label="Progreso">
+              <div class="player-actions">
+                <button class="player-select" id="playerSelectBtn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                  <span>Audio local</span>
+                </button>
+                <button class="player-select" id="playerFolderBtn" title="Reproducir una carpeta completa">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                  <span>Carpeta</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="widget-body hidden" id="widgetWeather" role="region" aria-label="Clima">
+              <div class="weather-loading" id="weatherContent">Cargando clima…</div>
+            </div>
+
+            <div class="widget-body hidden" id="widgetCalendar" role="region" aria-label="Calendario">
+              <div class="cal-head">
+                <span class="cal-title" id="calTitle">Agosto 2026</span>
+                <div class="cal-nav">
+                  <button class="cal-nav-btn" id="calPrev" aria-label="Mes anterior">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                  </button>
+                  <button class="cal-nav-btn" id="calNext" aria-label="Mes siguiente">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="cal-grid" id="calGrid"></div>
+            </div>
+          </section>
+        </div>
+      </aside>
+      <button class="panel-toggle" id="panelToggle" aria-label="Ocultar panel lateral" aria-expanded="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+    </main>
+    <footer class="dashboard-footer" id="dashboardFooter">
+      <span id="footerCopyright">DashboardDP © 2026 · GPL-3.0-only.</span>
+      <a class="footer-support hidden" id="supportLink" href="#" target="_blank" rel="noopener noreferrer" aria-label="Apoyar DashboardDP en Ko-fi" title="Apoyar DashboardDP en Ko-fi">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M3 8h13v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"></path><path d="M16 10h2a3 3 0 0 1 0 6h-2"></path><path d="M6 3v2M10 3v2M14 3v2"></path></svg>
+        <span>Apoyar DashboardDP</span>
+      </a>
+    </footer>
+  </div>
+
+  <!-- Modales -->
+  <div class="modal-overlay hidden" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle"></div>
+
+  <!-- Command Palette -->
+  <div class="command-palette hidden" id="commandPalette" role="dialog" aria-modal="true" aria-label="Paleta de comandos">
+    <div class="command-palette-content">
+      <div class="command-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="commandInput" class="command-input" placeholder="Escribe un comando o busca favoritos..." autocomplete="off" spellcheck="false" aria-label="Comando">
+        <kbd class="command-shortcut" aria-hidden="true">Ctrl K</kbd>
+      </div>
+      <ul class="command-list" id="commandList" role="listbox"></ul>
+      <div class="command-empty hidden" id="commandEmpty">No se encontraron resultados</div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-label="Notificaciones"></div>
+
+  <!-- Tooltip -->
+  <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true"></div>
+
+  <!-- Drop overlay: arrastrar un enlace para guardarlo -->
+  <div class="drop-overlay hidden" id="dropOverlay" aria-hidden="true">
+    <div class="drop-overlay-inner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="56" height="56"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+      <p class="drop-overlay-title">Suelta el enlace aquí</p>
+      <p class="drop-overlay-sub">Se abrirá el formulario para guardarlo en tu dashboard</p>
+    </div>
+  </div>
+
+  <!-- File input for import (hidden) -->
+  <input type="file" id="importFile" accept=".json,.html,.htm" hidden>
+
+  <script src="js/bookmarks_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+

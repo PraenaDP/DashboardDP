@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Ventana principal ilustrada de DashboardDP</title>
+  <desc id="desc">Interfaz oscura de DashboardDP con barra superior, navegación, espacios de trabajo, fijados y panel personal.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#100d2c"/><stop offset="1" stop-color="#20144a"/></linearGradient>
+    <linearGradient id="card" x1="0" x2="1"><stop stop-color="#231849"/><stop offset="1" stop-color="#161130"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="74" fill="#151033"/><rect y="73" width="1600" height="1" fill="#3d2a6b"/>
+  <rect x="24" y="18" width="38" height="38" rx="12" fill="#2a1c54"/><path d="M35 30h16M35 37h16M35 44h16" stroke="#d8ccff" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="92" cy="37" r="14" fill="none" stroke="#eee9ff" stroke-width="3"/><circle cx="92" cy="37" r="5" fill="#8f56db"/><text x="118" y="43" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#fff">DashboardDP</text>
+  <rect x="405" y="16" width="126" height="42" rx="12" fill="#221846" stroke="#3b2a72"/><text x="430" y="42" font-family="Arial" font-size="14" fill="#d7cdf2">Google⌄</text>
+  <rect x="542" y="16" width="470" height="42" rx="12" fill="#211842" stroke="#8250d6" stroke-width="2"/><text x="568" y="42" font-family="Arial" font-size="14" fill="#a99bc8">Buscar en la web...</text>
+  <rect x="1023" y="16" width="106" height="42" rx="12" fill="#8f56db" filter="url(#glow)"/><text x="1052" y="42" font-family="Arial" font-size="14" font-weight="700" fill="#fff">Buscar</text>
+  <text x="1416" y="34" font-family="Arial" font-size="17" font-weight="700" fill="#f3efff">20:50</text><text x="1388" y="53" font-family="Arial" font-size="10" fill="#9d90bb">lunes, 7 de septiembre</text>
+  <rect y="74" width="258" height="826" fill="#14102f"/><text x="14" y="106" font-family="Arial" font-size="12" letter-spacing="1" fill="#9f91c5">NAVEGACIÓN</text>
+  <rect x="12" y="121" width="232" height="44" rx="12" fill="#3d276e"/><text x="55" y="149" font-family="Arial" font-size="16" font-weight="700" fill="#fff">⌂  Inicio</text>
+  <g font-family="Arial" font-size="15" font-weight="600" fill="#d5cbe9"><text x="26" y="201">▣  Todos los favoritos</text><text x="26" y="239">⌑  Fijados</text><text x="26" y="277">◴  Para después</text><text x="26" y="315">◷  Recientes</text><text x="26" y="353">⌗  Más usados</text></g>
+  <rect x="14" y="382" width="230" height="38" rx="12" fill="#211844" stroke="#3b2a72"/><text x="30" y="407" font-family="Arial" font-size="13" fill="#9f91c5">⌕  Buscar favoritos...</text>
+  <text x="14" y="454" font-family="Arial" font-size="12" letter-spacing="1" fill="#9f91c5">CATEGORÍAS</text>
+  <g font-family="Arial" font-size="14" font-weight="600"><rect x="12" y="468" width="232" height="38" rx="11" fill="#302353"/><text x="32" y="493" fill="#e5ddf7">●  Barra de favoritos</text><rect x="12" y="514" width="232" height="38" rx="11" fill="#254254"/><text x="32" y="539" fill="#e5ddf7">●  Trabajo</text><rect x="12" y="560" width="232" height="38" rx="11" fill="#523747"/><text x="32" y="585" fill="#e5ddf7">●  Proyectos</text></g>
+  <rect x="258" y="74" width="1078" height="826" fill="#100d2c"/>
+  <text x="690" y="126" font-family="cursive" font-size="30" fill="#f5edff" filter="url(#glow)">Buenas noches</text>
+  <rect x="294" y="153" width="1004" height="190" rx="18" fill="url(#card)" stroke="#34255c"/><text x="322" y="196" font-family="Arial" font-size="25" font-weight="700" fill="#fff">Espacios de trabajo</text>
+  <rect x="322" y="220" width="140" height="92" rx="16" fill="#2b4270"/><text x="364" y="258" font-family="Arial" font-size="32" fill="#70bdff">▣</text><text x="347" y="286" font-family="Arial" font-size="15" font-weight="700" fill="#fff">Estudiar</text><text x="346" y="304" font-family="Arial" font-size="12" fill="#b9add4">3 enlaces</text>
+  <rect x="294" y="366" width="1004" height="280" rx="18" fill="url(#card)" stroke="#34255c"/><text x="322" y="410" font-family="Arial" font-size="25" font-weight="700" fill="#fff">Fijados y Grupos</text>
+  <g><rect x="322" y="442" width="82" height="82" rx="16" fill="#231c45"/><rect x="341" y="460" width="44" height="44" rx="11" fill="#d71920"/><text x="354" y="490" font-family="Arial" font-size="24" font-weight="700" fill="#fff">▶</text><text x="336" y="550" font-family="Arial" font-size="13" fill="#e8e0f8">Vídeos</text></g>
+  <g><rect x="432" y="442" width="126" height="76" rx="14" fill="#5c358f" stroke="#a968ff"/><path d="M458 461h22l7 8h33v27h-62z" fill="none" stroke="#f1eaff" stroke-width="3"/><text x="451" y="550" font-family="Arial" font-size="13" fill="#e8e0f8">Trabajo</text></g>
+  <g><rect x="586" y="442" width="126" height="76" rx="14" fill="#287477" stroke="#49d1c4"/><path d="M612 461h22l7 8h33v27h-62z" fill="none" stroke="#e4ffff" stroke-width="3"/><text x="605" y="550" font-family="Arial" font-size="13" fill="#e8e0f8">Mi Web</text></g>
+  <rect x="1336" y="74" width="264" height="826" fill="#151033"/><rect x="1360" y="94" width="216" height="50" rx="14" fill="#241a47"/><text x="1375" y="124" font-family="Arial" font-size="14" font-weight="700" fill="#fff">Barra por Defecto</text>
+  <text x="1360" y="180" font-family="Arial" font-size="12" letter-spacing="1" fill="#9f91c5">ESTADÍSTICAS</text><g font-family="Arial"><rect x="1360" y="198" width="216" height="40" rx="12" fill="#221846"/><text x="1374" y="224" font-size="13" fill="#e8e0f8">Total favoritos</text><text x="1546" y="224" font-size="15" font-weight="700" fill="#fff">42</text><rect x="1360" y="248" width="216" height="40" rx="12" fill="#221846"/><text x="1374" y="274" font-size="13" fill="#e8e0f8">Categorías</text><text x="1546" y="274" font-size="15" font-weight="700" fill="#fff">8</text></g>
+  <text x="1360" y="338" font-family="Arial" font-size="12" letter-spacing="1" fill="#9f91c5">NOTAS VISIBLES</text><rect x="1360" y="355" width="216" height="170" rx="14" fill="#241d45" stroke="#8f56db" stroke-width="2"/><text x="1378" y="385" font-family="Arial" font-size="14" font-weight="700" fill="#fff">Pendiente de hoy</text><text x="1378" y="418" font-family="Arial" font-size="13" fill="#d3c7e9">☑ Revisar enlaces</text><text x="1378" y="447" font-family="Arial" font-size="13" fill="#d3c7e9">☐ Crear una copia</text>
+  <rect y="899" width="1600" height="1" fill="#4d3678"/>
+</svg>

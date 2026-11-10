@@ -8,6 +8,12 @@ La versión 1.10.48 incorpora correcciones de seguridad. Lee la [auditoría y su
 
 DashboardDP convierte la nueva pestaña del navegador en una biblioteca personal y local. Centraliza marcadores, categorías, grupos fijados y espacios de trabajo; añade notas, tareas, widgets y conexiones de calendario opcionales. No requiere una cuenta de DashboardDP ni un servidor propio.
 
+## Temas y apariencia
+
+DashboardDP se adapta tanto a una apariencia clara como oscura y permite ajustar el color de acento, el fondo, la visibilidad del saludo y la distribución de las barras laterales. Las preferencias se guardan localmente e independientemente para cada barra.
+
+Consulta la [galería de temas y apariencia](docs/TEMAS_Y_APARIENCIA.md) para ver ejemplos reales de las combinaciones disponibles.
+
 ## Menús principales
 
 | Área | Para qué sirve |

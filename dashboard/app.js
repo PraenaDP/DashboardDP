@@ -3423,7 +3423,7 @@ function deleteQuickGroup(id) {
 function confirmDeleteQuickGroup(id) {
   const group = getQuickGroup(id);
   if (!group) return;
-  const modal = el('div', { class: 'modal', role: 'alertdialog' });
+  const modal = el('div', { class: 'modal bookmark-audit-confirm-modal', role: 'alertdialog' });
   const header = el('div', { class: 'modal-header' });
   header.append(el('h2', { class: 'modal-title', text: 'Disolver grupo' }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', onclick: closeModal }));
   const body = el('div', { class: 'modal-body' });

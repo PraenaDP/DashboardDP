@@ -3653,6 +3653,8 @@ body.light .drop-overlay {
 /* ---------- Auditoría de favoritos ---------- */
 .bookmark-audit-modal { width: min(1120px, 96vw); max-width: min(1120px, 96vw); }
 .bookmark-audit-modal .btn svg { width: 16px; height: 16px; flex: 0 0 16px; }
+.bookmark-audit-confirm-modal .btn svg { width: 16px; height: 16px; flex: 0 0 16px; }
+.bookmark-audit-confirm-modal .modal-close svg { width: 20px; height: 20px; }
 .bookmark-audit-modal .modal-footer .btn { min-height: 38px; }
 .bookmark-audit-more { width: 100%; justify-content: center; margin-top: 0.15rem; }
 .bookmark-audit-body { max-height: min(72vh, 760px); overflow: hidden; }

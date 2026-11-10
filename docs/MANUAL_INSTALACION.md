@@ -49,9 +49,12 @@ Firefox no es compatible con esta versión. No intentes cargar la carpeta en Fir
 
 ## Actualizar DashboardDP
 
-1. Descarga una **Copia completa** desde **Ajustes → Datos**.
-2. Sustituye los archivos de la carpeta de la extensión por los de la nueva versión, conservando la carpeta elegida.
-3. Vuelve a `brave://extensions`, `chrome://extensions` o `edge://extensions` y pulsa el icono de recargar de DashboardDP.
-4. Abre una nueva pestaña y revisa que tus datos sigan presentes.
+1. Abre **Ajustes → Ayuda → Actualizaciones desde GitHub** y pulsa **Comprobar actualizaciones**. El navegador puede solicitar permiso únicamente para consultar `api.github.com`.
+2. Si hay una Release nueva, pulsa **Abrir actualización**. DashboardDP no descarga ni reemplaza archivos por sí mismo.
+3. Descarga una **Copia completa** desde **Ajustes → Datos**.
+4. Descarga el ZIP de la Release y descomprímelo fuera de la carpeta actual.
+5. Sustituye los archivos de la carpeta de la extensión por los de la nueva versión, conservando exactamente la carpeta elegida al instalarla.
+6. Vuelve a `brave://extensions`, `chrome://extensions` o `edge://extensions` y pulsa el icono de recargar de DashboardDP.
+7. Abre una nueva pestaña y revisa que tus datos sigan presentes.
 
-Si usas una carpeta distinta para la nueva versión, el navegador puede tratarla como otra instalación. Mantener la misma carpeta y recargar reduce ese riesgo.
+Los favoritos, notas, tareas y ajustes se guardan en el perfil local del navegador, no entre los archivos de la extensión. Si usas **Cargar sin empaquetar** sobre una carpeta distinta, el navegador puede tratarla como otra instalación; en ese caso restaura la Copia completa en la instalación nueva. Mantener la misma carpeta y usar Recargar conserva la instalación y reduce ese riesgo.

@@ -61,6 +61,7 @@ La guía completa está en [INTEGRACIONES_CALENDARIO.md](INTEGRACIONES_CALENDARI
 - Abre todos los enlaces de un espacio en pestañas independientes.
 - Guarda los datos del usuario localmente en el navegador.
 - Permite descargar una **copia completa** del Dashboard y restaurarla en otro equipo: favoritos, categorías, grupos, espacios, tema, fondo, widgets, tareas, eventos y notas. Las conexiones externas se recuperan sin sus sesiones y se renuevan desde el Dashboard.
+- Desde **Ajustes → Ayuda → Actualizaciones desde GitHub** permite comprobar voluntariamente la última Release pública. La comprobación pide permiso solo para `api.github.com`, nunca descarga ni sustituye archivos y explica cómo actualizar la misma carpeta de la extensión sin perder los datos locales.
 - Incluye una **Papelera** local: favoritos, categorías, grupos, espacios, widgets, tareas y notas eliminados se conservan 30 días. La notificación permite deshacer de inmediato y Ajustes → Datos → Revisión y mantenimiento permite restaurarlos individualmente.
 - Incluye un asistente para reunir marcadores de Brave, Google Chrome, Microsoft Edge, Mozilla Firefox, Vivaldi, Opera, Safari u otro navegador. Exporta los marcadores a HTML desde cada navegador y usa **Ajustes → Importar desde otro navegador**: cada archivo se integra sin borrar los que ya tengas.
 

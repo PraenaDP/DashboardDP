@@ -1939,7 +1939,12 @@ body.edit-mode .edit-badge {
 }
 
 .btn svg {
-  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  max-width: 1.25em;
+  max-height: 1.25em;
+  flex: 0 0 1em;
+  display: block;
 }
 
 /* ---------- Panel derecho ---------- */

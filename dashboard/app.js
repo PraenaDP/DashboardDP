@@ -6718,14 +6718,14 @@ function openDashboardUpdateGuide(releaseUrl = 'https://github.com/PraenaDP/Dash
   const steps = el('ol');
   [
     'Desde Ajustes → Datos, descarga una Copia completa como medida de seguridad.',
-    'Abre la Release indicada y descarga su ZIP. Descomprímelo fuera de la carpeta que usa actualmente la extensión.',
-    'Copia los archivos nuevos dentro de la misma carpeta que ya cargaste con «Cargar sin empaquetar», sustituyendo solo los archivos de la extensión.',
+    'Abre una terminal dentro de la carpeta clonada de DashboardDP y ejecuta: git pull --ff-only origin main.',
+    'Si Git informa de cambios locales, detente y revísalos antes de actualizar; no fuerces ni descartes archivos a ciegas.',
     'Abre edge://extensions, chrome://extensions o brave://extensions y pulsa Recargar en DashboardDP.'
   ].forEach((step) => steps.appendChild(el('li', { text: step })));
   body.append(
     el('p', { text: `Tu versión actual es ${getDashboardExtensionVersion()}. Los favoritos, notas, tareas y ajustes se guardan en el almacenamiento local del navegador, no en la carpeta de la extensión.` }),
     steps,
-    el('p', { class: 'form-hint', text: 'No uses «Cargar sin empaquetar» sobre una carpeta distinta para actualizar: crearías otra instalación. Si necesitas moverla, exporta una Copia completa y restáurala después.' })
+    el('p', { class: 'form-hint', text: 'No uses «Cargar sin empaquetar» sobre una carpeta distinta para actualizar: crearías otra instalación. Si no usas Git, descarga el ZIP de una Release, sustituye los archivos en la misma carpeta y después pulsa Recargar.' })
   );
   const footer = el('div', { class: 'modal-footer' });
   footer.append(
@@ -7154,7 +7154,7 @@ function openHelpModal() {
     { group: 'Búsqueda y privacidad', title: 'Búsqueda web, permisos y datos', intro: 'DashboardDP guarda tu información en el navegador y solo realiza conexiones externas después de una acción o autorización tuya.', blocks: [
       ['Buscar en la web', 'La barra superior está disponible en todas las secciones. El selector permite Google, DuckDuckGo, Bing, Brave y YouTube.', ['Elige el motor en el selector.', 'Escribe la consulta.', 'Pulsa Buscar o Enter para abrir el resultado en el motor elegido.']],
       ['Sugerencias web', 'Las sugerencias son opcionales. Al activarlas, el texto se consulta directamente con el motor elegido mientras escribes; DashboardDP no crea un historial propio ni usa servidor propio.', ['Abre Ajustes > Búsqueda y sincronización.', 'Activa Sugerencias de búsqueda web.', 'Concede el permiso del motor si el navegador lo solicita.', 'Desactiva la opción en el mismo lugar si no quieres recibir sugerencias.']],
-      ['Actualizaciones desde GitHub', 'DashboardDP puede consultar de forma voluntaria la última Release pública de GitHub. La comprobación nunca descarga ni sustituye archivos: el navegador protege la extensión contra actualizaciones automáticas no verificadas.', ['Abre Ajustes > Ayuda.', 'Pulsa Comprobar actualizaciones y concede solo el permiso para consultar api.github.com si el navegador lo pide.', 'Si existe una Release más reciente, pulsa Abrir actualización.', 'Descarga una Copia completa, sustituye los archivos dentro de la misma carpeta de la extensión y pulsa Recargar en la página de extensiones.']],
+      ['Actualizaciones desde GitHub', 'DashboardDP puede consultar de forma voluntaria la última Release pública de GitHub. La comprobación nunca descarga ni sustituye archivos: el navegador protege la extensión contra actualizaciones automáticas no verificadas.', ['Abre Ajustes > Ayuda.', 'Pulsa Comprobar actualizaciones y concede solo el permiso para consultar api.github.com si el navegador lo pide.', 'Si existe una Release más reciente, descarga una Copia completa y abre una terminal dentro del clon de DashboardDP.', 'Ejecuta git pull --ff-only origin main y pulsa Recargar en la página de extensiones. Si Git detecta cambios locales, revísalos antes de continuar.']],
       ['Privacidad y resolución de problemas', 'Favoritos, notas, tareas, ajustes y widgets viven en el almacenamiento local del navegador. Borrar los datos de la extensión o usar Restablecer puede eliminarlos.', ['Descarga una Copia completa antes de una limpieza importante.', 'Recarga la extensión desde la página de extensiones si una modificación no aparece.', 'Si un calendario o iframe falla, revisa su guía o prueba abrir la dirección fuera del Dashboard.']]
     ] },
     { group: 'Búsqueda y privacidad', title: 'Apoyo voluntario', intro: 'DashboardDP puede mostrar un único enlace oficial de Ko-fi, siempre opcional y configurado por el autor de la versión publicada.', blocks: [

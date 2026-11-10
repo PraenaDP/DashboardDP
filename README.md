@@ -8,11 +8,11 @@ La versión 1.10.48 incorpora correcciones de seguridad. Lee la [auditoría y su
 
 DashboardDP convierte la nueva pestaña del navegador en una biblioteca personal y local. Centraliza marcadores, categorías, grupos fijados y espacios de trabajo; añade notas, tareas, widgets y conexiones de calendario opcionales. No requiere una cuenta de DashboardDP ni un servidor propio.
 
-## Temas y apariencia
+## Vista previa: tema Default
 
-DashboardDP se adapta tanto a una apariencia clara como oscura y permite ajustar el color de acento, el fondo, la visibilidad del saludo y la distribución de las barras laterales. Las preferencias se guardan localmente e independientemente para cada barra.
+![DashboardDP con el tema Default: claro a la izquierda y oscuro a la derecha](https://raw.githubusercontent.com/PraenaDP/DashboardDP/main/docs/images/tema-default.png)
 
-Consulta la [galería de temas y apariencia](docs/TEMAS_Y_APARIENCIA.md) para ver ejemplos reales de las combinaciones disponibles.
+DashboardDP se adapta a modo claro y oscuro y permite cambiar el tema, el color de acento, el fondo, el saludo y la distribución de las barras laterales. Consulta la [galería completa de temas](docs/TEMAS_Y_APARIENCIA.md) para ver **Default**, **Vercelin**, **Youtubin** y **Grafanin**.
 
 ## Menús principales
 

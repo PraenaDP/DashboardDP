@@ -1,0 +1,34 @@
+/* Vista exclusiva de eventos: nunca muestra el tablero de tareas. */
+let eventViewDate = new Date();
+let eventViewMode = 'month';
+function calendarEventsOnly() { return tasks().filter(x=>x.kind==='calendar-event'||x.calendarTarget?.provider); }
+function openCalendarManager() {
+  const modal=el('div',{class:'modal calendar-fullscreen',role:'dialog','aria-label':'Calendario de eventos'});
+  const body=el('div',{class:'modal-body'}), area=el('div',{class:'event-calendar-area'}), toolbar=el('div',{class:'task-manager-toolbar'});
+  const change=d=>{if(eventViewMode==='year')eventViewDate.setFullYear(eventViewDate.getFullYear()+d);else if(eventViewMode==='month')eventViewDate.setMonth(eventViewDate.getMonth()+d);else eventViewDate.setDate(eventViewDate.getDate()+d*(eventViewMode==='week'?7:1));render();};
+  toolbar.append(el('button',{class:'btn',text:'‹',onclick:()=>change(-1)}),el('button',{class:'btn',text:'Hoy',onclick:()=>{eventViewDate=new Date();render();}}),el('button',{class:'btn',text:'›',onclick:()=>change(1)}));
+  const select=el('select',{class:'form-select','aria-label':'Vista del calendario'});
+  [['day','Diaria por horas'],['week','Semanal por horas'],['month','Mensual'],['year','Anual']].forEach(([value,text])=>select.append(el('option',{value,text})));select.value=eventViewMode;select.onchange=()=>{eventViewMode=select.value;render();};
+  toolbar.append(select,el('button',{class:'btn primary',text:'Nuevo evento',onclick:()=>openCalendarEventForm(null)}),el('button',{class:'btn secondary',text:'Conexiones y sincronización',onclick:()=>{const m=el('div',{class:'modal'});m.append(buildCalendarIntegrations(),el('button',{class:'btn',text:'Volver al calendario',onclick:()=>openCalendarManager()}));openModal(m);}}),el('button',{class:'btn',text:'Sincronizar',onclick:async()=>{try{await syncPersonalCalendars();render();}catch(e){toast(e.message,'error');}}}));
+  const render=()=>{
+    area.textContent='';area.append(el('h2',{text:eventViewDate.toLocaleDateString(getLocale(),{month:'long',year:'numeric',day:'numeric'})}));
+    const events=calendarEventsOnly();
+    const drawDay=(date,hours)=>{const day=el('section',{class:'event-day'});day.append(el('h3',{text:date.toLocaleDateString(getLocale(),{weekday:'short',day:'numeric',month:'short'})}));
+      const entries=events.filter(e=>taskDateKey(e.dueAt)===taskDateKey(date.getTime()));
+      const appendEvent=(target,e)=>{const button=el('button',{class:'btn secondary event-entry',text:`${e.calendarTarget?.allDay?'Todo el día':new Date(e.dueAt).toLocaleTimeString(getLocale(),{hour:'2-digit',minute:'2-digit'})} · ${e.title}`,onclick:()=>openCalendarEventForm(e)});if(/^#[0-9a-f]{6}$/i.test(e.displayColor||'')){button.style.borderLeft='5px solid '+e.displayColor;button.style.background='color-mix(in srgb, '+e.displayColor+' 25%, var(--bg-secondary))';}target.append(button);};
+      if(hours){const all=el('div',{class:'event-hour',text:'Todo el día'});entries.filter(e=>e.calendarTarget?.allDay).forEach(e=>appendEvent(all,e));day.append(all);for(let h=0;h<24;h++){const row=el('div',{class:'event-hour'});row.append(el('span',{text:`${String(h).padStart(2,'0')}:00`}));entries.filter(e=>!e.calendarTarget?.allDay&&new Date(e.dueAt).getHours()===h).forEach(e=>appendEvent(row,e));day.append(row);}}
+      else entries.forEach(e=>appendEvent(day,e));return day;};
+    const grid=el('div',{class:'event-grid '+eventViewMode});
+    if(eventViewMode==='day')grid.append(drawDay(new Date(eventViewDate),true));
+    if(eventViewMode==='week'){const start=startTaskWeek(eventViewDate);for(let i=0;i<7;i++)grid.append(drawDay(addTaskDays(start,i),true));}
+    if(eventViewMode==='month'){const count=new Date(eventViewDate.getFullYear(),eventViewDate.getMonth()+1,0).getDate();for(let d=1;d<=count;d++)grid.append(drawDay(new Date(eventViewDate.getFullYear(),eventViewDate.getMonth(),d),false));}
+    if(eventViewMode==='year')for(let m=0;m<12;m++){const month=el('section',{class:'event-day'});month.append(el('button',{class:'btn',text:new Date(eventViewDate.getFullYear(),m,1).toLocaleDateString(getLocale(),{month:'long'}),onclick:()=>{eventViewDate.setMonth(m,1);eventViewMode='month';select.value='month';render();}}));events.filter(e=>new Date(e.dueAt).getFullYear()===eventViewDate.getFullYear()&&new Date(e.dueAt).getMonth()===m).forEach(e=>month.append(el('button',{class:'btn secondary event-entry',text:`${new Date(e.dueAt).getDate()} · ${e.title}`,onclick:()=>openCalendarEventForm(e)})));grid.append(month);}
+    area.append(grid);
+  };
+  modal.append(el('div',{class:'modal-header'},[el('h2',{class:'modal-title',text:'Calendario'}),el('button',{class:'modal-close','aria-label':'Cerrar calendario',text:'×',onclick:closeModal})]),body);body.append(toolbar,area);render();openModal(modal);
+}
+function openCalendarEventForm(existing){
+  const eventColor=el('input',{type:'color',value:/^#[0-9a-f]{6}$/i.test(existing?.displayColor||'')?existing.displayColor:'#6699ff','aria-label':'Color del evento'});
+  const name=el('input',{class:'form-input',value:existing?.title||'',placeholder:'Nombre del evento'}),date=el('input',{class:'form-input',type:'datetime-local',value:toDateTimeLocal(existing?.dueAt||eventViewDate.getTime())}),notes=el('textarea',{class:'form-input'}),target=el('select',{class:'form-select'});notes.value=existing?.notes||'';target.append(el('option',{value:'',text:'Solo en este calendario local'}));connectedCalendarOptions().forEach(o=>target.append(el('option',{value:`${o.provider}|${o.calendarId}`,text:o.label})));if(existing?.calendarTarget?.provider)target.value=`${existing.calendarTarget.provider}|${existing.calendarTarget.calendarId}`;
+  const modal=el('div',{class:'modal'});modal.append(el('div',{class:'modal-header'},[el('h2',{class:'modal-title',text:existing?'Editar evento':'Nuevo evento'}),el('button',{class:'modal-close',text:'×',onclick:()=>openCalendarManager()})]),el('div',{class:'modal-body'},[el('label',{text:'Nombre'}),name,el('label',{text:'Fecha y hora'}),date,el('label',{text:'Notas'}),notes,el('label',{text:'Color personalizado (local)'}),eventColor,el('label',{text:'Sincronización opcional'}),target]),el('div',{class:'modal-footer'},[el('button',{class:'btn',text:'Cancelar',onclick:()=>openCalendarManager()}),el('button',{class:'btn primary',text:'Guardar evento',onclick:()=>{if(!name.value.trim()||!fromDateTimeLocal(date.value))return toast('Indica nombre, fecha y hora válidos','error');const e=existing||{id:uid(),status:'todo',priority:'normal',createdAt:Date.now()};e.displayColor=eventColor.value;e.kind='calendar-event';e.title=name.value.trim();e.notes=notes.value;e.dueAt=fromDateTimeLocal(date.value);e.updatedAt=Date.now();applyTaskCalendarTarget(e,target.value);if(!existing)state.data.tasks.push(e);saveData();openCalendarManager();}})]));openModal(modal);
+}

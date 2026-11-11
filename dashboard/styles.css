@@ -1947,6 +1947,49 @@ body.edit-mode .edit-badge {
   display: block;
 }
 
+/* Calendario exclusivo de eventos y listas de proyectos. */
+.modal.calendar-fullscreen { width: calc(100vw - 16px); max-width: none; height: calc(100vh - 16px); max-height: none; display: flex; flex-direction: column; }
+.calendar-fullscreen .modal-body { flex: 1; overflow: auto; min-height: 0; }
+.event-grid { display: grid; gap: 8px; }
+.event-grid.week, .event-grid.month { grid-template-columns: repeat(7,minmax(120px,1fr)); overflow: auto; }
+.event-grid.year { grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); }
+.event-day { border: 1px solid var(--border-normal); border-radius: 12px; padding: 8px; min-height: 110px; }
+.event-hour { min-height: 56px; border-top: 1px solid var(--border-subtle); display: flex; gap: 8px; align-items: start; padding: 5px; }
+.event-entry { display: block; white-space: normal; text-align: left; width: 100%; margin: 3px 0; }
+.projects-body .task-board { min-height: 65vh; grid-template-columns: repeat(3,minmax(200px,1fr)); overflow-x: auto; }
+.project-list-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.project-list-row strong { flex: 1; min-width: 90px; overflow-wrap: anywhere; }
+.project-state-check { background: transparent; border: 1px solid currentColor; border-radius: 4px; color: white; width: 24px; height: 24px; cursor: pointer; }
+.project-state-check[data-status="doing"] { color: #f5a623; }
+.project-state-check[data-status="done"] { color: #63d297; }
+.project-picker-list { display: grid; gap: 5px; max-height: 50vh; overflow: auto; }
+/* Gestor de proyectos locales */
+.local-task-delete-actions { display:flex; flex-wrap:wrap; gap:8px; margin-left:auto; }
+.task-card.local-task-row { display:flex; align-items:center; gap:12px; padding:12px; }
+.local-task-row > strong { flex:1; min-width:0; font-size:1rem; line-height:1.4; overflow-wrap:anywhere; }
+.local-task-row > button { flex-shrink:0; margin:0; }
+.modal-close svg { width:22px; height:22px; }
+.projects-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.projects-heading h2 { margin:0; }
+.projects-external-group { display:flex; align-items:center; gap:8px; margin-left:auto; flex:0 0 auto; }
+.projects-external-group .form-select { width:190px; max-width:50vw; }
+.task-manager-modal:not(.project-form-modal) { width: calc(100vw - 16px); max-width: none; height: calc(100vh - 16px); max-height: none; }
+.task-manager-modal .task-board { min-height: 65vh; }
+.task-card.item-selected,.project-picker-row.item-selected { background: color-mix(in srgb,var(--accent,#6699ff) 25%,transparent); outline: 2px solid var(--accent,#6699ff); }
+.project-picker-row { padding: 10px 12px; text-align: left; border-radius: 7px; cursor: pointer; user-select: none; }
+.project-picker-row:focus-visible { outline: 2px solid var(--border-active); }
+.project-state-check { min-width: 26px; width: 26px; height: 26px; padding: 0; font-size: 21px; line-height: 1; flex: 0 0 26px; }
+.projects-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.projects-toolbar .form-select { width: auto; flex: 0 1 220px; }
+.projects-toolbar .external-task-app { max-width: 210px; }
+.project-action-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:10px 0; }
+.project-list { display: grid; gap: 12px; min-height: 220px; }
+.project-card { border: 1px solid color-mix(in srgb, var(--project-color, var(--accent)) 55%, var(--border)); border-left: 4px solid var(--project-color, var(--accent)); border-radius: var(--radius-md); padding: 14px; background: var(--surface-2); display: grid; gap: 7px; }
+.project-card > strong { font-size: 1rem; }
+.project-card > span, .project-card > p { margin: 0; color: var(--text-muted); font-size: .86rem; }
+.project-card-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 3px; }
+.project-manager-modal .task-manager-toolbar { flex-wrap: wrap; }
+
 /* ---------- Panel derecho ---------- */
 .panel {
   width: var(--panel-width);
@@ -2369,13 +2412,17 @@ body.panel-note-resizing { cursor: ns-resize; user-select: none; }
 }
 
 .modal-close {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  flex-shrink: 0;
+  font-size: 30px;
+  line-height: 1;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
+  color: var(--text-primary);
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 

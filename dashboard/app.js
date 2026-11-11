@@ -1194,6 +1194,7 @@ function defaultData() {
     quickGroups: [],
     workspaces: [],
     tasks: [],
+    projects: [],
     stickyNotes: [],
     customWidgets: [],
     widgetLibrary: [],
@@ -1416,6 +1417,7 @@ function migrateData(data, persist = true) {
   migrated.quickGroups = Array.isArray(migrated.quickGroups) ? migrated.quickGroups : [];
   migrated.workspaces = Array.isArray(migrated.workspaces) ? migrated.workspaces : [];
   migrated.tasks = Array.isArray(migrated.tasks) ? migrated.tasks : [];
+  migrated.projects = Array.isArray(migrated.projects) ? migrated.projects : [];
   migrated.stickyNotes = Array.isArray(migrated.stickyNotes) ? migrated.stickyNotes : [];
   migrated.customWidgets = Array.isArray(migrated.customWidgets) ? migrated.customWidgets : [];
   migrated.widgetLibrary = Array.isArray(migrated.widgetLibrary) ? migrated.widgetLibrary : [];
@@ -2002,7 +2004,7 @@ function exportData() {
   addActivity('backup-exported', 'Copia completa del Dashboard');
   saveData();
   downloadJson(fullBackupEnvelope(), `dashboarddp-copia-completa-${new Date().toISOString().slice(0, 10)}.json`);
-  toast('Copia completa descargada', 'success');
+  toast('Copia completa descargada: favoritos, ajustes, fijados, espacios, widgets, notas y tareas.', 'success');
 }
 
 function escapeHtmlExport(text) {
@@ -2855,6 +2857,14 @@ function selectCategory(id) {
 }
 
 function selectNavView(view) {
+  // La antigua cola "Para después" reutiliza el mismo hueco de navegación,
+  // pero ahora abre el gestor de ideas; los favoritos existentes no se alteran.
+  if (view === 'later' && typeof openProjectManager === 'function') {
+    state.currentView = 'later';
+    renderSidebar();
+    renderCurrentView();
+    return;
+  }
   state.auditStatusFilter = null;
   state.currentView = view;
   state.activeCategoryId = null;
@@ -3237,6 +3247,10 @@ function renderCategoryNode(cat, depth) {
 
 /* ---------- Vista actual ---------- */
 function renderCurrentView() {
+  if (state.currentView === 'later' && typeof renderProjectsBody === 'function') {
+    renderProjectsBody();
+    return;
+  }
   const searching = state.searchQuery.trim().length > 0 || !!state.auditStatusFilter;
 
   if (state.currentView === 'home' && !searching) {
@@ -3253,6 +3267,7 @@ function renderCurrentView() {
 }
 
 function showView(name) {
+  document.getElementById('projectsBody')?.classList.add('hidden');
   els.viewHome.classList.toggle('hidden', name !== 'home');
   els.viewCategory.classList.toggle('hidden', name !== 'category');
 }
@@ -4562,7 +4577,8 @@ function openCardMenu(bookmarkId) {
   const actions = [
     { label: 'Editar', icon: ICONS.edit, fn: () => { closeModal(); openBookmarkForm(bookmark.id); } },
     { label: 'Duplicar', icon: ICONS.duplicate, fn: () => { closeModal(); duplicateBookmark(bookmarkId); } },
-    { label: bookmark.pinned ? 'Desfijar' : 'Fijar', icon: ICONS.starOutline, fn: () => { closeModal(); togglePin(bookmarkId); } }
+    { label: bookmark.pinned ? 'Desfijar' : 'Fijar', icon: ICONS.starOutline, fn: () => { closeModal(); togglePin(bookmarkId); } },
+    { label: 'Añadir a proyecto', icon: ICONS.folder, fn: () => { closeModal(); openAddBookmarkToProject(bookmarkId); } }
   ];
 
   actions.push({
@@ -4992,6 +5008,7 @@ function initDropZone() {
   const internalDragActive = () => !!(state.draggingId || state.draggingQuickKey || state.draggingWorkspaceId);
 
   window.addEventListener('dragenter', (e) => {
+    if (state.currentView === 'later' || Array.from(e.dataTransfer?.types || []).some(t=>t.startsWith('application/dashboard-'))) return;
     if (externalDropZoneLocked || internalDragActive()) return;
     dragCounter++;
     showDropOverlay();
@@ -5011,6 +5028,7 @@ function initDropZone() {
   });
 
   window.addEventListener('drop', (e) => {
+    if (e.defaultPrevented || state.currentView === 'later' || Array.from(e.dataTransfer?.types || []).some(t=>t.startsWith('application/dashboard-'))) { hideDropOverlay(); return; }
     if (externalDropZoneLocked) { e.preventDefault(); return; }
     dragCounter = 0;
     hideDropOverlay();
@@ -6277,7 +6295,7 @@ function openBookmarkAudit(initialResults = null) {
   const intro = el('div', { class: 'bookmark-audit-intro' });
   intro.append(
     el('p', { text: 'Comprueba el estado de tus favoritos directamente desde el navegador. Los resultados no salen de tu equipo.' }),
-    el('p', { class: 'form-hint', text: 'Solo los 404/410 y los vídeos de YouTube confirmados como inexistentes se pueden seleccionar para borrar. Los bloqueos del ISP, VPN, DNS, TLS, permisos, servidores y tiempos de espera se conservan.' })
+    el('p', { class: 'form-hint', text: 'Solo los 404/410 y los vídeos de YouTube confirmados como inexistentes se pueden seleccionar para borrar. «No concluyentes» no significa que el enlace esté caído: la comprobación no pudo decidirlo por bloqueo del ISP/VPN, DNS, TLS, permisos, red, servidor, tiempo de espera o dirección local/especial. Esos enlaces se conservan.' })
   );
   const progress = el('div', { class: 'bookmark-audit-progress hidden' });
   const progressBar = el('div', { class: 'bookmark-audit-progress-bar' });
@@ -6312,7 +6330,7 @@ function openBookmarkAudit(initialResults = null) {
   const renderResults = () => {
     const counts = Object.fromEntries(Object.keys(BOOKMARK_AUDIT_LABELS).map((key) => [key, results.filter((item) => item.status === key).length]));
     summary.textContent = '';
-    [['Comprobados', results.length], ['Disponibles', counts.available || 0], ['404/no disponibles', (counts.missing || 0) + (counts.youtube_missing || 0)], ['No concluyentes', results.length - (counts.available || 0) - (counts.missing || 0) - (counts.youtube_missing || 0)]].forEach(([label, value]) => summary.appendChild(el('div', { class: 'bookmark-audit-stat' }, [el('strong', { text: String(value) }), el('span', { text: label })])));
+    [['Comprobados', results.length, 'Enlaces que han recibido un resultado durante esta auditoría.'], ['Disponibles', counts.available || 0, 'La comprobación recibió una respuesta válida.'], ['404/no disponibles', (counts.missing || 0) + (counts.youtube_missing || 0), 'Enlaces confirmados como inexistentes; son los únicos candidatos a borrar.'], ['No concluyentes', results.length - (counts.available || 0) - (counts.missing || 0) - (counts.youtube_missing || 0), 'No se pudo determinar si existe: red, permisos, ISP/VPN, DNS, TLS, servidor, espera o dirección especial. No se borra.']].forEach(([label, value, description]) => summary.appendChild(el('div', { class: 'bookmark-audit-stat', title: description, 'aria-label': `${label}: ${description}` }, [el('strong', { text: String(value) }), el('span', { text: label })])));
     const query = search.value.trim().toLowerCase();
     const visible = results.filter((item) => matchesFilter(item) && (!query || `${item.name} ${item.url} ${item.category}`.toLowerCase().includes(query)));
     list.textContent = '';
@@ -6738,6 +6756,8 @@ function openDashboardUpdateGuide(releaseUrl = 'https://github.com/PraenaDP/Dash
 
 function openSettingsForm() {
   const modal = el('div', { class: 'modal settings-modal' });
+  const backupShortcut = el('button', {class:'btn secondary',text:'Copia completa y restauración',onclick:openCompleteBackupPanel});
+  modal.append(backupShortcut);
   const header = el('div', { class: 'modal-header' });
   header.append(el('h2', { class: 'modal-title', text: t('settings') }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', onclick: closeModal }));
 
@@ -7003,12 +7023,12 @@ function openSettingsForm() {
       ]
     ),
     createDataCard(
-      'Copias y restauración',
-      'Guarda una copia completa antes de cambiar de navegador o restaurar información.',
+      'Copias completas y restauración',
+      'El JSON completo conserva favoritos, categorías, fijados, grupos, espacios, widgets, notas, tareas, Papelera y ajustes. No incluye contraseñas, sesiones ni tokens OAuth.',
       ICONS.duplicate,
       [
-        dataButton(ICONS.export, 'Descargar copia completa', () => { closeModal(); exportData(); }),
-        dataButton(ICONS.import, 'Restaurar copia o importar favoritos', () => { els.importFile.click(); })
+        dataButton(ICONS.export, 'Crear copia completa (JSON)', () => { closeModal(); exportData(); }),
+        dataButton(ICONS.import, 'Restaurar copia completa o importar favoritos', () => { els.importFile.click(); })
       ]
     ),
     createDataCard(
@@ -7128,7 +7148,8 @@ function openHelpModal() {
     { group: 'Productividad', title: 'Tareas y calendario', intro: 'Tareas, recordatorios y calendarios son datos locales, salvo que conectes voluntariamente un proveedor externo.', blocks: [
       ['Tablero de tareas', 'El gestor usa columnas Por hacer, En curso y Hecho. Cada tarjeta admite prioridad, fecha, recordatorio, notas y orden.', ['Abre el Gestor de tareas desde su botón o el menú rápido.', 'Pulsa crear tarea y completa sus propiedades.', 'Arrastra una tarjeta a otra columna para cambiar su estado.', 'Usa las vistas de calendario para revisar fechas por mes, semana o agenda.']],
       ['Calendarios e ICS', 'Puedes importar varios archivos ICS sin borrar eventos existentes. Los calendarios de solo lectura sirven para consultar, no como destino de escritura.', ['Abre el calendario.', 'Usa Importar ICS y selecciona uno o varios archivos .ics extraídos del ZIP.', 'Elige el calendario de destino cuando crees o edites un evento.', 'Exporta ICS si necesitas trasladar eventos a otra aplicación.']],
-      ['Google y Microsoft', 'Las conexiones son personales y opcionales. Requieren que configures tu propio cliente OAuth; DashboardDP no guarda contraseñas ni opera un servidor de calendario.', ['Abre Ajustes > Búsqueda y sincronización.', 'Sigue la guía de la conexión elegida y autoriza solo la cuenta que quieras usar.', 'Pulsa Sincronizar para enviar y recuperar cambios.', 'Si aparece un error de fecha, revisa que el evento tenga fecha y hora válidas antes de reintentarlo.']]
+      ['Google y Microsoft', 'Las conexiones son personales y opcionales. Requieren que configures tu propio cliente OAuth; DashboardDP no guarda contraseñas ni opera un servidor de calendario.', ['Abre Ajustes > Búsqueda y sincronización.', 'Sigue la guía de la conexión elegida y autoriza solo la cuenta que quieras usar.', 'Pulsa Sincronizar para enviar y recuperar cambios.', 'Si aparece un error de fecha, revisa que el evento tenga fecha y hora válidas antes de reintentarlo.']],
+      ['Google Calendar: activar la API', 'Crear un Client ID OAuth no activa automáticamente Google Calendar API. Debes habilitarla una vez en el mismo proyecto de Google Cloud que creó ese Client ID.', ['Abre Google Cloud Console con la cuenta propietaria del proyecto OAuth.', 'Ve a APIs y servicios > Biblioteca, busca Google Calendar API y pulsa Habilitar.', 'Comprueba que el proyecto seleccionado es el mismo de tu Client ID y espera unos minutos.', 'Vuelve a DashboardDP y pulsa Sincronizar otra vez.', 'Si aparece «Google Calendar API has not been used in project…», la API está desactivada o se habilitó en otro proyecto.', 'Si aparece access_denied durante las pruebas, añade tu correo en Google Auth Platform > Audience como usuario de prueba.']]
     ] },
     { group: 'Productividad', title: 'Notas adhesivas y Markdown', intro: 'Una nota es de tipo Formato o Markdown. El tipo y su contenido fuente se conservan para que puedas reabrirla y seguir editando sin conversiones.', blocks: [
       ['Nota de Formato', 'Formato usa el editor visual y permite familia tipográfica, tamaño, color, negrita, cursiva, título, listas, imágenes y otros controles.', ['Crea o edita una nota.', 'Pulsa Formato.', 'Selecciona fuente y tamaño antes o después de escribir.', 'Guarda: la tarjeta y la edición en línea respetarán la tipografía elegida.']],
@@ -8925,7 +8946,7 @@ function removeTask(task) {
   notifyTrashEntry(trashEntry);
 }
 
-function openTaskManager(initialView = 'board') {
+function openCalendarManager(initialView = 'calendar') {
   setExternalDropZoneLocked(true);
   const modal = el('div', { class: 'modal task-manager-modal', role: 'dialog', 'aria-labelledby': 'modalTitle' });
   const header = el('div', { class: 'modal-header' });
@@ -9988,6 +10009,39 @@ function processWallpaperFile(file, cb) {
   };
   reader.onerror = () => toast('No se pudo leer la imagen', 'error');
   reader.readAsDataURL(file);
+}
+
+/* El gestor de tareas locales no debe mostrar ni sincronizar eventos de Calendar. */
+function openTaskManager(view) {
+  if (view === 'calendar') return openCalendarManager('calendar');
+  setExternalDropZoneLocked(true);
+  const modal = el('div', { class: 'modal task-manager-modal', role: 'dialog', 'aria-labelledby': 'modalTitle' });
+  const header = el('div', { class: 'modal-header' });
+  const body = el('div', { class: 'modal-body task-manager-body' });
+  const toolbar = el('div', { class: 'task-manager-toolbar' });
+  const content = el('div', { class: 'task-manager-content' });
+  const addBtn = el('button', { class: 'btn primary', html: ICONS.plus + '<span>Nueva tarea local</span>' });
+  const projectsBtn = el('button', { class: 'btn secondary', text: 'Mis proyectos', onclick: () => { closeModal(); openProjectManager('ideas'); } });
+  const googleBtn = el('button', { class: 'btn secondary', text: 'Google Tasks', onclick: () => openGoogleTasksSetup() });
+  header.append(el('h2', { class: 'modal-title', id: 'modalTitle', text: 'Tareas locales' }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', text: '×', onclick: closeModal }));
+  toolbar.append(addBtn);
+  body.append(toolbar, content); modal.append(header, body);
+  const render = () => { content.textContent = ''; renderSimpleLocalTasks(content, render); };
+  addBtn.addEventListener('click', () => {
+    const input = el('input', {class:'form-input',placeholder:'Escribe una tarea',maxlength:'180'});
+    const form = el('div',{class:'modal'},[el('div',{class:'modal-body'},[input]),el('div',{class:'modal-footer'},[
+      el('button',{class:'btn',text:'Cancelar',onclick:()=>openTaskManager()}),
+      el('button',{class:'btn primary',text:'Añadir',onclick:()=>{if(!input.value.trim())return;state.data.tasks.push({id:uid(),title:input.value.trim(),status:'todo',createdAt:Date.now(),updatedAt:Date.now(),order:tasks().length});saveData();openTaskManager();}})
+    ])]); openModal(form); input.focus();
+  });
+  render(); openModal(modal);
+  activeTaskManagerRefresh = () => { if (!document.body.contains(modal)) { activeTaskManagerRefresh = null; return; } render(); };
+}
+
+function openGoogleTasksSetup() {
+  const modal = el('div', { class: 'modal', role: 'dialog' });
+  modal.append(el('div', { class: 'modal-header' }, [el('h2', { class: 'modal-title', text: 'Google Tasks' }), el('button', { class: 'modal-close', text: '×', onclick: closeModal })]), el('div', { class: 'modal-body' }, [el('p', { text: 'Google Tasks usa una API y un permiso OAuth diferentes de Google Calendar. Los eventos de Calendar permanecen solo en el calendario.' }), el('p', { class: 'form-hint', text: 'Activa Google Tasks API en el mismo proyecto OAuth y autoriza el alcance de tareas. Esta conexión no convertirá ni sincronizará proyectos locales.' })]), el('div', { class: 'modal-footer' }, [el('button', { class: 'btn', text: 'Volver', onclick: () => openTaskManager() })]));
+  openModal(modal);
 }
 
 function initWidgets() {

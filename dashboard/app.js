@@ -5123,6 +5123,11 @@ function isValidEmbedUrl(value) {
   try { return new URL(String(value || '')).protocol === 'https:'; } catch { return false; }
 }
 
+/* Política uniforme: ningún proveedor recibe excepciones de origen. */
+function widgetIframeSandbox() {
+  return 'allow-scripts allow-forms allow-popups';
+}
+
 function renderCustomWidgets() {
   const section = els.customWidgetsSection;
   if (!section) return;
@@ -5149,7 +5154,7 @@ function renderCustomWidgets() {
     cardHead.append(el('span', { class: 'custom-widget-title', text: widget.title }), actions);
     const frame = el('iframe', {
       class: 'custom-widget-frame', src: widget.url, title: widget.title,
-      sandbox: 'allow-scripts allow-forms allow-popups', referrerpolicy: 'no-referrer', loading: 'lazy'
+      sandbox: widgetIframeSandbox(widget.url), referrerpolicy: 'no-referrer', loading: 'lazy'
     });
     frame.style.height = `${Math.max(160, Math.min(900, Number(widget.height) || 320))}px`;
     card.append(cardHead, frame);
@@ -5446,7 +5451,7 @@ function renderCustomPanelBlock(block, index, total, manualCanvas = null) {
   }
   wrapper.appendChild(header);
   if (block.type === 'iframe') {
-    const frame = el('iframe', { class: 'custom-widget-frame', src: block.url, title: block.title, sandbox: 'allow-scripts allow-forms allow-popups', referrerpolicy: 'no-referrer', loading: 'lazy' });
+    const frame = el('iframe', { class: 'custom-widget-frame', src: block.url, title: block.title, sandbox: widgetIframeSandbox(block.url), referrerpolicy: 'no-referrer', loading: 'lazy' });
     frame.style.width = normalizeIframeWidth(block.width) || '100%';
     frame.style.maxWidth = '100%';
     frame.style.height = `${normalizeIframeHeight(block.height) || 320}px`;
@@ -5683,28 +5688,7 @@ function enableManualPanelBlockInteractions(block, wrapper, dragHandle, resizeHa
   resizeHandle.addEventListener('pointerdown', (event) => startInteraction(event, 'resize'));
 }
 
-function openPanelBlockPicker() {
-  const blocks = panelCustomBlocks();
-  const usedNative = new Set(blocks.filter((block) => block.type !== 'iframe').map((block) => block.type));
-  const modal = el('div', { class: 'modal', role: 'dialog', 'aria-labelledby': 'modalTitle' });
-  const header = el('div', { class: 'modal-header' });
-  header.append(el('h2', { class: 'modal-title', id: 'modalTitle', text: 'Añadir bloque a mi barra' }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', onclick: closeModal }));
-  const body = el('div', { class: 'modal-body' });
-  body.appendChild(el('p', { class: 'modal-subtitle', text: `Puedes añadir hasta ${MAX_CUSTOM_PANEL_BLOCKS} bloques. Llevas ${blocks.length} de ${MAX_CUSTOM_PANEL_BLOCKS}.` }));
-  const choices = el('div', { class: 'panel-block-choices' });
-  if (blocks.length < MAX_CUSTOM_PANEL_BLOCKS) {
-    [['recent', 'Recientes', 'Los últimos favoritos abiertos.'], ['stats', 'Estadísticas', 'Contadores y estado de tus marcadores.'], ['tools', 'Widgets', 'Herramientas integradas del Dashboard.'], ['notes', t('notesVisible'), 'Muestra las notas adhesivas que hayas elegido.']].forEach(([type, title, description]) => {
-      if (usedNative.has(type)) return;
-      choices.appendChild(el('button', { class: 'panel-block-choice', type: 'button', onclick: () => addPanelCustomBlock(type) }, [el('strong', { text: title }), el('span', { text: description })]));
-    });
-    choices.appendChild(el('button', { class: 'panel-block-choice', type: 'button', onclick: () => { closeModal(); openCustomIframeBlockForm(); } }, [el('strong', { text: 'Iframe propio' }), el('span', { text: 'Pega una URL HTTPS o un código <iframe> completo. También quedará guardado en tu Biblioteca de widgets.' })]));
-  }
-  choices.appendChild(el('button', { class: 'panel-block-choice widget-library-choice', type: 'button', onclick: () => { closeModal(); openWidgetLibrary(); } }, [el('strong', { html: ICONS.duplicate + '<span>Biblioteca de widgets</span>' }), el('span', { text: 'Recupera, edita o guarda widgets aunque no estén ahora en tu barra.' })]));
-  body.appendChild(choices);
-  modal.append(header, body);
-  openModal(modal);
-}
-
+function openPanelBlockPicker() { openWidgetLibrary(); }
 function addPanelCustomBlock(type) {
   if (panelCustomBlocks().length >= MAX_CUSTOM_PANEL_BLOCKS) return;
   state.data.panelCustomBlocks.push({ id: uid(), type, title: '', url: '', height: 320, createdAt: Date.now(), order: panelCustomBlocks().length });
@@ -5759,6 +5743,8 @@ function widgetLibrary() {
   return Array.isArray(state.data.widgetLibrary) ? state.data.widgetLibrary : [];
 }
 
+const WIDGET_LIBRARY_TYPES = ['Por defecto','Mapas','Desarrollo','Herramientas','Citas','Banca','Música','Tiempo','Productividad','Noticias','Otros'];
+
 function normalizeWidgetLibraryEntry(entry, index = 0) {
   const url = typeof entry?.url === 'string' && isValidEmbedUrl(entry.url.trim()) ? entry.url.trim() : '';
   if (!url) return null;
@@ -5775,6 +5761,8 @@ function normalizeWidgetLibraryEntry(entry, index = 0) {
     width,
     height,
     embedCode: buildCustomIframeCode({ url, title, width, height }),
+    description: typeof entry.description === 'string' ? entry.description.slice(0,4000) : '',
+    widgetType: typeof entry.widgetType === 'string' && entry.widgetType.trim() ? entry.widgetType.trim().slice(0,60) : 'Otros',
     createdAt,
     updatedAt,
     lastUsedAt,
@@ -5794,11 +5782,15 @@ function saveWidgetToLibrary(widget, existingId = null) {
   const duplicate = widgetLibrary().find((entry) => entry.id !== current?.id && widgetLibrarySignature(entry) === signature);
   const now = Date.now();
   if (duplicate) {
+    if (widget.description !== undefined) duplicate.description = normalized.description;
+    if (widget.widgetType !== undefined) duplicate.widgetType = normalized.widgetType;
     duplicate.lastUsedAt = now;
     duplicate.updatedAt = now;
     return duplicate;
   }
   if (current) {
+    if (widget.description === undefined) normalized.description = current.description || '';
+    if (widget.widgetType === undefined) normalized.widgetType = current.widgetType || 'Otros';
     Object.assign(current, normalized, { id: current.id, createdAt: current.createdAt, updatedAt: now, lastUsedAt: now });
     return current;
   }
@@ -5838,6 +5830,12 @@ function openWidgetLibraryForm(entryId = null) {
   const header = el('div', { class: 'modal-header' });
   header.append(el('h2', { class: 'modal-title', id: 'modalTitle', text: editing ? 'Editar widget guardado' : 'Guardar widget en mi biblioteca' }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', onclick: openWidgetLibrary }));
   const body = el('div', { class: 'modal-body' });
+  const descriptionInput=el('textarea',{class:'form-textarea',rows:'4',maxlength:'4000',placeholder:'Descripción del widget…'});
+  descriptionInput.value=editing?.description||'';
+  const typeInput=el('input',{class:'form-input',type:'text',maxlength:'60',list:'widgetTypeSuggestions',value:editing?.widgetType||'Otros',placeholder:'Mapas, música, herramientas…'});
+  const typeSuggestions=el('datalist',{id:'widgetTypeSuggestions'});
+  WIDGET_LIBRARY_TYPES.forEach(value=>typeSuggestions.append(el('option',{value})));
+  body.append(taskFormGroup('Descripción',descriptionInput),taskFormGroup('Tipo de widget',typeInput),typeSuggestions);
   const titleInput = el('input', { class: 'form-input', type: 'text', maxlength: '80', placeholder: 'Ej.: Mapa del tiempo', value: editing ? editing.title : '' });
   const embedInput = el('textarea', { class: 'form-textarea iframe-code-input', rows: '7', placeholder: 'https://ejemplo.com/widget\n\no pega aquí el código <iframe> completo' });
   embedInput.value = editing ? (editing.embedCode || buildCustomIframeCode(editing)) : '';
@@ -5855,7 +5853,7 @@ function openWidgetLibraryForm(entryId = null) {
     if (!width) { widthInput.classList.add('invalid'); widthInput.focus(); toast('Indica un ancho entre 120 y 1600 px, o un porcentaje hasta 100%.', 'error'); return; }
     const height = normalizeIframeHeight(heightInput.value || parsed.height || editing?.height || 320);
     if (!height) { heightInput.classList.add('invalid'); heightInput.focus(); toast('Indica una altura entre 120 y 1600 px.', 'error'); return; }
-    const saved = saveWidgetToLibrary({ title: titleInput.value.trim() || parsed.title || new URL(parsed.url).hostname, url: parsed.url, width, height }, editing?.id || null);
+    const saved = saveWidgetToLibrary({ title: titleInput.value.trim() || parsed.title || new URL(parsed.url).hostname, description:descriptionInput.value.trim(), widgetType:typeInput.value.trim()||'Otros', url: parsed.url, width, height }, editing?.id || null);
     if (!saved) return;
     saveData();
     openWidgetLibrary();
@@ -5880,39 +5878,47 @@ function confirmDeleteWidgetLibraryEntry(entryId) {
   openModal(modal);
 }
 
-function openWidgetLibrary() {
-  const modal = el('div', { class: 'modal widget-library-modal', role: 'dialog', 'aria-labelledby': 'modalTitle' });
-  const header = el('div', { class: 'modal-header' });
-  header.append(el('h2', { class: 'modal-title', id: 'modalTitle', text: 'Biblioteca de widgets' }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', onclick: closeModal }));
-  const body = el('div', { class: 'modal-body widget-library-body' });
-  body.appendChild(el('p', { class: 'widget-library-lead', text: 'Aquí se conservan tus widgets reutilizables. Quitar un bloque de la barra no borra su entrada de esta biblioteca.' }));
-  const entries = widgetLibrary().slice().sort((a, b) => b.updatedAt - a.updatedAt);
-  if (!entries.length) {
-    body.appendChild(el('p', { class: 'widget-library-empty', text: 'Todavía no tienes widgets guardados. Pulsa Añadir widget para conservar el primero.' }));
-  } else {
-    const list = el('div', { class: 'widget-library-list' });
-    entries.forEach((entry) => {
-      const card = el('article', { class: 'widget-library-card' });
-      const title = el('strong', { text: entry.title });
-      const domain = el('span', { class: 'widget-library-domain', text: getDomain(entry.url) || entry.url });
-      const meta = el('span', { class: 'widget-library-meta', text: `${entry.width} · ${entry.height}px` });
-      const code = el('code', { class: 'widget-library-code', text: entry.embedCode || buildCustomIframeCode(entry) });
-      const actions = el('div', { class: 'widget-library-actions' });
-      actions.append(
-        el('button', { class: 'btn secondary', type: 'button', text: 'Añadir a mi barra', disabled: panelCustomBlocks().length >= MAX_CUSTOM_PANEL_BLOCKS, onclick: () => addWidgetLibraryEntryToPanel(entry.id) }),
-        el('button', { class: 'btn secondary', type: 'button', text: 'Copiar código', onclick: () => copyWidgetLibraryCode(entry) }),
-        el('button', { class: 'icon-btn small', type: 'button', title: 'Editar widget guardado', 'aria-label': 'Editar widget guardado', html: ICONS.edit, onclick: () => openWidgetLibraryForm(entry.id) }),
-        el('button', { class: 'icon-btn small danger', type: 'button', title: 'Eliminar de la biblioteca', 'aria-label': 'Eliminar de la biblioteca', html: ICONS.trash, onclick: () => confirmDeleteWidgetLibraryEntry(entry.id) })
-      );
-      card.append(el('div', { class: 'widget-library-card-head' }, [el('div', { class: 'widget-library-title-wrap' }, [title, domain]), meta]), code, actions);
-      list.appendChild(card);
-    });
-    body.appendChild(list);
-  }
-  const footer = el('div', { class: 'modal-footer' });
-  footer.append(el('button', { class: 'btn secondary', text: 'Cerrar', onclick: closeModal }), el('button', { class: 'btn primary', text: 'Añadir widget', onclick: () => openWidgetLibraryForm() }));
-  modal.append(header, body, footer);
+function openWidgetLibraryPreview(entry, back) {
+  if(!isValidEmbedUrl(entry.url))return;
+  const frame=el('iframe',{src:entry.url,title:entry.title,sandbox:widgetIframeSandbox(entry.url),referrerpolicy:'no-referrer',loading:'lazy'});
+  const close=()=>{frame.removeAttribute('src');back();};
+  const modal=el('div',{class:'modal widget-library-preview-modal',role:'dialog','aria-label':entry.title});
+  modal.append(el('div',{class:'modal-header'},[el('h2',{class:'modal-title',text:entry.title}),el('button',{class:'modal-close',text:'×',title:'Cerrar vista previa','aria-label':'Cerrar vista previa',onclick:close})]),el('div',{class:'modal-body'},[frame]),el('div',{class:'modal-footer'},[el('span',{class:'form-hint',text:'Algunos servicios bloquean la incrustación.'}),el('button',{class:'btn',text:'Cerrar',onclick:close})]));
   openModal(modal);
+}
+
+function openWidgetLibrary() {
+ const modal=el('div',{class:'modal widget-library-modal',role:'dialog','aria-labelledby':'modalTitle'}),body=el('div',{class:'modal-body widget-library-body'}),toolbar=el('div',{class:'widget-library-toolbar'}),search=el('input',{class:'form-input',type:'search',placeholder:'Rechercher…','aria-label':'Buscar widgets'}),filter=el('select',{class:'form-select','aria-label':'Tipo de widget'}),view=el('select',{class:'form-select','aria-label':'Vista de widgets'}),list=el('div',{class:'widget-library-list'});
+ search.placeholder='Buscar widgets…';
+ const sort=el('select',{class:'form-select','aria-label':'Ordenar widgets'});
+ [['name-asc','Nombre A–Z'],['name-desc','Nombre Z–A'],['updated','Últimos modificados']].forEach(([value,text])=>sort.append(el('option',{value,text})));
+ sort.value=['name-asc','name-desc','updated'].includes(state.data.settings.widgetLibrarySort)?state.data.settings.widgetLibrarySort:'name-asc';
+ filter.append(el('option',{value:'',text:'Todos los tipos'}));
+ [...new Set([...WIDGET_LIBRARY_TYPES,...widgetLibrary().map(e=>e.widgetType||'Otros')])].sort().forEach(value=>filter.append(el('option',{value,text:value})));
+ [['cards','Tarjetas'],['list','Lista']].forEach(([value,text])=>view.append(el('option',{value,text})));
+ const views=state.data.settings.widgetLibraryViews||{};view.value=views.all||'cards';
+ const render=()=>{
+  list.textContent='';list.className='widget-library-list widget-library-view-'+view.value;
+  const defaults=[['recent','Recientes','Los últimos favoritos abiertos.'],['stats','Estadísticas','Contadores y estado de tus marcadores.'],['tools','Widgets','Herramientas integradas del Dashboard.'],['notes',t('notesVisible'),'Muestra las notas elegidas.']].map(([nativeType,title,description])=>({nativeType,title,description,widgetType:'Por defecto',url:'',updatedAt:0}));
+  const entries=[...defaults,...widgetLibrary()].filter(e=>(!filter.value||(e.widgetType||'Otros')===filter.value)&&normalizeSearchText(e.title+' '+e.url+' '+(e.description||'')).includes(normalizeSearchText(search.value))).sort((a,b)=>sort.value==='updated'?b.updatedAt-a.updatedAt:(sort.value==='name-desc'?-1:1)*a.title.localeCompare(b.title,getLocale(),{sensitivity:'base',numeric:true}));
+  if(!entries.length)list.append(el('p',{text:'No hay widgets con estos filtros.'}));
+  entries.forEach(entry=>{
+   const card=el('article',{class:'widget-library-card'}),description=el('p',{class:'widget-library-description',text:entry.description||''}),actions=el('div',{class:'widget-library-actions'});
+   if(entry.nativeType){card.append(el('strong',{text:entry.title}));if(entry.description)card.append(description);card.append(el('button',{class:'btn secondary',html:ICONS.plus+'<span>Agregar</span>',title:'Agregar a mi barra',disabled:panelCustomBlocks().length>=MAX_CUSTOM_PANEL_BLOCKS||panelCustomBlocks().some(b=>b.type===entry.nativeType),onclick:()=>addPanelCustomBlock(entry.nativeType)}));list.append(card);return;}
+   const iconButton=(icon,label,fn,danger=false)=>el('button',{class:'icon-btn'+(danger?' danger':''),type:'button',html:icon,title:label,'aria-label':label,onclick:fn});
+   actions.append(el('button',{class:'btn secondary',type:'button',html:ICONS.plus+'<span>Agregar</span>',title:'Agregar a mi barra',disabled:panelCustomBlocks().length>=MAX_CUSTOM_PANEL_BLOCKS,onclick:()=>addWidgetLibraryEntryToPanel(entry.id)}),iconButton(ICONS.duplicate,'Copiar código',()=>copyWidgetLibraryCode(entry)),iconButton(ICONS.edit,'Editar widget',()=>openWidgetLibraryForm(entry.id)),iconButton(ICONS.trash,'Eliminar widget',()=>confirmDeleteWidgetLibraryEntry(entry.id),true));
+   const preview=el('div',{class:'widget-library-preview'}),previewButton=el('button',{class:'icon-btn',html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>',title:'Abrir vista previa','aria-label':'Abrir vista previa'});
+   previewButton.onclick=()=>openWidgetLibraryPreview(entry,()=>{openModal(modal);});
+   preview.append(previewButton);
+   card.append(el('strong',{text:entry.title}),el('a',{class:'widget-library-domain',text:getDomain(entry.url),href:entry.url,target:'_blank',rel:'noopener noreferrer'}));if(entry.description)card.append(description);actions.prepend(previewButton);card.append(actions);list.append(card);
+  });
+ };
+ filter.onchange=()=>{view.value=(state.data.settings.widgetLibraryViews||{})[filter.value||'all']||'cards';render();};
+ view.onchange=()=>{state.data.settings.widgetLibraryViews={...(state.data.settings.widgetLibraryViews||{}),[filter.value||'all']:view.value};saveData();render();};
+ search.oninput=render;
+ sort.onchange=()=>{state.data.settings.widgetLibrarySort=sort.value;saveData();render();};
+ toolbar.append(search,filter,sort,view);body.append(el('p',{class:'form-hint',text:'Los widgets se guardan en tu copia completa. Las vistas previas contactan con el servicio externo solo al pulsarlas; no son capturas almacenadas. Algunos servicios bloquean su incrustación.'}),toolbar,list);
+ modal.append(el('div',{class:'modal-header'},[el('h2',{class:'modal-title',id:'modalTitle',text:'Biblioteca de widgets'}),el('button',{class:'modal-close',text:'×','aria-label':'Cerrar',onclick:closeModal})]),body,el('div',{class:'modal-footer'},[el('button',{class:'btn',text:'Cerrar',onclick:closeModal}),el('button',{class:'btn primary',text:'Añadir widget',onclick:()=>openWidgetLibraryForm()})]));render();openModal(modal);
 }
 
 function openCustomIframeBlockForm(blockId = null) {

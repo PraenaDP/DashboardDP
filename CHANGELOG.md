@@ -1,3 +1,11 @@
+# DashboardDP 1.11.3
+
+- Biblioteca unificada con bloques Por defecto, descripción, tipos y filtros.
+- Orden por nombre A–Z/Z–A y últimos modificados, con preferencia persistente.
+- Listas/tarjetas compactas, iconos con leyenda y previsualización grande bajo demanda.
+- Sandbox uniforme; retirada excepción ToolkitsApp. No se añaden catálogos personales ni nuevos widgets externos.
+- Guías y especificación actualizadas.
+
 # DashboardDP 1.11.2
 
 - Mostrar grupos fijados vacíos incluso sin enlaces fijados.

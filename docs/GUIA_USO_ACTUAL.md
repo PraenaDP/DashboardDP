@@ -51,3 +51,15 @@ Despliega una categoría con su flecha para ver subcarpetas y enlaces. Arrastra 
 Al pasar sobre un enlace del árbol aparecen los iconos de Renombrar y Eliminar (también accesibles con teclado). Renombrar abre un campo de nombre; pulsa Guardar o Enter. Eliminar solicita confirmación y usa la Papelera. Ambas acciones reutilizan la sincronización nativa existente: para actualizar también el navegador debes activar escritura bidireccional en Ajustes > Búsqueda y sincronización. Si está desactivada, el renombrado lo advierte y solo cambia DashboardDP. Los fallos de escritura nativa se notifican; no se garantiza sincronización si faltan permisos o vinculación del marcador.
 
 Validación: sintaxis JavaScript y pruebas enfocadas con datos simulados de creación/visibilidad de grupos y encaminamiento de renombrado/borrado a la sincronización. No se modificaron marcadores reales durante las pruebas.
+
+## Biblioteca unificada — 1.11.3
+
+El botón de añadir bloques abre directamente la Biblioteca de widgets. Filtra por tipo (Por defecto agrupa Recientes, Estadísticas, Widgets integrados y Notas visibles) y busca por título, web o descripción. El formulario permite descripción y tipo personalizado. Selecciona Nombre A–Z, Nombre Z–A o Últimos modificados para ordenar; la elección se guarda en los ajustes. La vista Lista o Tarjetas se recuerda por tipo.
+
+Agregar añade el bloque a tu barra respetando el límite de bloques y evitando repetir bloques nativos. Los iconos permiten copiar código, editar y eliminar con leyendas; el ojo abre una previsualización grande con cierre × sin ampliar la tarjeta. El código iframe no se muestra en la selección; una descripción vacía no ocupa lugar. Los bloques nativos no tienen código iframe para copiar ni pueden eliminarse del catálogo integrado.
+
+Las vistas previas externas se cargan solo al abrirlas, no son capturas guardadas. Se mantiene sandbox uniforme, sin excepciones de origen. Un proveedor puede bloquear chrome-extension:// mediante frame-ancestors aunque su iframe funcione en una web normal: no se eliminan sus cabeceras ni se emplean proxies. La excepción temporal de ToolkitsApp fue retirada.
+
+Las entradas personales permanecen en el navegador y en las copias completas del usuario. No se publica el catálogo personal ni se incorporan nuevos widgets externos al proyecto en esta versión: se integrarán posteriormente por petición expresa. La descripción conserva texto y saltos de línea, no admite HTML enriquecido.
+
+Validación: sintaxis JavaScript y orden alfabético natural con acentos/números. Persistencia de descripción/tipo comprobada previamente con datos simulados. No se declara validación visual completa ni compatibilidad de todos los proveedores externos.

@@ -3192,7 +3192,8 @@ function renderCategoryNode(cat, depth) {
     if (state.data.settings.categorySort === 'name') return String(a.name || '').localeCompare(String(b.name || ''), getLanguage(), { sensitivity: 'base', numeric: true });
     return (a.order || 0) - (b.order || 0);
   });
-  const hasChildren = children.length > 0;
+  const directBookmarks = state.data.bookmarks.filter(b => b.categoryId === cat.id).slice().sort((a,b)=>(a.order||0)-(b.order||0));
+  const hasChildren = children.length > 0 || directBookmarks.length > 0;
   const expanded = !cat.collapsed;
   const isActive = state.activeCategoryId === cat.id;
   const isAncestor = isInActivePath(cat.id);
@@ -3239,6 +3240,18 @@ function renderCategoryNode(cat, depth) {
   if (hasChildren && expanded) {
     const subList = el('ul', { class: 'sidebar-sub-list' });
     children.forEach((child) => subList.appendChild(renderCategoryNode(child, depth + 1)));
+    directBookmarks.forEach(bookmark => {
+      const item=el('li',{class:'sidebar-bookmark-node'});
+      const link=el('button',{class:'sidebar-bookmark-link',draggable:'true',title:bookmark.name+' — '+bookmark.url,style:`padding-left:${28+depth*16}px`,text:bookmark.name,onclick:()=>openBookmark(bookmark.id)});
+      link.addEventListener('dragstart',event=>{event.stopPropagation();state.draggingId=bookmark.id;state.draggingQuickKey=null;event.dataTransfer.effectAllowed='copy';event.dataTransfer.setData('application/x-dashboard-sidebar-bookmark',bookmark.id);event.dataTransfer.setData('text/plain',bookmark.id);});
+      link.addEventListener('dragend',()=>{state.draggingId=null;hideDropOverlay();});
+      const actions=el('span',{class:'sidebar-bookmark-actions'});
+      actions.append(
+        el('button',{class:'icon-btn small',title:'Renombrar enlace','aria-label':'Renombrar '+bookmark.name,html:ICONS.edit,onclick:e=>{e.stopPropagation();openSidebarBookmarkRename(bookmark.id);}}),
+        el('button',{class:'icon-btn small danger',title:'Eliminar enlace','aria-label':'Eliminar '+bookmark.name,html:ICONS.trash,onclick:e=>{e.stopPropagation();confirmDeleteBookmark(bookmark.id);}})
+      );
+      item.append(link,actions);subList.append(item);
+    });
     li.appendChild(subList);
   }
 
@@ -3246,6 +3259,16 @@ function renderCategoryNode(cat, depth) {
 }
 
 /* ---------- Vista actual ---------- */
+function openSidebarBookmarkRename(id) {
+  const bookmark=getBookmark(id);if(!bookmark)return;
+  const input=el('input',{class:'form-input',type:'text',value:bookmark.name,maxlength:'300','aria-label':'Nombre del enlace'});
+  const modal=el('div',{class:'modal',role:'dialog','aria-label':'Renombrar enlace'});
+  const save=()=>{const name=input.value.trim();if(!name){input.classList.add('invalid');input.focus();return;}updateBookmark(id,{name});closeModal();};
+  input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();save();}});
+  modal.append(el('div',{class:'modal-header'},[el('h2',{class:'modal-title',text:'Renombrar enlace'}),el('button',{class:'modal-close',text:'×','aria-label':'Cerrar',onclick:closeModal})]),el('div',{class:'modal-body'},[input,el('p',{class:'form-hint',text:nativeWritesEnabled()?'El cambio también se enviará a los marcadores del navegador.':'La escritura bidireccional está desactivada. Actívala en Ajustes > Búsqueda y sincronización para actualizar también el navegador.'})]),el('div',{class:'modal-footer'},[el('button',{class:'btn',text:'Cancelar',onclick:closeModal}),el('button',{class:'btn primary',text:'Guardar',onclick:save})]));
+  openModal(modal);input.focus();input.select();
+}
+
 function renderCurrentView() {
   if (state.currentView === 'later' && typeof renderProjectsBody === 'function') {
     renderProjectsBody();
@@ -3338,6 +3361,11 @@ function quickOrderIntent(element, event, canContainBookmark) {
 }
 
 function enableQuickTopLevelOrdering(element, entry, groupId = null) {
+  if (groupId) {
+    const sidebarDrag=event=>Array.from(event.dataTransfer?.types||[]).includes('application/x-dashboard-sidebar-bookmark');
+    element.addEventListener('dragover',event=>{if(!sidebarDrag(event))return;event.preventDefault();event.stopPropagation();event.dataTransfer.dropEffect='copy';element.classList.add('drop-inside');},true);
+    element.addEventListener('drop',event=>{if(!sidebarDrag(event))return;event.preventDefault();event.stopImmediatePropagation();element.classList.remove('drop-inside');const id=event.dataTransfer.getData('application/x-dashboard-sidebar-bookmark');state.draggingId=null;hideDropOverlay();if(getBookmark(id))assignToQuickGroup(groupId,id);},true);
+  }
   if ((state.data.settings.quickSortMode || 'custom') !== 'custom') return;
   element.draggable = true;
   element.classList.add('order-draggable');
@@ -3852,7 +3880,7 @@ function renderQuickAccess() {
   area.className = 'quick-area';
   area.classList.toggle('custom-order', sortMode === 'custom');
 
-  if (pinned.length === 0) {
+  if (pinned.length === 0 && state.data.quickGroups.length === 0) {
     const empty = el('div', { class: 'quick-empty' });
     empty.append(el('p', { class: 'quick-empty-title', text: 'Aún no hay accesos fijados' }));
     empty.append(el('span', { class: 'quick-empty-hint', text: 'Pulsa la estrella en cualquier favorito para fijarlo aquí' }));

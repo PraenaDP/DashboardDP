@@ -1964,6 +1964,16 @@ body.edit-mode .edit-badge {
 .project-state-check[data-status="done"] { color: #63d297; }
 .project-picker-list { display: grid; gap: 5px; max-height: 50vh; overflow: auto; }
 /* Gestor de proyectos locales */
+.sidebar-bookmark-node { display:flex; align-items:center; gap:3px; }
+.sidebar-bookmark-node .sidebar-bookmark-link { flex:1; min-width:0; }
+.sidebar-bookmark-actions { display:flex; flex:0 0 auto; gap:2px; padding-right:6px; opacity:0; }
+.sidebar-bookmark-actions .icon-btn.small { width:24px; height:24px; min-width:24px; padding:4px; }
+.sidebar-bookmark-actions .icon-btn.small svg { width:14px; height:14px; flex:0 0 14px; }
+.sidebar-bookmark-node:hover .sidebar-bookmark-actions,.sidebar-bookmark-node:focus-within .sidebar-bookmark-actions { opacity:1; }
+@media (hover:none) { .sidebar-bookmark-actions { opacity:1; } }
+.sidebar-bookmark-link { display:block; width:100%; padding:7px 10px; text-align:left; color:var(--text-secondary); font:inherit; font-size:.85rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; border-radius:7px; cursor:grab; }
+.sidebar-bookmark-link:hover { background:var(--surface-hover); color:var(--text-primary); }
+.sidebar-bookmark-link:focus-visible { outline:2px solid var(--border-active); }
 .bookmark-sort-filter-group { display:flex; flex-direction:column; gap:8px; min-width:210px; }
 .bookmark-audit-stat[type="button"] { text-align:left; cursor:pointer; color:inherit; font:inherit; }
 .bookmark-audit-stat[aria-pressed="true"] { outline:2px solid var(--border-active); outline-offset:-2px; }

@@ -181,3 +181,11 @@ La revisión de este contrato es obligatoria en cada versión. Si una función a
 - Bandeja integrada en el body; selector externo compacto en la cabecera derecha. Papelera de proyecto solo con selección válida. Entrada de favoritos mediante árbol con los grupos originales.
 - Copia completa exporta state.data, no solo favoritos; restauración completa reemplaza el estado con confirmación. No contiene tokens. Desinstalar no es una actualización segura.
 - Documentación de cualquier cambio funcional: actualizar pasos clic a clic y pruebas/límites en docs/GUIA_USO_ACTUAL.md. No presentar sincronización remota ni restauración integral como verificadas hasta probarlas.
+
+## Árbol lateral de favoritos — 1.11.2
+
+Despliega una categoría con su flecha para ver subcarpetas y enlaces. Arrastra un enlace a una carpeta de Fijados en Inicio: se fija y asocia al grupo sin cambiar su categoría original. Las carpetas de Fijados vacías también se muestran aunque aún no haya favoritos fijados.
+
+Al pasar sobre un enlace del árbol aparecen los iconos de Renombrar y Eliminar (también accesibles con teclado). Renombrar abre un campo de nombre; pulsa Guardar o Enter. Eliminar solicita confirmación y usa la Papelera. Ambas acciones reutilizan la sincronización nativa existente: para actualizar también el navegador debes activar escritura bidireccional en Ajustes > Búsqueda y sincronización. Si está desactivada, el renombrado lo advierte y solo cambia DashboardDP. Los fallos de escritura nativa se notifican; no se garantiza sincronización si faltan permisos o vinculación del marcador.
+
+Validación: sintaxis JavaScript y pruebas enfocadas con datos simulados de creación/visibilidad de grupos y encaminamiento de renombrado/borrado a la sincronización. No se modificaron marcadores reales durante las pruebas.

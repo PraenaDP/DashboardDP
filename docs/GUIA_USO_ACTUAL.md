@@ -43,3 +43,11 @@ Si Git detecta cambios locales, detente y consérvalos; no fuerces el reemplazo.
 
 ## Estado de validación
 JavaScript comprobado con node --check. Hay pruebas enfocadas de clasificación y del sobre JSON de copia. No equivale a una auditoría de seguridad completa ni a pruebas visuales en todos los temas y navegadores. Restauración real en perfil aislado y sincronización remota de eventos siguen pendientes.
+
+## Árbol lateral de favoritos — 1.11.2
+
+Despliega una categoría con su flecha para ver subcarpetas y enlaces. Arrastra un enlace a una carpeta de Fijados en Inicio: se fija y asocia al grupo sin cambiar su categoría original. Las carpetas de Fijados vacías también se muestran aunque aún no haya favoritos fijados.
+
+Al pasar sobre un enlace del árbol aparecen los iconos de Renombrar y Eliminar (también accesibles con teclado). Renombrar abre un campo de nombre; pulsa Guardar o Enter. Eliminar solicita confirmación y usa la Papelera. Ambas acciones reutilizan la sincronización nativa existente: para actualizar también el navegador debes activar escritura bidireccional en Ajustes > Búsqueda y sincronización. Si está desactivada, el renombrado lo advierte y solo cambia DashboardDP. Los fallos de escritura nativa se notifican; no se garantiza sincronización si faltan permisos o vinculación del marcador.
+
+Validación: sintaxis JavaScript y pruebas enfocadas con datos simulados de creación/visibilidad de grupos y encaminamiento de renombrado/borrado a la sincronización. No se modificaron marcadores reales durante las pruebas.

@@ -1,3 +1,11 @@
+# DashboardDP 1.11.2
+
+- Mostrar grupos fijados vacíos incluso sin enlaces fijados.
+- Favoritos visibles en el árbol lateral, desplegables y arrastrables a grupos de Inicio.
+- Renombrado y eliminación con confirmación desde el árbol, reutilizando sincronización nativa.
+- Iconos compactos de 14 px en las acciones del árbol.
+- Guía y especificación actualizadas; sin copias personales JSON.
+
 # DashboardDP 1.11.1
 
 - Filtros clicables en los contadores de auditoría, sin cerrar la ventana.

@@ -3054,7 +3054,7 @@ function getVisibleBookmarks() {
   }
 
   if (state.auditStatusFilter) {
-    bookmarks = bookmarks.filter((bookmark) => bookmark.auditStatus === state.auditStatusFilter);
+    bookmarks = bookmarks.filter((bookmark) => matchesBookmarkAuditFilter(bookmark, state.auditStatusFilter));
   }
 
   if (q) {
@@ -4255,7 +4255,31 @@ function renderSubcats() {
   container.append(header, chips);
 }
 
+function matchesBookmarkAuditFilter(bookmark, mode) {
+  if (!mode) return true;
+  if (mode === 'not_audited') return !bookmark.auditStatus;
+  if (mode === 'deletable') return ['missing','youtube_missing'].includes(bookmark.auditStatus);
+  if (mode === 'inconclusive') return !!bookmark.auditStatus && !['available','missing','youtube_missing'].includes(bookmark.auditStatus);
+  return bookmark.auditStatus === mode;
+}
+
+function renderBookmarkAuditFilter() {
+  if (!els.sortMode) return;
+  let select = document.getElementById('bookmarkAuditFilter');
+  if (!select) {
+    const group = el('div', {class:'bookmark-sort-filter-group'});
+    els.sortMode.parentNode.insertBefore(group, els.sortMode);
+    group.appendChild(els.sortMode);
+    select = el('select', {id:'bookmarkAuditFilter',class:'form-select','aria-label':'Filtrar por estado de auditoría'});
+    [['','Todos los estados de auditoría'],['not_audited','Sin auditar'],['deletable','404 o inexistentes'],['inconclusive','Todos los no concluyentes'],...Object.entries(BOOKMARK_AUDIT_LABELS)].forEach(([value,text])=>select.appendChild(el('option',{value,text})));
+    select.addEventListener('change',()=>{state.auditStatusFilter=select.value||null;renderCurrentView();});
+    group.appendChild(select);
+  }
+  select.value=state.auditStatusFilter||'';
+}
+
 function renderCategoryView() {
+  renderBookmarkAuditFilter();
   let title = 'Resultados';
   const searching = state.searchQuery.trim().length > 0 || !!state.auditStatusFilter;
   if (state.auditStatusFilter) {
@@ -6322,15 +6346,17 @@ function openBookmarkAudit(initialResults = null) {
 
   const matchesFilter = (item) => {
     const mode = filter.value;
+    if (mode === 'inconclusive') return !['available', 'missing', 'youtube_missing'].includes(item.status);
     if (mode === 'deletable') return isAuditDeletionCandidate(item);
     if (mode === 'uncertain') return ['network_error', 'timeout', 'server_error'].includes(item.status);
     if (mode !== 'all') return item.status === mode;
     return true;
   };
   const renderResults = () => {
+    if (!filter.querySelector('option[value="inconclusive"]')) filter.appendChild(el('option', {value:'inconclusive',text:'Todos los no concluyentes'}));
     const counts = Object.fromEntries(Object.keys(BOOKMARK_AUDIT_LABELS).map((key) => [key, results.filter((item) => item.status === key).length]));
     summary.textContent = '';
-    [['Comprobados', results.length, 'Enlaces que han recibido un resultado durante esta auditoría.'], ['Disponibles', counts.available || 0, 'La comprobación recibió una respuesta válida.'], ['404/no disponibles', (counts.missing || 0) + (counts.youtube_missing || 0), 'Enlaces confirmados como inexistentes; son los únicos candidatos a borrar.'], ['No concluyentes', results.length - (counts.available || 0) - (counts.missing || 0) - (counts.youtube_missing || 0), 'No se pudo determinar si existe: red, permisos, ISP/VPN, DNS, TLS, servidor, espera o dirección especial. No se borra.']].forEach(([label, value, description]) => summary.appendChild(el('div', { class: 'bookmark-audit-stat', title: description, 'aria-label': `${label}: ${description}` }, [el('strong', { text: String(value) }), el('span', { text: label })])));
+    [['Comprobados', results.length, 'Enlaces que han recibido un resultado durante esta auditoría.'], ['Disponibles', counts.available || 0, 'La comprobación recibió una respuesta válida.'], ['404/no disponibles', (counts.missing || 0) + (counts.youtube_missing || 0), 'Enlaces confirmados como inexistentes; son los únicos candidatos a borrar.'], ['No concluyentes', results.length - (counts.available || 0) - (counts.missing || 0) - (counts.youtube_missing || 0), 'No se pudo determinar si existe: red, permisos, ISP/VPN, DNS, TLS, servidor, espera o dirección especial. No se borra.']].forEach(([label, value, description], index) => summary.appendChild(el('button', { type: 'button', class: 'bookmark-audit-stat', title: description, 'aria-pressed': String(filter.value === ['all','available','deletable','inconclusive'][index]), onclick: () => { filter.value = ['all','available','deletable','inconclusive'][index]; visibleResultLimit = AUDIT_PAGE_SIZE; renderResults(); }, 'aria-label': `${label}: ${description}` }, [el('strong', { text: String(value) }), el('span', { text: label })])));
     const query = search.value.trim().toLowerCase();
     const visible = results.filter((item) => matchesFilter(item) && (!query || `${item.name} ${item.url} ${item.category}`.toLowerCase().includes(query)));
     list.textContent = '';
@@ -9514,8 +9540,8 @@ async function handleTopbarCalendarSync() {
 }
 
 function buildCalendarIntegrations() {
-  const details = el('details', { class: 'task-integrations' });
-  details.appendChild(el('summary', { text: t('calendarHub') }));
+  const details = el('section', { class: 'task-integrations calendar-integrations-open' });
+  details.appendChild(el('h2', { class: 'modal-title', text: t('calendarHub') }));
   const intro = el('p', { text: t('calendarLocalInfo') });
   const providers = el('div', { class: 'task-provider-grid' });
   [

@@ -1964,6 +1964,14 @@ body.edit-mode .edit-badge {
 .project-state-check[data-status="done"] { color: #63d297; }
 .project-picker-list { display: grid; gap: 5px; max-height: 50vh; overflow: auto; }
 /* Gestor de proyectos locales */
+.bookmark-sort-filter-group { display:flex; flex-direction:column; gap:8px; min-width:210px; }
+.bookmark-audit-stat[type="button"] { text-align:left; cursor:pointer; color:inherit; font:inherit; }
+.bookmark-audit-stat[aria-pressed="true"] { outline:2px solid var(--border-active); outline-offset:-2px; }
+.bookmark-audit-stat[type="button"]:focus-visible { outline:2px solid var(--border-active); }
+.modal.calendar-connections-modal { width:min(1100px,calc(100vw - 32px)); max-width:none; height:min(780px,calc(100vh - 32px)); max-height:calc(100vh - 32px); display:flex; flex-direction:column; }
+.calendar-connections-modal > .modal-body { flex:1; min-height:0; overflow:auto; }
+.calendar-integrations-open { padding:16px; }
+.calendar-integrations-open > .modal-title { margin:0 0 16px; }
 .local-task-delete-actions { display:flex; flex-wrap:wrap; gap:8px; margin-left:auto; }
 .task-card.local-task-row { display:flex; align-items:center; gap:12px; padding:12px; }
 .local-task-row > strong { flex:1; min-width:0; font-size:1rem; line-height:1.4; overflow-wrap:anywhere; }

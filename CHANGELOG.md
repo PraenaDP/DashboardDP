@@ -1,3 +1,12 @@
+# DashboardDP 1.11.1
+
+- Filtros clicables en los contadores de auditoría, sin cerrar la ventana.
+- Filtro de estado de auditoría debajo del orden de favoritos, incluyendo Sin auditar.
+- Selección de calendarios siempre abierta y modal ampliado.
+- Cabecera de proyectos, tareas y cierres ajustados.
+- Guía de uso con pasos de copia/restauración y límites conocidos.
+- Distribución sin copias personales JSON.
+
 # DashboardDP 1.11.0
 
 - Bandeja de ideas y proyectos locales con Kanban, recursos y selección por categorías.

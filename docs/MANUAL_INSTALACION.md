@@ -58,3 +58,9 @@ Firefox no es compatible con esta versión. No intentes cargar la carpeta en Fir
 7. Abre una nueva pestaña y revisa que tus datos sigan presentes.
 
 Los favoritos, notas, tareas y ajustes se guardan en el perfil local del navegador, no entre los archivos de la extensión. Si usas **Cargar sin empaquetar** sobre una carpeta distinta, el navegador puede tratarla como otra instalación; en ese caso restaura la Copia completa en la instalación nueva. Mantener la misma carpeta y usar Recargar conserva la instalación y reduce ese riesgo.
+
+## Actualización segura y recuperación — 1.11.1
+
+Antes de actualizar, abre Ajustes > Copia completa y restauración y descarga el JSON completo. Actualiza en la misma carpeta y recarga desde la página de extensiones. **No desinstales para actualizar: puedes perder los datos locales.** Si usas Git: `git pull --ff-only origin main`; no fuerces cambios locales.
+
+Para recuperar el estado, selecciona el JSON desde Restaurar copia completa y revisa la confirmación. No uses el HTML de marcadores para recuperar widgets o colores. Consulta la [guía detallada](GUIA_USO_ACTUAL.md).

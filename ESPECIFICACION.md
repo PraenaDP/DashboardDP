@@ -172,3 +172,12 @@ La revisión de este contrato es obligatoria en cada versión. Si una función a
 29. Abrir Ajustes → Datos y confirmar que cada acción aparece únicamente en su tarjeta: Marcadores del navegador, Copias y restauración, Revisión y mantenimiento, Widgets guardados o Zona de peligro. Verificar que cada tarjeta explica el alcance de sus acciones y que Restablecer datos se mantiene visualmente separado.
 30. Eliminar un favorito, grupo, espacio, widget, tarea y nota de una copia de prueba. Confirmar que aparece «Deshacer» y que cada elemento llega a Ajustes → Datos → Revisión y mantenimiento → Papelera. Restaurar individualmente, recargar y comprobar su persistencia; en un favorito, verificar también la recuperación de pertenencias a grupo y espacio. Comprobar que una entrada con más de 30 días no aparece y que Vaciar papelera pide una decisión consciente antes de eliminar definitivamente.
 31. Ejecutar `tools/verify-extension.ps1` antes de preparar una versión y comprobar que valida Manifest V3, CSP, sintaxis, saneamiento de notas, Papelera y contrato de documentación. Con más de 160 resultados auditados, comprobar que el informe muestra el primer bloque y permite cargar los siguientes sin bloquear la ventana.
+
+## Contrato incremental 1.11.1 (prevalece sobre descripciones antiguas de estas vistas)
+
+- Contadores de auditoría accesibles como botones, con estado activo, filtrado dentro del modal y sin cerrarlo; No concluyentes agrupa todos los resultados que no son disponibles ni inexistentes.
+- Selector independiente de estado debajo del orden en favoritos, con Sin auditar, estados individuales y agrupados. No modifica favoritos ni sus resultados auditados.
+- Conexiones de calendario siempre desplegadas, ventana ampliada con scroll. Tareas locales y vista de eventos son interfaces separadas; no se borran eventos para ocultarlos del tablero local.
+- Bandeja integrada en el body; selector externo compacto en la cabecera derecha. Papelera de proyecto solo con selección válida. Entrada de favoritos mediante árbol con los grupos originales.
+- Copia completa exporta state.data, no solo favoritos; restauración completa reemplaza el estado con confirmación. No contiene tokens. Desinstalar no es una actualización segura.
+- Documentación de cualquier cambio funcional: actualizar pasos clic a clic y pruebas/límites en docs/GUIA_USO_ACTUAL.md. No presentar sincronización remota ni restauración integral como verificadas hasta probarlas.

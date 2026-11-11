@@ -163,3 +163,7 @@ La donación es voluntaria, abre Ko-fi en una pestaña externa y no comparte fav
 DashboardDP está dirigido, revisado y publicado por David ([@PraenaDP](https://github.com/PraenaDP)) con asistencia de herramientas de IA generativa. La responsabilidad sobre las decisiones de producto, pruebas y publicación corresponde al autor.
 
 El código se distribuye bajo [GPL-3.0-only](LICENSE.md). Puedes usarlo, estudiarlo, modificarlo y redistribuirlo; si distribuyes una versión modificada o derivada, debe conservar GPLv3 y ofrecer el código fuente correspondiente. Esta licencia no prohíbe el uso comercial, pero impide convertir las versiones derivadas distribuidas en software propietario.
+
+## Cambios recientes — 1.11.1
+
+Filtros clicables en la auditoría y selector por estado en favoritos; conexiones de calendario siempre desplegadas y mejoras de tareas/proyectos. Consulta la [guía de uso actual](docs/GUIA_USO_ACTUAL.md) para los pasos precisos de copia completa, restauración, filtros y actualización segura, y sus límites de validación.

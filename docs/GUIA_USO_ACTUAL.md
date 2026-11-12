@@ -63,3 +63,9 @@ Las vistas previas externas se cargan solo al abrirlas, no son capturas guardada
 Las entradas personales permanecen en el navegador y en las copias completas del usuario. No se publica el catálogo personal ni se incorporan nuevos widgets externos al proyecto en esta versión: se integrarán posteriormente por petición expresa. La descripción conserva texto y saltos de línea, no admite HTML enriquecido.
 
 Validación: sintaxis JavaScript y orden alfabético natural con acentos/números. Persistencia de descripción/tipo comprobada previamente con datos simulados. No se declara validación visual completa ni compatibilidad de todos los proveedores externos.
+
+## Corrección de biblioteca — 1.11.4
+
+En el selector de vista elige **Tabla** (antes Lista). Las columnas Widget, Web, Descripción y Acciones permanecen alineadas; una web o descripción vacía conserva su celda. Los botones están a la derecha. En pantallas estrechas puedes desplazarte horizontalmente.
+
+Para editar, pulsa el lápiz del widget, cambia los campos y pulsa Guardar cambios. La edición conserva el identificador de la entrada seleccionada aunque coincida con otro widget; no actualiza otra entrada por error. Probado con datos simulados, incluida normalización JSON de descripción y tipo. No equivale a una restauración real de sesión ni a una prueba visual completa.

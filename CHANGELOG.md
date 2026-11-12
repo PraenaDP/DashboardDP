@@ -1,3 +1,10 @@
+# DashboardDP 1.11.4
+
+- Corregido el guardado al editar un widget cuya firma coincide con otra entrada: se actualiza el ID seleccionado, no otra entrada.
+- Vista Lista sustituida por Tabla: columnas estables de widget, web, descripción y acciones, incluso con campos vacíos.
+- Acciones a la derecha y desplazamiento horizontal en pantallas estrechas.
+- Sintaxis y regresión de edición probadas con datos simulados; sin datos personales.
+
 # DashboardDP 1.11.3
 
 - Biblioteca unificada con bloques Por defecto, descripción, tipos y filtros.

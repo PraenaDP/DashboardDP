@@ -5781,7 +5781,7 @@ function saveWidgetToLibrary(widget, existingId = null) {
   const current = existingId ? widgetLibrary().find((entry) => entry.id === existingId) : null;
   const duplicate = widgetLibrary().find((entry) => entry.id !== current?.id && widgetLibrarySignature(entry) === signature);
   const now = Date.now();
-  if (duplicate) {
+  if (duplicate && !current) {
     if (widget.description !== undefined) duplicate.description = normalized.description;
     if (widget.widgetType !== undefined) duplicate.widgetType = normalized.widgetType;
     duplicate.lastUsedAt = now;
@@ -5895,22 +5895,25 @@ function openWidgetLibrary() {
  sort.value=['name-asc','name-desc','updated'].includes(state.data.settings.widgetLibrarySort)?state.data.settings.widgetLibrarySort:'name-asc';
  filter.append(el('option',{value:'',text:'Todos los tipos'}));
  [...new Set([...WIDGET_LIBRARY_TYPES,...widgetLibrary().map(e=>e.widgetType||'Otros')])].sort().forEach(value=>filter.append(el('option',{value,text:value})));
- [['cards','Tarjetas'],['list','Lista']].forEach(([value,text])=>view.append(el('option',{value,text})));
+ [['cards','Tarjetas'],['list','Tabla']].forEach(([value,text])=>view.append(el('option',{value,text})));
  const views=state.data.settings.widgetLibraryViews||{};view.value=views.all||'cards';
  const render=()=>{
   list.textContent='';list.className='widget-library-list widget-library-view-'+view.value;
+  let tableBody=null;
+  if(view.value==='list'){const table=el('table',{class:'widget-library-table'}),head=el('thead'),row=el('tr');['Widget','Web','Descripción','Acciones'].forEach(text=>row.append(el('th',{scope:'col',text})));head.append(row);tableBody=el('tbody');table.append(head,tableBody);list.append(table);}
+  const appendCard=card=>{if(!tableBody){list.append(card);return;}const row=el('tr'),title=el('td'),web=el('td'),description=el('td'),actions=el('td',{class:'widget-library-table-actions'});const name=card.querySelector('strong'),link=card.querySelector('.widget-library-domain'),desc=card.querySelector('.widget-library-description'),buttons=card.querySelector('.widget-library-actions');if(name)title.append(name);if(link)web.append(link);if(desc)description.append(desc);if(buttons)actions.append(buttons);else{const button=card.querySelector('button');if(button)actions.append(button);}row.append(title,web,description,actions);tableBody.append(row);};
   const defaults=[['recent','Recientes','Los últimos favoritos abiertos.'],['stats','Estadísticas','Contadores y estado de tus marcadores.'],['tools','Widgets','Herramientas integradas del Dashboard.'],['notes',t('notesVisible'),'Muestra las notas elegidas.']].map(([nativeType,title,description])=>({nativeType,title,description,widgetType:'Por defecto',url:'',updatedAt:0}));
   const entries=[...defaults,...widgetLibrary()].filter(e=>(!filter.value||(e.widgetType||'Otros')===filter.value)&&normalizeSearchText(e.title+' '+e.url+' '+(e.description||'')).includes(normalizeSearchText(search.value))).sort((a,b)=>sort.value==='updated'?b.updatedAt-a.updatedAt:(sort.value==='name-desc'?-1:1)*a.title.localeCompare(b.title,getLocale(),{sensitivity:'base',numeric:true}));
   if(!entries.length)list.append(el('p',{text:'No hay widgets con estos filtros.'}));
   entries.forEach(entry=>{
    const card=el('article',{class:'widget-library-card'}),description=el('p',{class:'widget-library-description',text:entry.description||''}),actions=el('div',{class:'widget-library-actions'});
-   if(entry.nativeType){card.append(el('strong',{text:entry.title}));if(entry.description)card.append(description);card.append(el('button',{class:'btn secondary',html:ICONS.plus+'<span>Agregar</span>',title:'Agregar a mi barra',disabled:panelCustomBlocks().length>=MAX_CUSTOM_PANEL_BLOCKS||panelCustomBlocks().some(b=>b.type===entry.nativeType),onclick:()=>addPanelCustomBlock(entry.nativeType)}));list.append(card);return;}
+   if(entry.nativeType){card.append(el('strong',{text:entry.title}));if(entry.description)card.append(description);card.append(el('button',{class:'btn secondary',html:ICONS.plus+'<span>Agregar</span>',title:'Agregar a mi barra',disabled:panelCustomBlocks().length>=MAX_CUSTOM_PANEL_BLOCKS||panelCustomBlocks().some(b=>b.type===entry.nativeType),onclick:()=>addPanelCustomBlock(entry.nativeType)}));appendCard(card);return;}
    const iconButton=(icon,label,fn,danger=false)=>el('button',{class:'icon-btn'+(danger?' danger':''),type:'button',html:icon,title:label,'aria-label':label,onclick:fn});
    actions.append(el('button',{class:'btn secondary',type:'button',html:ICONS.plus+'<span>Agregar</span>',title:'Agregar a mi barra',disabled:panelCustomBlocks().length>=MAX_CUSTOM_PANEL_BLOCKS,onclick:()=>addWidgetLibraryEntryToPanel(entry.id)}),iconButton(ICONS.duplicate,'Copiar código',()=>copyWidgetLibraryCode(entry)),iconButton(ICONS.edit,'Editar widget',()=>openWidgetLibraryForm(entry.id)),iconButton(ICONS.trash,'Eliminar widget',()=>confirmDeleteWidgetLibraryEntry(entry.id),true));
    const preview=el('div',{class:'widget-library-preview'}),previewButton=el('button',{class:'icon-btn',html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>',title:'Abrir vista previa','aria-label':'Abrir vista previa'});
    previewButton.onclick=()=>openWidgetLibraryPreview(entry,()=>{openModal(modal);});
    preview.append(previewButton);
-   card.append(el('strong',{text:entry.title}),el('a',{class:'widget-library-domain',text:getDomain(entry.url),href:entry.url,target:'_blank',rel:'noopener noreferrer'}));if(entry.description)card.append(description);actions.prepend(previewButton);card.append(actions);list.append(card);
+   card.append(el('strong',{text:entry.title}),el('a',{class:'widget-library-domain',text:getDomain(entry.url),href:entry.url,target:'_blank',rel:'noopener noreferrer'}));if(entry.description)card.append(description);actions.prepend(previewButton);card.append(actions);appendCard(card);
   });
  };
  filter.onchange=()=>{view.value=(state.data.settings.widgetLibraryViews||{})[filter.value||'all']||'cards';render();};

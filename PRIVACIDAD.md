@@ -1,35 +1,20 @@
-# Privacidad de DashboardDP
+# Privacy policy
 
-DashboardDP funciona en el navegador de quien lo instala. No requiere cuenta propia ni envía los favoritos, tareas, notas, espacios o widgets a un servidor de DashboardDP.
+DashboardDP runs in your browser profile and has no account service or server of its own. Bookmarks, workspaces, notes, settings, tasks, projects, and the personal widget library are stored in that profile.
 
-## Datos locales
+## External connections
 
-La configuración, la biblioteca de favoritos, las notas, los resultados de auditoría, la Papelera y las preferencias se almacenan en el perfil local del navegador. La aplicación usa localStorage para el estado del Dashboard y almacenamiento de la extensión para datos de integración. Las conexiones de calendario conservan tokens de acceso/renovación en el perfil: no se incluyen en la Copia completa y no cuentan con cifrado independiente de la protección del navegador y del sistema operativo. Las copias descargadas son JSON sin cifrar y contienen información personal.
+- Browser bookmarks are read or modified through browser permissions. Write-back is optional and scoped to the selected folder.
+- Web searches and optional suggestions go directly to the chosen search engine. Bookmark search is local.
+- Bookmark audits contact the selected sites and may reveal your IP address. Recognized private addresses are excluded, but hostname filtering cannot guarantee private-network isolation.
+- Opening an external widget or preview sends a request to its provider. Browsing the catalog does not load every iframe. Repository imports contact the public sources selected by the user.
+- Optional weather, holidays, and calendar features contact their respective providers. Calendar sync reads or writes calendar data according to the account permissions you grant. Disconnect in the extension or revoke access at the provider.
+- An update check contacts GitHub. Clicking the optional coffee button opens Ko-fi's donation panel; DashboardDP does not receive payment details.
 
-## Conexiones que decide la persona usuaria
+External services apply their own privacy policies. DashboardDP does not use a remote translation service for interface text or catalog metadata.
 
-- **Apoyo en Ko-fi:** en Acerca de, el panel de donaciones se carga únicamente al pulsar «Invítame a un café». Ko-fi puede recibir IP, datos técnicos y usar sus propias cookies o proveedores de pago. DashboardDP no recibe los datos de pago ni incluye este panel en las copias personales. Cerrar el panel libera su iframe; no elimina cookies del proveedor. El botón gráfico del README abre ese panel de donación en Ko-fi.
-- **Auditoría de favoritos:** pide permiso opcional para consultar HTTP/HTTPS únicamente al iniciar una auditoría. Cada dirección se consulta desde el navegador para clasificar su disponibilidad. No se envía la lista a un servicio de DashboardDP.
-- **Sugerencias de búsqueda:** al activarlas se envía al buscador elegido únicamente el texto que se está escribiendo.
-- **Calendarios:** Google Calendar y Microsoft 365 se conectan solo tras configurar y autorizar la cuenta. Las sesiones no se incluyen en las copias completas.
-- **Widgets:** el iframe indicado por la persona se carga desde su propio proveedor. DashboardDP solo admite URLs HTTPS y los muestra aislados.
-- **Meteorología:** el widget consulta Open-Meteo para la ciudad elegida.
-- **Festividades:** la consulta voluntaria a Nager.Holidays solicita países y festivos por país y año. No incluye eventos personales. El proveedor recibe IP y datos técnicos habituales; los resultados se guardan localmente y pueden variar por región.
-- **Importador de repositorios:** consulta las páginas públicas del sitio elegido. El modo dinámico usa una pestaña temporal y el permiso opcional de scripting; no está diseñado para recopilar herramientas privadas mediante inicio de sesión. El borrador de la última búsqueda se conserva aparte de la biblioteca.
-- **Actualizaciones:** comprobar una versión consulta `api.github.com`, tras autorización. No descarga ni sustituye automáticamente los archivos de una instalación manual.
-- **Tipografías e idiomas:** el selector usa fuentes instaladas, sin Google Fonts ni descargas remotas. Las traducciones guardadas no requieren un servicio externo. No se envían textos personales para traducirlos.
-- **Favicons:** se intenta usar el almacén local; si no tiene el icono, puede consultarse `/favicon.ico` en la web guardada. El proveedor recibe esa petición y la dirección IP como en cualquier conexión web.
+## Backups and deletion
 
-Los proveedores externos pueden registrar IP y datos técnicos. “Sin servidor propio” no significa “sin conexiones externas”. Una web guardada puede incluir información sensible en su dirección: al auditarla se consulta esa URL directamente. La auditoría omite direcciones privadas reconocidas y no sigue redirecciones, pero no garantiza detectar un dominio que resuelva a una IP privada.
+Full JSON backups are unencrypted and may contain personal information. Keep them private and do not share them in public reports. Calendar tokens are not included. Restoring a full backup can replace destination data; save a backup first. Restore detaches foreign browser bookmark IDs and disables write-back before reconnecting. Recoverable deletions go to local Trash; browser profile removal can erase local extension data.
 
-## Permisos
-
-El permiso de marcadores permite consultar el árbol para configurar la integración; la escritura se activa al elegir sincronización bidireccional. Alarmas y notificaciones se usan para recordatorios. El permiso de favicon permite recuperar iconos del navegador. `activeTab` permite obtener los datos de la página elegida mediante una acción del usuario, sin solicitar el permiso general `tabs`. Los permisos HTTP/HTTPS de auditoría se piden opcionalmente al usarla; si se conceden permanecen concedidos hasta revocarlos en la configuración del navegador.
-
-## Copias y eliminación
-
-La Papelera guarda hasta 250 entradas durante un máximo de 30 días. La caducidad, la eliminación individual definitiva y Vaciar Papelera eliminan ese contenido. Para trasladar o conservar información, descarga una Copia completa antes de restablecer o desinstalar la extensión. Al restaurar una copia, vuelve a configurar la carpeta de sincronización: los identificadores del perfil de origen se descartan.
-
-## Publicación
-
-No publiques archivos JSON de copia, exportaciones de marcadores, capturas con datos privados ni credenciales OAuth en un repositorio.
+See [Security](SECURITY.md) and the [installation and recovery manual](docs/MANUAL_INSTALACION.md).

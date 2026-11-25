@@ -1,23 +1,9 @@
-# Contribuir a DashboardDP
+# Contributing to DashboardDP
 
-Gracias por ayudar a mejorar DashboardDP.
+Before reporting a bug, confirm that you are using desktop Brave, Chrome, or Edge, and check whether it persists after reloading the extension. Download a full backup before testing changes that affect your data.
 
-## Antes de abrir una incidencia
+In [GitHub Issues](https://github.com/PraenaDP/DashboardDP/issues), include your browser and version, what you expected, and the steps to reproduce the problem. Do not post private bookmarks, backups, personal screenshots, OAuth tokens, passwords, or browser profiles. Use the [security policy](SECURITY.md) for vulnerabilities.
 
-1. Confirma que usas Brave, Google Chrome o Microsoft Edge en escritorio.
-2. Comprueba si el problema continúa tras recargar la extensión.
-3. Crea una copia completa antes de probar cambios sobre tus datos.
+For suggestions, describe the problem and the expected behavior. A public example or anonymized screenshot is enough; there is no need to clone the project or run maintainer scripts. Changes should preserve existing data and security protections and update the relevant user guide.
 
-## Informar de un error
-
-Incluye el navegador y su versión, los pasos para reproducir el problema y el resultado esperado. No publiques favoritos privados, exportaciones JSON, capturas con datos personales, tokens OAuth, contraseñas ni archivos de perfiles del navegador.
-
-## Proponer mejoras
-
-Explica qué problema resuelve la propuesta y cómo debería comportarse. Una descripción de uso, un ejemplo público o una captura sin datos personales son suficientes para comenzar. No necesitas clonar el proyecto, preparar código ni ejecutar comprobaciones internas para proponer una mejora.
-
-La revisión de cambios debe conservar datos y personalizaciones, actualizar la guía por tareas y respetar las medidas de seguridad. Las herramientas de `tools` son comprobaciones internas del mantenimiento, no pasos de instalación ni de uso.
-
-## Licencia de contribuciones
-
-Al enviar una contribución, aceptas que se distribuya bajo GPL-3.0-only, igual que el resto del proyecto.
+Contributions are distributed under GPL-3.0-only.

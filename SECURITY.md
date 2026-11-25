@@ -1,25 +1,21 @@
-# Seguridad de DashboardDP
+# Security policy
 
-El [alcance de validación de 1.11.5](docs/VALIDACION_1.11.5.md) describe las comprobaciones, evidencias y límites de esta distribución. La revisión detecta y corrige fallos; no acredita seguridad total ni autorización para publicar en una tienda.
+The [1.11.5 validation report](docs/VALIDACION_1.11.5.md) describes the checks and their limits. Passing these checks does not guarantee security or imply approval by a browser extension store.
 
-## Principios aplicados
+## Protections
 
-- Las páginas de la extensión usan una política de seguridad de Manifest V3: solo ejecutan scripts incluidos en la propia extensión.
-- Las notas de formato aceptan un subconjunto saneado de HTML. Los enlaces solo pueden ser HTTP/HTTPS y las imágenes inline se limitan a PNG, JPEG o WebP.
-- Los widgets personales exigen HTTPS y se muestran dentro de un iframe aislado.
-- La auditoría excluye direcciones locales, privadas y especiales reconocidas y no sigue redirecciones; solicita el permiso de red al iniciarla. No garantiza detectar dominios que resuelvan a una dirección privada.
-- Ningún secreto, token, contraseña, copia de datos o exportación de marcadores debe entrar en el repositorio.
+- Manifest V3 extension pages execute only packaged scripts.
+- Rich-text notes accept sanitized HTML. Links are limited to HTTP(S), and inline images to PNG, JPEG, or WebP.
+- Custom widgets require HTTPS and run in sandboxed iframes.
+- Bookmark audits request network permission when started, exclude recognized local, private, and special-purpose addresses, and do not follow redirects. They do not guarantee detection of hostnames that resolve to a private IP address.
+- Never commit secrets, passwords, tokens, backups, or bookmark exports.
 
-## Validación del proyecto
+Maintainer checks in `tools/` include static review and behavior tests in isolated profiles with external connections blocked. Users do not need to run these scripts. Reports should distinguish tested behavior, simulated services, failures, and untested scenarios. Historical reviews do not automatically cover later features.
 
-Las comprobaciones de mantenimiento se conservan en `tools/`, separadas de las instrucciones de instalación. Incluyen revisión estática y pruebas de comportamiento en perfiles aislados con conexiones externas bloqueadas. No requieren que quien utiliza DashboardDP ejecute scripts.
+## Report a vulnerability privately
 
-Una comprobación por nombres de funciones no demuestra seguridad. Los informes deben distinguir lo probado, los servicios simulados, los fallos y los escenarios pendientes. La revisión histórica no cubre automáticamente las funciones añadidas después ni implica aprobación de Chrome Web Store.
+Use [GitHub private vulnerability reporting](https://github.com/PraenaDP/DashboardDP/security/advisories/new), or open **Security → Advisories → Report a vulnerability**. GitHub sign-in is required; no public contact email is needed.
 
-## Informar de un problema
+Include the affected version, browser, minimum steps needed to reproduce the issue, and potential impact. Do not attach personal backups, credentials, or private data. Do not post exploitation details in a public issue. The maintainer should review the report and coordinate remediation and disclosure before publishing details.
 
-Si detectas una vulnerabilidad, utiliza el [reporte privado de vulnerabilidades de GitHub](https://github.com/PraenaDP/DashboardDP/security/advisories/new), habilitado en este repositorio. También puedes entrar en **Security → Advisories → Report a vulnerability**. Necesitas iniciar sesión en GitHub; no hace falta publicar un correo de contacto.
-
-Incluye la versión afectada, el navegador, los pasos mínimos para reproducir el problema y su posible impacto. No adjuntes tu copia completa, contraseñas, tokens ni datos personales. No publiques detalles de explotación en una incidencia pública. El mantenedor debe revisar el informe y coordinar la corrección y divulgación antes de publicar los detalles.
-
-Para errores ordinarios, consultas y propuestas que no sean vulnerabilidades, utiliza [Issues](https://github.com/PraenaDP/DashboardDP/issues).
+Use [GitHub Issues](https://github.com/PraenaDP/DashboardDP/issues) for ordinary bugs, questions, and suggestions.

@@ -1,10 +1,10 @@
-# Licencias y atribuciones
+# Third-party licenses and attribution
 
-DashboardDP mantiene su licencia GPL-3.0-only, disponible en LICENSE.md. Los servicios externos incrustados conservan sus propias licencias y condiciones; no se distribuye su código como parte de la extensión.
+DashboardDP is licensed under [GPL-3.0-only](LICENSE.md). Embedded services retain their own licenses and terms. Their executable code is not distributed as part of the extension.
 
 ## Catppuccin Palette
 
-El tema Catppuccin de DashboardDP adapta las paletas Latte y Mocha de https://github.com/catppuccin/palette. No es un producto oficial ni implica afiliación.
+DashboardDP adapts the Latte and Mocha palettes from [Catppuccin Palette](https://github.com/catppuccin/palette). It is not an official product and is not affiliated with Catppuccin.
 
 MIT License
 
@@ -30,18 +30,14 @@ SOFTWARE.
 
 ## PhET Interactive Simulations
 
-Las 129 referencias a simulaciones PhET se conservan como enlaces iframe al servicio original, sin copiar los archivos ejecutables de las simulaciones dentro de DashboardDP ni alterar su logotipo. El uso previsto por el autor de DashboardDP es gratuito y no comercial. La licencia GPL-3.0-only de DashboardDP no relicencia las simulaciones ni elimina sus condiciones independientes.
+The 129 PhET entries are iframe references to the original service. DashboardDP does not bundle executable simulation files or alter their logos. The author's intended use is free and noncommercial. DashboardDP's GPL does not relicense PhET simulations or remove their separate conditions.
 
 Simulation by PhET Interactive Simulations, University of Colorado Boulder, licensed under CC BY-NC 4.0 (https://phet.colorado.edu).
 
-La atribución también se muestra junto a la simulación en las vistas de la extensión. Deben conservarse logotipos, créditos e indicaciones de licencia del proveedor. En esta distribución no se incluyen capturas del contenido de las simulaciones como material promocional.
+Attribution is also displayed beside the simulation in the extension. Retain provider logos, credits, and license notices. This distribution does not use screenshots of simulation content as promotional material.
 
-Licencia: https://creativecommons.org/licenses/by-nc/4.0/
+See the [CC BY-NC 4.0 license](https://creativecommons.org/licenses/by-nc/4.0/) and [PhET licensing conditions](https://phet.colorado.edu/en/licensing/). Free or open-source distribution does not by itself authorize commercial use of NC material. If the integration is monetized, the usage model changes, or simulations are used in fundraising or promotion, review PhET's conditions and obtain permission where required. No affiliation or endorsement is implied.
 
-Condiciones del proveedor: https://phet.colorado.edu/en/licensing/
+## Themes inspired by other interfaces
 
-La gratuidad o el código abierto no autorizan por sí solos usos comerciales de material NC. Si se cambia el modelo de uso, se monetiza la integración o se utilizan simulaciones para una campaña de recaudación o promoción, se deben revisar las condiciones de PhET y obtener permiso cuando corresponda. No se representa afiliación ni respaldo de PhET.
-
-## Temas inspirados en otras interfaces
-
-Cloudflerin, Spotin y Xakatin son adaptaciones visuales originales de DashboardDP. Sus nombres describen una inspiración estética; no incluyen código, logotipos ni tipografías de Cloudflare, Spotify o Xataka, ni implican afiliación con esas marcas.
+Cloudflerin, Spotin, and Xakatin are original DashboardDP visual adaptations. Their names describe aesthetic inspiration. They do not include code, logos, or fonts from Cloudflare, Spotify, or Xataka, and imply no affiliation.

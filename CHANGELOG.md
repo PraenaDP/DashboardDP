@@ -1,52 +1,41 @@
-# Historial de cambios
+# Changelog
 
-## 1.11.5 — 25 de noviembre de 2026
+## 1.11.5 — November 25, 2026
 
-- Catálogo público de 1.309 herramientas únicas con metadatos ES/EN; 129 referencias PhET con atribución CC BY-NC 4.0. Mapas con vistas mundiales, sin ubicaciones personales.
-- Panel lateral del navegador con fijados, grupos, espacios, búsqueda y tres vistas; no abre automáticamente otra pestaña del dashboard.
-- Hasta nueve barras independientes, notas, reproductor, calendario y herramientas abiertas simultáneamente.
-- Biblioteca con selección múltiple, cambio de tipo por lotes, conservación de iframe, vistas previas bajo demanda y recuperación del catálogo.
-- Importación HTML/dinámica, pasos Compartir → Embed configurables, borrador reanudable, coincidencias y descarte individual o por selección.
-- Auditoría persistente, enlaces clicables, edición de título/URL, comprobación individual y selección manual.
-- Calendario anual, mensual, semanal y diario por horas, sistemas de calendario y festividades por país.
-- Proyectos Kanban, tareas locales de entrada directa, notas y organización de favoritos mediante menús contextuales y movimientos de carpetas.
-- Ajustes reorganizados, ocho temas claros/oscuros, fuentes locales y 46 artículos de ayuda ES/EN con buscador, historial y temas relacionados.
-- Botón voluntario «Invítame a un café» y reporte privado de vulnerabilidades en GitHub; sin scripts remotos de Ko-fi en la extensión.
-- Galería con datos ficticios, manuales bilingües y exclusión de copias privadas en la distribución.
-- Pruebas locales en Brave con conexiones externas bloqueadas: no implican certificación de seguridad, aprobación de Chrome Web Store ni garantía de cada proveedor.
+- Public catalog of 1,309 unique tools with English and Spanish metadata, including 129 PhET references with CC BY-NC 4.0 attribution. Maps use world views rather than personal locations.
+- Browser side panel with pinned bookmarks, groups, workspaces, search, and three display modes. Opening it does not launch a dashboard tab.
+- Up to nine independent sidebar layouts. Notes, player, calendar, and tools can remain open together.
+- Widget library with multi-select, bulk type changes, original iframe preservation, on-demand previews, and catalog restoration.
+- Static and dynamic repository imports, configurable Share → Embed steps, resumable drafts, duplicate review, and individual or bulk dismissal.
+- Persistent bookmark audit results, clickable links, title and URL editing, individual rechecks, and manual selection.
+- Year, month, week, and hourly day calendar views, calendar systems, and optional country holidays.
+- Kanban projects, inline local task entry, notes, contextual bookmark menus, and folder moves.
+- Reorganized settings, eight light/dark themes, local fonts, and 46 help articles per language with search, history, and related articles.
+- Optional Ko-fi button and private GitHub vulnerability reporting. No remote Ko-fi script runs in the extension.
+- Screenshots use fictional data. The distribution excludes private backups.
+- Local Brave tests blocked external connections. These tests do not guarantee provider availability or certify security or Chrome Web Store approval.
 
-### Documentación y licencia
+### Documentation and license
 
-- Licencia migrada de CC BY-NC-SA 4.0 a GPL-3.0-only, apropiada para software de código abierto.
-- Documentación pública ampliada con descripción del producto, menús, manual de instalación y criterios de compatibilidad.
-- Firefox se declara explícitamente no compatible; se retira su declaración específica del manifiesto Chromium.
+- The code license changed from CC BY-NC-SA 4.0 to GPL-3.0-only. Bundled links to third-party content retain their separate terms.
+- Expanded product overview, menus, installation instructions, and compatibility guidance.
+- Removed the Firefox-specific declaration from the Chromium manifest. Firefox is not supported by this distribution.
 
-## 1.10.48 — Auditoría local y correcciones de seguridad
+## 1.10.48 — Local audit and security fixes
 
-- Restaurar copias desactiva la escritura nativa y elimina los identificadores de otro perfil; es necesario elegir de nuevo la carpeta de sincronización.
-- Importaciones limitadas a 25 MB, validación de estructuras, ciclos e identificadores; saneamiento de colores y clases CSS de notas.
-- Auditoría: exclusión ampliada de direcciones privadas y redirecciones sujetas a revisión manual.
-- Solicitudes autenticadas de calendario limitadas al origen del proveedor; validación de mensajes internos y del puente OAuth.
-- Papelera: identificadores persistidos sobre los objetos restaurados y recuperación secuencial de árboles.
-- CSP más estricta y sustitución de `tabs` por `activeTab`.
-- Pruebas dinámicas en Edge aislado y un informe con alcance, evidencias y pendientes. No implica certificación ni compatibilidad plena con otros navegadores.
+- Restoring backups disables native write-back and detaches identifiers from the source browser profile. Re-select the sync folder before enabling write-back.
+- Limited imports to 25 MB and validated structures, cycles, identifiers, colors, and note CSS classes.
+- Expanded private address exclusions and stopped following redirects automatically during audits.
+- Restricted authenticated calendar requests to provider origins. Validated internal messages and the OAuth bridge.
+- Persisted restored identifiers and restored folder trees sequentially.
+- Tightened CSP and replaced the `tabs` permission with `activeTab`.
+- Tested in an isolated Edge profile. This does not certify security or full compatibility with other browsers.
 
-## 1.10.47 — Estabilidad, recuperación y publicación
+## 1.10.47 — Stability, recovery, and distribution
 
-### Añadido
-
-- Papelera local de 30 días para favoritos, árboles de categorías, grupos, espacios, widgets, tareas y notas; incluye restauración individual y acción Deshacer.
-- El contenido recuperable viaja dentro de la Copia completa.
-- Script `tools/verify-extension.ps1` para la comprobación previa a una versión.
-- Documentos independientes de privacidad y seguridad.
-
-### Mejorado
-
-- La auditoría procesa hasta seis enlaces en paralelo y pagina la vista en bloques de 160 resultados.
-- Las confirmaciones de eliminación aclaran que el contenido se mueve a la Papelera.
-- La ayuda integrada explica cómo recuperar elementos y cómo continuar un informe de auditoría extenso.
-
-### Seguridad
-
-- Política de seguridad declarada para las páginas de la extensión.
-- Saneamiento más estricto de contenido enriquecido en las notas.
+- Added a local 30-day Trash for bookmarks, folder trees, groups, workspaces, widgets, tasks, and notes, with individual restoration and Undo.
+- Included recoverable items in full backups.
+- Added an internal release verification script and separate privacy and security documents.
+- Bookmark audits process up to six links at a time and display results in batches of 160.
+- Deletion confirmations clarify that items move to Trash. Built-in help explains recovery and continuing a long audit report.
+- Declared a content security policy for extension pages and strengthened rich-text note sanitization.

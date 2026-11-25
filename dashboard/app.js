@@ -10,10 +10,8 @@ const APP = {
   name: 'Dashboard',
   version: 12,
   // Enlace oficial del autor. Solo admite un perfil HTTPS de Ko-fi; no se expone
-  // como ajuste ni se guarda dentro de los datos de cada persona. Déjalo vacío
-  // durante el desarrollo y sustitúyelo por tu perfil antes de publicar.
-  // Ejemplo: 'https://ko-fi.com/tu_usuario'
-  supportUrl: '',
+  // como ajuste ni se guarda dentro de los datos de cada persona.
+  supportUrl: 'https://ko-fi.com/K8E42B9WDB/?hidefeed=true&widget=true&embed=true&preview=true',
   storageKey: 'dashboard_favorites_v2',
   legacyKey: 'dashboard_favorites_v1',
   defaults: {
@@ -66,7 +64,11 @@ const APP = {
     default: { id: 'default', name: 'Default' },
     vercel: { id: 'vercel', name: 'Vercelin' },
     youtubin: { id: 'youtubin', name: 'Youtubin' },
-    grafanin: { id: 'grafanin', name: 'Grafanin' }
+    grafanin: { id: 'grafanin', name: 'Grafanin' },
+    cloudflerin: { id:'cloudflerin',name:'Cloudflerin' },
+    spotin: { id:'spotin',name:'Spotin' },
+    xakatin: { id:'xakatin',name:'Xakatin' },
+    catppuccin: { id:'catppuccin',name:'Catppuccin' }
   },
   engines: [
     { id: 'google', name: 'Google', url: 'https://www.google.com/search?q=' },
@@ -85,127 +87,468 @@ const HOME_SORT_MODES = ['custom', 'name-asc', 'name-desc', 'recent-desc', 'rece
 
 /* ---------- Idioma de la interfaz ---------- */
 const LANGUAGES = [
-  { id: 'es', label: 'Español', locale: 'es-ES' },
-  { id: 'en', label: 'English', locale: 'en-GB' },
-  { id: 'ca', label: 'Català', locale: 'ca-ES' },
-  { id: 'eu', label: 'Euskara', locale: 'eu-ES' },
-  { id: 'de', label: 'Deutsch', locale: 'de-DE' },
-  { id: 'fr', label: 'Français', locale: 'fr-FR' },
-  { id: 'it', label: 'Italiano', locale: 'it-IT' },
-  { id: 'pt', label: 'Português', locale: 'pt-PT' },
-  { id: 'gl', label: 'Galego', locale: 'gl-ES' }
+  {
+    "id": "es",
+    "label": "Español",
+    "locale": "es-ES"
+  },
+  {
+    "id": "en",
+    "label": "English",
+    "locale": "en-GB"
+  }
 ];
 
 const UI_TEXT = {
-  es: { home: 'Inicio', all: 'Todos los favoritos', pinned: 'Fijados', later: 'Para después', recent: 'Recientes', frequent: 'Más usados', categories: 'Categorías', workspaces: 'Espacios de trabajo', quick: 'Fijados y Grupos', searchBookmarks: 'Buscar favoritos…', searchWeb: 'Buscar en la web…', favorites: 'favoritos', statistics: 'Estadísticas', totalFavorites: 'Total favoritos', language: 'Idioma de la interfaz', settings: 'Ajustes', dashboardName: 'Nombre del dashboard', yourName: 'Tu nombre', searchEngine: 'Motor de búsqueda por defecto', theme: 'Tema', wallpaper: 'Fondo de pantalla', data: 'Datos', save: 'Guardar', cancel: 'Cancelar', morning: 'Buenos días', afternoon: 'Buenas tardes', evening: 'Buenas noches', browserSynced: 'Marcadores del navegador: sincronizados a las {time}', browserFuture: 'Marcadores del navegador: se añadirán los que guardes a partir de ahora', browserPreparing: 'Marcadores del navegador: preparando sincronización…' },
-  en: { home: 'Home', all: 'All bookmarks', pinned: 'Pinned', later: 'Read later', recent: 'Recent', frequent: 'Most used', categories: 'Categories', workspaces: 'Workspaces', quick: 'Pinned & Groups', searchBookmarks: 'Search bookmarks…', searchWeb: 'Search the web…', favorites: 'bookmarks', statistics: 'Statistics', totalFavorites: 'Total bookmarks', language: 'Interface language', settings: 'Settings', dashboardName: 'Dashboard name', yourName: 'Your name', searchEngine: 'Default search engine', theme: 'Theme', wallpaper: 'Wallpaper', data: 'Data', save: 'Save', cancel: 'Cancel', morning: 'Good morning', afternoon: 'Good afternoon', evening: 'Good evening', browserSynced: 'Browser bookmarks: synced at {time}', browserFuture: 'Browser bookmarks: new bookmarks will be added automatically', browserPreparing: 'Browser bookmarks: preparing sync…' },
-  ca: { home: 'Inici', all: 'Tots els favorits', pinned: 'Fixats', later: 'Per més tard', recent: 'Recents', frequent: 'Més utilitzats', categories: 'Categories', workspaces: 'Espais de treball', quick: 'Fixats i Grups', searchBookmarks: 'Cerca favorits…', searchWeb: 'Cerca al web…', favorites: 'favorits', statistics: 'Estadístiques', totalFavorites: 'Total de favorits', language: 'Idioma de la interfície', settings: 'Configuració', dashboardName: 'Nom del dashboard', yourName: 'El teu nom', searchEngine: 'Motor de cerca predeterminat', theme: 'Tema', wallpaper: 'Fons de pantalla', data: 'Dades', save: 'Desa', cancel: 'Cancel·la', morning: 'Bon dia', afternoon: 'Bona tarda', evening: 'Bona nit', browserSynced: 'Marcadors del navegador: sincronitzats a les {time}', browserFuture: "Marcadors del navegador: s'afegiran els nous automàticament", browserPreparing: 'Marcadors del navegador: preparant la sincronització…' },
-  eu: { home: 'Hasiera', all: 'Laster-marko guztiak', pinned: 'Finkatuak', later: 'Geroago irakurtzeko', recent: 'Azkenak', frequent: 'Erabilienak', categories: 'Kategoriak', workspaces: 'Lan-eremuak', quick: 'Finkatuak eta taldeak', searchBookmarks: 'Bilatu laster-markoak…', searchWeb: 'Bilatu webean…', favorites: 'laster-marko', statistics: 'Estatistikak', totalFavorites: 'Laster-markoak guztira', language: 'Interfazearen hizkuntza', settings: 'Ezarpenak', dashboardName: 'Dashboardaren izena', yourName: 'Zure izena', searchEngine: 'Lehenetsitako bilatzailea', theme: 'Gaia', wallpaper: 'Horma-papera', data: 'Datuak', save: 'Gorde', cancel: 'Utzi', morning: 'Egun on', afternoon: 'Arratsalde on', evening: 'Gabon', browserSynced: 'Nabigatzaileko laster-markoak: {time}(e)an sinkronizatuta', browserFuture: 'Nabigatzaileko laster-marka berriak automatikoki gehituko dira', browserPreparing: 'Nabigatzaileko laster-markoak: sinkronizazioa prestatzen…' },
-  de: { home: 'Startseite', all: 'Alle Lesezeichen', pinned: 'Angeheftet', later: 'Später lesen', recent: 'Zuletzt verwendet', frequent: 'Am häufigsten verwendet', categories: 'Kategorien', workspaces: 'Arbeitsbereiche', quick: 'Angeheftet und Gruppen', searchBookmarks: 'Lesezeichen suchen…', searchWeb: 'Im Web suchen…', favorites: 'Lesezeichen', statistics: 'Statistiken', totalFavorites: 'Lesezeichen gesamt', language: 'Sprache der Oberfläche', settings: 'Einstellungen', dashboardName: 'Name des Dashboards', yourName: 'Dein Name', searchEngine: 'Standardsuchmaschine', theme: 'Design', wallpaper: 'Hintergrundbild', data: 'Daten', save: 'Speichern', cancel: 'Abbrechen', morning: 'Guten Morgen', afternoon: 'Guten Tag', evening: 'Guten Abend', browserSynced: 'Browser-Lesezeichen: synchronisiert um {time}', browserFuture: 'Browser-Lesezeichen: neue Lesezeichen werden automatisch hinzugefügt', browserPreparing: 'Browser-Lesezeichen: Synchronisierung wird vorbereitet…' },
-  fr: { home: 'Accueil', all: 'Tous les favoris', pinned: 'Épinglés', later: 'À lire plus tard', recent: 'Récents', frequent: 'Les plus utilisés', categories: 'Catégories', workspaces: 'Espaces de travail', quick: 'Épinglés et groupes', searchBookmarks: 'Rechercher des favoris…', searchWeb: 'Rechercher sur le Web…', favorites: 'favoris', statistics: 'Statistiques', totalFavorites: 'Total des favoris', language: 'Langue de l’interface', settings: 'Paramètres', dashboardName: 'Nom du dashboard', yourName: 'Votre nom', searchEngine: 'Moteur de recherche par défaut', theme: 'Thème', wallpaper: 'Fond d’écran', data: 'Données', save: 'Enregistrer', cancel: 'Annuler', morning: 'Bonjour', afternoon: 'Bon après-midi', evening: 'Bonsoir', browserSynced: 'Favoris du navigateur : synchronisés à {time}', browserFuture: 'Favoris du navigateur : les nouveaux seront ajoutés automatiquement', browserPreparing: 'Favoris du navigateur : préparation de la synchronisation…' },
-  it: { home: 'Home', all: 'Tutti i preferiti', pinned: 'Fissati', later: 'Da leggere dopo', recent: 'Recenti', frequent: 'Più usati', categories: 'Categorie', workspaces: 'Spazi di lavoro', quick: 'Fissati e gruppi', searchBookmarks: 'Cerca preferiti…', searchWeb: 'Cerca sul web…', favorites: 'preferiti', statistics: 'Statistiche', totalFavorites: 'Preferiti totali', language: 'Lingua dell’interfaccia', settings: 'Impostazioni', dashboardName: 'Nome del dashboard', yourName: 'Il tuo nome', searchEngine: 'Motore di ricerca predefinito', theme: 'Tema', wallpaper: 'Sfondo', data: 'Dati', save: 'Salva', cancel: 'Annulla', morning: 'Buongiorno', afternoon: 'Buon pomeriggio', evening: 'Buonasera', browserSynced: 'Preferiti del browser: sincronizzati alle {time}', browserFuture: 'Preferiti del browser: i nuovi preferiti verranno aggiunti automaticamente', browserPreparing: 'Preferiti del browser: preparazione della sincronizzazione…' },
-  pt: { home: 'Início', all: 'Todos os favoritos', pinned: 'Fixados', later: 'Ler mais tarde', recent: 'Recentes', frequent: 'Mais usados', categories: 'Categorias', workspaces: 'Espaços de trabalho', quick: 'Fixados e grupos', searchBookmarks: 'Pesquisar favoritos…', searchWeb: 'Pesquisar na web…', favorites: 'favoritos', statistics: 'Estatísticas', totalFavorites: 'Total de favoritos', language: 'Idioma da interface', settings: 'Definições', dashboardName: 'Nome do dashboard', yourName: 'O teu nome', searchEngine: 'Motor de pesquisa predefinido', theme: 'Tema', wallpaper: 'Papel de parede', data: 'Dados', save: 'Guardar', cancel: 'Cancelar', morning: 'Bom dia', afternoon: 'Boa tarde', evening: 'Boa noite', browserSynced: 'Favoritos do navegador: sincronizados às {time}', browserFuture: 'Favoritos do navegador: novos favoritos serão adicionados automaticamente', browserPreparing: 'Favoritos do navegador: a preparar sincronização…' },
-  gl: { home: 'Inicio', all: 'Todos os favoritos', pinned: 'Fixados', later: 'Para máis tarde', recent: 'Recentes', frequent: 'Máis usados', categories: 'Categorías', workspaces: 'Espazos de traballo', quick: 'Fixados e grupos', searchBookmarks: 'Buscar favoritos…', searchWeb: 'Buscar na web…', favorites: 'favoritos', statistics: 'Estatísticas', totalFavorites: 'Total de favoritos', language: 'Idioma da interface', settings: 'Axustes', dashboardName: 'Nome do dashboard', yourName: 'O teu nome', searchEngine: 'Motor de busca predeterminado', theme: 'Tema', wallpaper: 'Fondo de pantalla', data: 'Datos', save: 'Gardar', cancel: 'Cancelar', morning: 'Bos días', afternoon: 'Boas tardes', evening: 'Boas noites', browserSynced: 'Marcadores do navegador: sincronizados ás {time}', browserFuture: 'Marcadores do navegador: engadiranse automaticamente os novos', browserPreparing: 'Marcadores do navegador: preparando a sincronización…' }
+  "es": {
+    "home": "Inicio",
+    "all": "Todos los favoritos",
+    "pinned": "Fijados",
+    "later": "Para después",
+    "recent": "Recientes",
+    "frequent": "Más usados",
+    "categories": "Categorías",
+    "workspaces": "Espacios de trabajo",
+    "quick": "Fijados y Grupos",
+    "searchBookmarks": "Buscar favoritos…",
+    "searchWeb": "Buscar en la web…",
+    "favorites": "favoritos",
+    "statistics": "Estadísticas",
+    "totalFavorites": "Total favoritos",
+    "language": "Idioma de la interfaz",
+    "settings": "Ajustes",
+    "dashboardName": "Nombre del dashboard",
+    "yourName": "Tu nombre",
+    "searchEngine": "Motor de búsqueda por defecto",
+    "theme": "Tema",
+    "wallpaper": "Fondo de pantalla",
+    "data": "Datos",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "morning": "Buenos días",
+    "afternoon": "Buenas tardes",
+    "evening": "Buenas noches",
+    "browserSynced": "Marcadores del navegador: sincronizados a las {time}",
+    "browserFuture": "Marcadores del navegador: se añadirán los que guardes a partir de ahora",
+    "browserPreparing": "Marcadores del navegador: preparando sincronización…"
+  },
+  "en": {
+    "home": "Home",
+    "all": "All bookmarks",
+    "pinned": "Pinned",
+    "later": "Read later",
+    "recent": "Recent",
+    "frequent": "Most used",
+    "categories": "Categories",
+    "workspaces": "Workspaces",
+    "quick": "Pinned & Groups",
+    "searchBookmarks": "Search bookmarks…",
+    "searchWeb": "Search the web…",
+    "favorites": "bookmarks",
+    "statistics": "Statistics",
+    "totalFavorites": "Total bookmarks",
+    "language": "Interface language",
+    "settings": "Settings",
+    "dashboardName": "Dashboard name",
+    "yourName": "Your name",
+    "searchEngine": "Default search engine",
+    "theme": "Theme",
+    "wallpaper": "Wallpaper",
+    "data": "Data",
+    "save": "Save",
+    "cancel": "Cancel",
+    "morning": "Good morning",
+    "afternoon": "Good afternoon",
+    "evening": "Good evening",
+    "browserSynced": "Browser bookmarks: synced at {time}",
+    "browserFuture": "Browser bookmarks: new bookmarks will be added automatically",
+    "browserPreparing": "Browser bookmarks: preparing sync…"
+  }
 };
 
 // Textos cortos reutilizados por botones, widgets y menús. Así, los elementos
 // que se crean después de cargar la página se traducen igual que la interfaz base.
 const UI_COMMON = {
-  navigation: ['Navegación', 'Navigation', 'Navegació', 'Nabigazioa', 'Navigation', 'Navigation', 'Navigazione', 'Navegação', 'Navegación'],
-  widgets: ['Widgets', 'Widgets', 'Ginys', 'Widgetak', 'Widgets', 'Widgets', 'Widget', 'Widgets', 'Widgets'],
-  addBookmark: ['Añadir favorito', 'Add bookmark', 'Afegeix favorit', 'Gehitu laster-marka', 'Lesezeichen hinzufügen', 'Ajouter un favori', 'Aggiungi preferito', 'Adicionar favorito', 'Engadir favorito'],
-  editMode: ['Modo edición', 'Edit mode', 'Mode d’edició', 'Edizio modua', 'Bearbeitungsmodus', 'Mode édition', 'Modalità modifica', 'Modo de edição', 'Modo edición'],
-  enableEditMode: ['Activar modo edición', 'Enable edit mode', 'Activa el mode d’edició', 'Aktibatu edizio modua', 'Bearbeitungsmodus aktivieren', 'Activer le mode édition', 'Attiva modalità modifica', 'Ativar modo de edição', 'Activar modo edición'],
-  finishEditMode: ['Terminar modo edición', 'Finish edit mode', 'Finalitza el mode d’edició', 'Amaitu edizio modua', 'Bearbeitungsmodus beenden', 'Terminer le mode édition', 'Termina modalità modifica', 'Terminar modo de edição', 'Rematar modo edición'],
-  toggleSidebar: ['Alternar barra lateral', 'Toggle sidebar', 'Commuta la barra lateral', 'Aldatu alboko barra', 'Seitenleiste umschalten', 'Basculer la barre latérale', 'Attiva/disattiva barra laterale', 'Alternar barra lateral', 'Alternar barra lateral'],
-  resizeSidebar: ['Cambiar ancho de la barra lateral', 'Resize sidebar', 'Canviar l’amplada de la barra lateral', 'Alboko barraren zabalera aldatu', 'Seitenleistenbreite ändern', 'Redimensionner la barre latérale', 'Ridimensiona barra laterale', 'Redimensionar barra lateral', 'Cambiar o ancho da barra lateral'],
-  sidebarBehavior: ['Comportamiento de la barra lateral', 'Sidebar behaviour', 'Comportament de la barra lateral', 'Alboko barraren portaera', 'Verhalten der Seitenleiste', 'Comportement de la barre latérale', 'Comportamento della barra laterale', 'Comportamento da barra lateral', 'Comportamento da barra lateral'],
-  sidebarAutoReveal: ['Abrir automáticamente al acercar el ratón', 'Open automatically when the pointer reaches the edge', 'Obrir automàticament en apropar el ratolí', 'Ireki automatikoki sagua ertzera hurbiltzean', 'Beim Annähern der Maus automatisch öffnen', 'Ouvrir automatiquement à l’approche de la souris', 'Apri automaticamente avvicinando il mouse', 'Abrir automaticamente ao aproximar o rato', 'Abrir automaticamente ao achegar o rato'],
-  sidebarAutoRevealHelp: ['Al estar contraída, se abre al acercar el ratón al borde izquierdo y se vuelve a ocultar al salir.', 'When collapsed, it opens as the pointer reaches the left edge and hides again when you move away.', 'Quan és replegada, s’obre en apropar el ratolí a la vora esquerra i es torna a ocultar en sortir.', 'Tolestuta dagoenean, ezkerreko ertzera sagua hurbiltzean irekitzen da eta urruntzean berriro ezkutatzen da.', 'Wenn sie eingeklappt ist, öffnet sie sich an der linken Kante und wird beim Wegbewegen wieder ausgeblendet.', 'Lorsqu’elle est repliée, elle s’ouvre au bord gauche et se masque à nouveau quand vous éloignez la souris.', 'Quando è chiusa, si apre avvicinando il mouse al bordo sinistro e si nasconde di nuovo allontanandolo.', 'Quando está recolhida, abre ao aproximar o rato da margem esquerda e volta a ocultar-se ao sair.', 'Cando está contraída, ábrese ao achegar o rato ao bordo esquerdo e volve ocultarse ao saír.'],
-  expandPanel: ['Abrir vista amplia', 'Open wide view', 'Obrir vista ampla', 'Ireki ikuspegi zabala', 'Breite Ansicht öffnen', 'Ouvrir la vue large', 'Apri visualizzazione ampia', 'Abrir vista ampla', 'Abrir vista ampla'],
-  restorePanel: ['Restaurar tamaño del panel', 'Restore panel size', 'Restaurar la mida del panell', 'Leheneratu panelaren tamaina', 'Panelgröße wiederherstellen', 'Restaurer la taille du panneau', 'Ripristina dimensione pannello', 'Restaurar tamanho do painel', 'Restaurar tamaño do panel'],
-  resetMasonry: ['Restablecer mosaico', 'Reset mosaic', 'Restableix el mosaic', 'Berrezarri mosaikoa', 'Mosaik zurücksetzen', 'Réinitialiser la mosaïque', 'Reimposta mosaico', 'Repor mosaico', 'Restablecer mosaico'],
-  lightMode: ['Cambiar a modo claro', 'Switch to light mode', 'Canvia al mode clar', 'Aldatu modu argira', 'Zum hellen Modus wechseln', 'Passer au mode clair', 'Passa alla modalità chiara', 'Mudar para modo claro', 'Cambiar ao modo claro'],
-  darkMode: ['Cambiar a modo oscuro', 'Switch to dark mode', 'Canvia al mode fosc', 'Aldatu modu ilunera', 'Zum dunklen Modus wechseln', 'Passer au mode sombre', 'Passa alla modalità scura', 'Mudar para modo escuro', 'Cambiar ao modo escuro'],
-  addCategory: ['Añadir categoría', 'Add category', 'Afegeix categoria', 'Gehitu kategoria', 'Kategorie hinzufügen', 'Ajouter une catégorie', 'Aggiungi categoria', 'Adicionar categoria', 'Engadir categoría'],
-  collapseCategories: ['Contraer todas las categorías', 'Collapse all categories', 'Replega totes les categories', 'Tolestu kategoria guztiak', 'Alle Kategorien einklappen', 'Réduire toutes les catégories', 'Comprimi tutte le categorie', 'Recolher todas as categorias', 'Contraer todas as categorías'],
-  search: ['Buscar', 'Search', 'Cerca', 'Bilatu', 'Suchen', 'Rechercher', 'Cerca', 'Pesquisar', 'Buscar'],
-  webSuggestions: ['Sugerencias de búsqueda web', 'Web search suggestions', 'Suggeriments de cerca web', 'Webeko bilaketa-iradokizunak', 'Websuchvorschläge', 'Suggestions de recherche Web', 'Suggerimenti di ricerca sul Web', 'Sugestões de pesquisa na Web', 'Suxestións de busca web'],
-  webSuggestionsHelp: ['Muestra propuestas mientras escribes. Al activarlo, solo el texto de la consulta se envía al buscador elegido; DashboardDP no lo guarda ni usa un servidor propio.', 'Shows suggestions while you type. When enabled, only your query text is sent to the selected search engine; DashboardDP does not store it or use its own server.', 'Mostra propostes mentre escrius. En activar-ho, només el text de la consulta s’envia al cercador triat; DashboardDP no el desa ni usa un servidor propi.', 'Idazten duzun bitartean iradokizunak erakusten ditu. Aktibatzean, kontsultaren testua bakarrik bidaltzen zaio aukeratutako bilatzaileari; DashboardDPk ez du gordetzen ezta zerbitzari propiorik erabiltzen ere.', 'Zeigt Vorschläge während der Eingabe. Nach dem Aktivieren wird nur der Suchtext an die gewählte Suchmaschine gesendet; DashboardDP speichert ihn nicht und nutzt keinen eigenen Server.', 'Affiche des suggestions pendant la saisie. Une fois activé, seul le texte de la recherche est envoyé au moteur choisi ; DashboardDP ne le conserve pas et n’utilise pas de serveur propre.', 'Mostra suggerimenti durante la digitazione. Se attivato, solo il testo della ricerca viene inviato al motore scelto; DashboardDP non lo salva e non usa un proprio server.', 'Mostra sugestões enquanto escreve. Ao ativar, apenas o texto da pesquisa é enviado ao motor escolhido; o DashboardDP não o guarda nem usa um servidor próprio.', 'Mostra suxestións mentres escribes. Ao activalo, só se envía o texto da consulta ao buscador escollido; DashboardDP non o garda nin usa un servidor propio.'],
-  webSuggestionsPermissionDenied: ['No se concedió permiso para las sugerencias de {engine}. Puedes volver a activarlas en Ajustes cuando quieras.', 'Permission for {engine} suggestions was not granted. You can enable them again in Settings whenever you want.', 'No s’ha concedit permís per als suggeriments de {engine}. Pots activar-los de nou a Configuració quan vulguis.', 'Ez da {engine} iradokizunetarako baimenik eman. Nahi duzunean berriro gaitu ditzakezu Ezarpenetan.', 'Die Berechtigung für Vorschläge von {engine} wurde nicht erteilt. Du kannst sie jederzeit in den Einstellungen wieder aktivieren.', 'L’autorisation pour les suggestions de {engine} n’a pas été accordée. Vous pouvez les réactiver dans les Paramètres à tout moment.', 'L’autorizzazione per i suggerimenti di {engine} non è stata concessa. Puoi riattivarli nelle Impostazioni quando vuoi.', 'A permissão para as sugestões do {engine} não foi concedida. Pode voltar a ativá-las nas Definições quando quiser.', 'Non se concedeu permiso para as suxestións de {engine}. Podes activalas de novo en Axustes cando queiras.'],
-  webSuggestionsEnableHint: ['Activa las sugerencias web en Ajustes para recibir propuestas de {engine}.', 'Enable web suggestions in Settings to receive suggestions from {engine}.', 'Activa els suggeriments web a Configuració per rebre propostes de {engine}.', 'Aktibatu webeko iradokizunak Ezarpenetan {engine}(e)ko proposamenak jasotzeko.', 'Aktiviere Websuchvorschläge in den Einstellungen, um Vorschläge von {engine} zu erhalten.', 'Activez les suggestions Web dans les Paramètres pour recevoir les propositions de {engine}.', 'Attiva i suggerimenti Web nelle Impostazioni per ricevere proposte da {engine}.', 'Ative as sugestões Web nas Definições para receber sugestões do {engine}.', 'Activa as suxestións web en Axustes para recibir propostas de {engine}.'],
-  webSuggestionsAllowHint: ['Haz clic para permitir las sugerencias de {engine}.', 'Click to allow suggestions from {engine}.', 'Fes clic per permetre els suggeriments de {engine}.', 'Egin klik {engine}(e)ko iradokizunak baimentzeko.', 'Klicke, um Vorschläge von {engine} zu erlauben.', 'Cliquez pour autoriser les suggestions de {engine}.', 'Fai clic per consentire i suggerimenti di {engine}.', 'Clique para permitir as sugestões do {engine}.', 'Fai clic para permitir as suxestións de {engine}.'],
-  edit: ['Editar', 'Edit', 'Edita', 'Editatu', 'Bearbeiten', 'Modifier', 'Modifica', 'Editar', 'Editar'],
-  delete: ['Eliminar', 'Delete', 'Suprimeix', 'Ezabatu', 'Löschen', 'Supprimer', 'Elimina', 'Eliminar', 'Eliminar'],
-  add: ['Añadir', 'Add', 'Afegeix', 'Gehitu', 'Hinzufügen', 'Ajouter', 'Aggiungi', 'Adicionar', 'Engadir'],
-  create: ['Crear', 'Create', 'Crea', 'Sortu', 'Erstellen', 'Créer', 'Crea', 'Criar', 'Crear'],
-  close: ['Cerrar', 'Close', 'Tanca', 'Itxi', 'Schließen', 'Fermer', 'Chiudi', 'Fechar', 'Pechar'],
-  options: ['Opciones', 'Options', 'Opcions', 'Aukerak', 'Optionen', 'Options', 'Opzioni', 'Opções', 'Opcións'],
-  pin: ['Fijar', 'Pin', 'Fixa', 'Finkatu', 'Anheften', 'Épingler', 'Fissa', 'Fixar', 'Fixar'],
-  unpin: ['Desfijar', 'Unpin', 'Desfixa', 'Kendu finkapena', 'Lösen', 'Désépingler', 'Sblocca', 'Desafixar', 'Desfixar'],
-  player: ['Reproductor', 'Player', 'Reproductor', 'Erreproduzitzailea', 'Player', 'Lecteur', 'Lettore', 'Reprodutor', 'Reprodutor'],
-  weather: ['Clima', 'Weather', 'Temps', 'Eguraldia', 'Wetter', 'Météo', 'Meteo', 'Tempo', 'Tempo'],
-  calendar: ['Calendario', 'Calendar', 'Calendari', 'Egutegia', 'Kalender', 'Calendrier', 'Calendario', 'Calendário', 'Calendario'],
-  taskManager: ['Gestor de tareas', 'Task manager', 'Gestor de tasques', 'Zereginen kudeatzailea', 'Aufgabenverwaltung', 'Gestionnaire de tâches', 'Gestore attività', 'Gestor de tarefas', 'Xestor de tarefas'],
-  braveShortcuts: ['Atajos de Brave', 'Brave shortcuts', 'Dreceres de Brave', 'Brave lasterbideak', 'Brave-Verknüpfungen', 'Raccourcis Brave', 'Scorciatoie Brave', 'Atalhos do Brave', 'Atallos de Brave'],
-  firefoxShortcuts: ['Atajos de Firefox', 'Firefox shortcuts', 'Dreceres de Firefox', 'Firefox lasterbideak', 'Firefox-Verknüpfungen', 'Raccourcis Firefox', 'Scorciatoie Firefox', 'Atalhos do Firefox', 'Atallos de Firefox'],
-  chromeShortcuts: ['Atajos de Google Chrome', 'Google Chrome shortcuts', 'Dreceres de Google Chrome', 'Google Chrome lasterbideak', 'Google-Chrome-Verknüpfungen', 'Raccourcis Google Chrome', 'Scorciatoie Google Chrome', 'Atalhos do Google Chrome', 'Atallos de Google Chrome'],
-  edgeShortcuts: ['Atajos de Microsoft Edge', 'Microsoft Edge shortcuts', 'Dreceres de Microsoft Edge', 'Microsoft Edge lasterbideak', 'Microsoft-Edge-Verknüpfungen', 'Raccourcis Microsoft Edge', 'Scorciatoie Microsoft Edge', 'Atalhos do Microsoft Edge', 'Atallos de Microsoft Edge'],
-  windowsShortcuts: ['Atajos de Windows', 'Windows shortcuts', 'Dreceres de Windows', 'Windows lasterbideak', 'Windows-Verknüpfungen', 'Raccourcis Windows', 'Scorciatoie Windows', 'Atalhos do Windows', 'Atallos de Windows'],
-  linuxCommands: ['Comandos de Linux', 'Linux commands', 'Ordres de Linux', 'Linux komandoak', 'Linux-Befehle', 'Commandes Linux', 'Comandi Linux', 'Comandos Linux', 'Comandos de Linux'],
-  noSong: ['Ninguna canción', 'No song selected', 'Cap cançó', 'Abestirik ez', 'Kein Titel ausgewählt', 'Aucun morceau sélectionné', 'Nessun brano selezionato', 'Nenhuma música selecionada', 'Ningunha canción seleccionada'],
-  playerHelp: ['Reproduce audio local o una carpeta con varias canciones', 'Play local audio or a folder with several tracks', 'Reprodueix àudio local o una carpeta amb diverses cançons', 'Erreproduzitu audio lokala edo hainbat abestidun karpeta', 'Lokale Audiodatei oder einen Ordner mit mehreren Titeln abspielen', 'Lire un fichier audio local ou un dossier de morceaux', 'Riproduci audio locale o una cartella con più brani', 'Reproduza áudio local ou uma pasta com várias músicas', 'Reproduce audio local ou un cartafol con varias cancións'],
-  previous: ['Anterior', 'Previous', 'Anterior', 'Aurrekoa', 'Zurück', 'Précédent', 'Precedente', 'Anterior', 'Anterior'],
-  play: ['Reproducir', 'Play', 'Reprodueix', 'Erreproduzitu', 'Wiedergabe', 'Lire', 'Riproduci', 'Reproduzir', 'Reproducir'],
-  next: ['Siguiente', 'Next', 'Següent', 'Hurrengoa', 'Weiter', 'Suivant', 'Successivo', 'Seguinte', 'Seguinte'],
-  progress: ['Progreso', 'Progress', 'Progrés', 'Aurrerapena', 'Fortschritt', 'Progression', 'Avanzamento', 'Progresso', 'Progreso'],
-  localAudio: ['Audio local', 'Local audio', 'Àudio local', 'Audio lokala', 'Lokale Audiodatei', 'Audio local', 'Audio locale', 'Áudio local', 'Audio local'],
-  folder: ['Carpeta', 'Folder', 'Carpeta', 'Karpeta', 'Ordner', 'Dossier', 'Cartella', 'Pasta', 'Cartafol'],
-  playFolder: ['Reproducir una carpeta completa', 'Play an entire folder', 'Reprodueix una carpeta sencera', 'Erreproduzitu karpeta osoa', 'Einen ganzen Ordner abspielen', 'Lire un dossier entier', 'Riproduci un’intera cartella', 'Reproduzir uma pasta completa', 'Reproducir un cartafol completo'],
-  loadingWeather: ['Cargando clima…', 'Loading weather…', 'Carregant el temps…', 'Eguraldia kargatzen…', 'Wetter wird geladen…', 'Chargement de la météo…', 'Caricamento meteo…', 'A carregar meteorologia…', 'Cargando o tempo…'],
-  previousMonth: ['Mes anterior', 'Previous month', 'Mes anterior', 'Aurreko hilabetea', 'Vorheriger Monat', 'Mois précédent', 'Mese precedente', 'Mês anterior', 'Mes anterior'],
-  nextMonth: ['Mes siguiente', 'Next month', 'Mes següent', 'Hurrengo hilabetea', 'Nächster Monat', 'Mois suivant', 'Mese successivo', 'Mês seguinte', 'Mes seguinte'],
-  hidePanel: ['Ocultar panel lateral', 'Hide side panel', 'Amaga el panell lateral', 'Ezkutatu alboko panela', 'Seitenleiste ausblenden', 'Masquer le panneau latéral', 'Nascondi pannello laterale', 'Ocultar painel lateral', 'Ocultar panel lateral'],
-  noCategory: ['Sin categoría', 'Uncategorized', 'Sense categoria', 'Kategoriarik gabe', 'Ohne Kategorie', 'Sans catégorie', 'Senza categoria', 'Sem categoria', 'Sen categoría'],
-  pending: ['Pendiente', 'Pending', 'Pendent', 'Zain', 'Ausstehend', 'En attente', 'In sospeso', 'Pendente', 'Pendente'],
-  noActivity: ['Aún no hay actividad', 'No activity yet', 'Encara no hi ha activitat', 'Oraindik ez dago jarduerarik', 'Noch keine Aktivität', 'Aucune activité pour le moment', 'Nessuna attività ancora', 'Ainda não há atividade', 'Aínda non hai actividade'],
-  locatingWeather: ['Buscando tu ubicación…', 'Finding your location…', 'Cercant la teva ubicació…', 'Zure kokapena bilatzen…', 'Standort wird ermittelt…', 'Recherche de votre position…', 'Ricerca della posizione…', 'A procurar a tua localização…', 'Buscando a túa localización…'],
-  weatherUnavailable: ['No se pudo obtener el clima.', 'Weather could not be retrieved.', 'No s’ha pogut obtenir el temps.', 'Ezin izan da eguraldia eskuratu.', 'Wetterdaten konnten nicht abgerufen werden.', 'Impossible de récupérer la météo.', 'Impossibile recuperare il meteo.', 'Não foi possível obter a meteorologia.', 'Non se puido obter o tempo.'],
-  locationUnavailable: ['No se pudo obtener tu ubicación. Introduce una ciudad:', 'Your location could not be retrieved. Enter a city:', 'No s’ha pogut obtenir la teva ubicació. Introdueix una ciutat:', 'Ezin izan da zure kokapena eskuratu. Sartu hiri bat:', 'Ihr Standort konnte nicht ermittelt werden. Geben Sie eine Stadt ein:', 'Impossible de récupérer votre position. Saisissez une ville :', 'Impossibile recuperare la posizione. Inserisci una città:', 'Não foi possível obter a tua localização. Introduz uma cidade:', 'Non se puido obter a túa localización. Introduce unha cidade:'],
-  searchCity: ['Buscar ciudad', 'Search city', 'Cerca ciutat', 'Bilatu hiria', 'Stadt suchen', 'Rechercher une ville', 'Cerca città', 'Pesquisar cidade', 'Buscar cidade'],
-  cityNotFound: ['No se encontró la ciudad.', 'City not found.', 'No s’ha trobat la ciutat.', 'Ez da hiria aurkitu.', 'Stadt nicht gefunden.', 'Ville introuvable.', 'Città non trovata.', 'Cidade não encontrada.', 'Non se atopou a cidade.'],
-  feelsLike: ['Sensación', 'Feels like', 'Sensació', 'Sentsazioa', 'Gefühlt', 'Ressenti', 'Percepita', 'Sensação', 'Sensación'],
-  humidity: ['Humedad', 'Humidity', 'Humitat', 'Hezetasuna', 'Luftfeuchtigkeit', 'Humidité', 'Umidità', 'Humidade', 'Humidade'],
-  wind: ['Viento', 'Wind', 'Vent', 'Haizea', 'Wind', 'Vent', 'Vento', 'Vento', 'Vento'],
-  yourLocation: ['Tu ubicación', 'Your location', 'La teva ubicació', 'Zure kokapena', 'Ihr Standort', 'Votre position', 'La tua posizione', 'A tua localização', 'A túa localización'],
-  icons: ['Iconos', 'Icons', 'Icones', 'Ikonoak', 'Symbole', 'Icônes', 'Icone', 'Ícones', 'Iconas'],
-  list: ['Lista', 'List', 'Llista', 'Zerrenda', 'Liste', 'Liste', 'Elenco', 'Lista', 'Lista'],
-  cards: ['Flashcards', 'Cards', 'Targetes', 'Txartelak', 'Karten', 'Cartes', 'Schede', 'Cartões', 'Tarxetas'],
-  viewCards: ['Vista tarjetas', 'Card view', 'Vista de targetes', 'Txartel-ikuspegia', 'Kartenansicht', 'Vue cartes', 'Vista schede', 'Vista de cartões', 'Vista de tarxetas'],
-  viewList: ['Vista lista', 'List view', 'Vista de llista', 'Zerrenda-ikuspegia', 'Listenansicht', 'Vue liste', 'Vista elenco', 'Vista de lista', 'Vista de lista'],
-  viewIcons: ['Vista iconos', 'Icon view', 'Vista d’icones', 'Ikono-ikuspegia', 'Symbolansicht', 'Vue icônes', 'Vista icone', 'Vista de ícones', 'Vista de iconas'],
-  copyRow: ['Pulsa una fila para copiarla', 'Click a row to copy it', 'Prem una fila per copiar-la', 'Egin klik lerro batean kopiatzeko', 'Klicke auf eine Zeile zum Kopieren', 'Cliquez sur une ligne pour la copier', 'Fai clic su una riga per copiarla', 'Clique numa linha para copiá-la', 'Preme nunha fila para copiala'],
-  tabsWindows: ['Pestañas y ventanas', 'Tabs and windows', 'Pestanyes i finestres', 'Fitxak eta leihoak', 'Tabs und Fenster', 'Onglets et fenêtres', 'Schede e finestre', 'Separadores e janelas', 'Pestanas e ventás'],
-  addressSearch: ['Barra de direcciones y búsqueda', 'Address bar and search', 'Barra d’adreces i cerca', 'Helbide-barra eta bilaketa', 'Adressleiste und Suche', 'Barre d’adresse et recherche', 'Barra degli indirizzi e ricerca', 'Barra de endereços e pesquisa', 'Barra de enderezos e busca'],
-  historyBookmarks: ['Historial y marcadores', 'History and bookmarks', 'Historial i marcadors', 'Historia eta laster-markoak', 'Verlauf und Lesezeichen', 'Historique et favoris', 'Cronologia e preferiti', 'Histórico e favoritos', 'Historial e marcadores'],
-  newTab: ['Nueva pestaña', 'New tab', 'Pestanya nova', 'Fitxa berria', 'Neuer Tab', 'Nouvel onglet', 'Nuova scheda', 'Novo separador', 'Nova pestana'],
-  closeTab: ['Cerrar pestaña', 'Close tab', 'Tanca la pestanya', 'Itxi fitxa', 'Tab schließen', 'Fermer l’onglet', 'Chiudi scheda', 'Fechar separador', 'Pechar pestana'],
-  nextTab: ['Siguiente pestaña', 'Next tab', 'Pestanya següent', 'Hurrengo fitxa', 'Nächster Tab', 'Onglet suivant', 'Scheda successiva', 'Separador seguinte', 'Pestana seguinte'],
-  previousTab: ['Pestaña anterior', 'Previous tab', 'Pestanya anterior', 'Aurreko fitxa', 'Vorheriger Tab', 'Onglet précédent', 'Scheda precedente', 'Separador anterior', 'Pestana anterior'],
-  newWindow: ['Nueva ventana', 'New window', 'Finestra nova', 'Leiho berria', 'Neues Fenster', 'Nouvelle fenêtre', 'Nuova finestra', 'Nova janela', 'Nova ventá'],
-  back: ['Atrás', 'Back', 'Enrere', 'Atzera', 'Zurück', 'Précédent', 'Indietro', 'Voltar', 'Atrás'],
-  forward: ['Adelante', 'Forward', 'Endavant', 'Aurrera', 'Vorwärts', 'Suivant', 'Avanti', 'Avançar', 'Adiante'],
-  reload: ['Recargar', 'Reload', 'Recarrega', 'Berriz kargatu', 'Neu laden', 'Actualiser', 'Ricarica', 'Recarregar', 'Recargar'],
-  homepage: ['Página de inicio', 'Home page', 'Pàgina d’inici', 'Hasierako orria', 'Startseite', 'Page d’accueil', 'Pagina iniziale', 'Página inicial', 'Páxina de inicio'],
-  fullscreen: ['Pantalla completa', 'Full screen', 'Pantalla completa', 'Pantaila osoa', 'Vollbild', 'Plein écran', 'Schermo intero', 'Ecrã inteiro', 'Pantalla completa'],
-  history: ['Historial', 'History', 'Historial', 'Historia', 'Verlauf', 'Historique', 'Cronologia', 'Histórico', 'Historial'],
-  downloads: ['Descargas', 'Downloads', 'Baixades', 'Deskargak', 'Downloads', 'Téléchargements', 'Download', 'Transferências', 'Descargas'],
-  zoom: ['Zoom', 'Zoom', 'Zoom', 'Zooma', 'Zoom', 'Zoom', 'Zoom', 'Zoom', 'Zoom'],
-  print: ['Imprimir', 'Print', 'Imprimeix', 'Inprimatu', 'Drucken', 'Imprimer', 'Stampa', 'Imprimir', 'Imprimir'],
-  savePage: ['Guardar página', 'Save page', 'Desa la pàgina', 'Gorde orria', 'Seite speichern', 'Enregistrer la page', 'Salva pagina', 'Guardar página', 'Gardar páxina'],
-  trackPosition: ['{current} de {total} · {size}', '{current} of {total} · {size}', '{current} de {total} · {size}', '{current}/{total} · {size}', '{current} von {total} · {size}', '{current} sur {total} · {size}', '{current} di {total} · {size}', '{current} de {total} · {size}', '{current} de {total} · {size}'],
-  playlist: ['Lista de reproducción', 'Playlist', 'Llista de reproducció', 'Erreprodukzio-zerrenda', 'Wiedergabeliste', 'Liste de lecture', 'Playlist', 'Lista de reprodução', 'Lista de reprodución'],
-  playing: ['Reproduciendo', 'Playing', 'S’està reproduint', 'Erreproduzitzen', 'Wiedergabe', 'Lecture en cours', 'In riproduzione', 'A reproduzir', 'Reproducindo']
+  "navigation": [
+    "Navegación",
+    "Navigation"
+  ],
+  "widgets": [
+    "Widgets",
+    "Widgets"
+  ],
+  "addBookmark": [
+    "Añadir favorito",
+    "Add bookmark"
+  ],
+  "editMode": [
+    "Modo edición",
+    "Edit mode"
+  ],
+  "enableEditMode": [
+    "Activar modo edición",
+    "Enable edit mode"
+  ],
+  "finishEditMode": [
+    "Terminar modo edición",
+    "Finish edit mode"
+  ],
+  "toggleSidebar": [
+    "Alternar barra lateral",
+    "Toggle sidebar"
+  ],
+  "resizeSidebar": [
+    "Cambiar ancho de la barra lateral",
+    "Resize sidebar"
+  ],
+  "sidebarBehavior": [
+    "Comportamiento de la barra lateral",
+    "Sidebar behaviour"
+  ],
+  "sidebarAutoReveal": [
+    "Abrir automáticamente al acercar el ratón",
+    "Open automatically when the pointer reaches the edge"
+  ],
+  "sidebarAutoRevealHelp": [
+    "Al estar contraída, se abre al acercar el ratón al borde izquierdo y se vuelve a ocultar al salir.",
+    "When collapsed, it opens as the pointer reaches the left edge and hides again when you move away."
+  ],
+  "expandPanel": [
+    "Abrir vista amplia",
+    "Open wide view"
+  ],
+  "restorePanel": [
+    "Restaurar tamaño del panel",
+    "Restore panel size"
+  ],
+  "resetMasonry": [
+    "Restablecer mosaico",
+    "Reset mosaic"
+  ],
+  "lightMode": [
+    "Cambiar a modo claro",
+    "Switch to light mode"
+  ],
+  "darkMode": [
+    "Cambiar a modo oscuro",
+    "Switch to dark mode"
+  ],
+  "addCategory": [
+    "Añadir categoría",
+    "Add category"
+  ],
+  "collapseCategories": [
+    "Contraer todas las categorías",
+    "Collapse all categories"
+  ],
+  "search": [
+    "Buscar",
+    "Search"
+  ],
+  "webSuggestions": [
+    "Sugerencias de búsqueda web",
+    "Web search suggestions"
+  ],
+  "webSuggestionsHelp": [
+    "Muestra propuestas mientras escribes. Al activarlo, solo el texto de la consulta se envía al buscador elegido; DashboardDP no lo guarda ni usa un servidor propio.",
+    "Shows suggestions while you type. When enabled, only your query text is sent to the selected search engine; DashboardDP does not store it or use its own server."
+  ],
+  "webSuggestionsPermissionDenied": [
+    "No se concedió permiso para las sugerencias de {engine}. Puedes volver a activarlas en Ajustes cuando quieras.",
+    "Permission for {engine} suggestions was not granted. You can enable them again in Settings whenever you want."
+  ],
+  "webSuggestionsEnableHint": [
+    "Activa las sugerencias web en Ajustes para recibir propuestas de {engine}.",
+    "Enable web suggestions in Settings to receive suggestions from {engine}."
+  ],
+  "webSuggestionsAllowHint": [
+    "Haz clic para permitir las sugerencias de {engine}.",
+    "Click to allow suggestions from {engine}."
+  ],
+  "edit": [
+    "Editar",
+    "Edit"
+  ],
+  "delete": [
+    "Eliminar",
+    "Delete"
+  ],
+  "add": [
+    "Añadir",
+    "Add"
+  ],
+  "create": [
+    "Crear",
+    "Create"
+  ],
+  "close": [
+    "Cerrar",
+    "Close"
+  ],
+  "options": [
+    "Opciones",
+    "Options"
+  ],
+  "pin": [
+    "Fijar",
+    "Pin"
+  ],
+  "unpin": [
+    "Desfijar",
+    "Unpin"
+  ],
+  "player": [
+    "Reproductor",
+    "Player"
+  ],
+  "weather": [
+    "Clima",
+    "Weather"
+  ],
+  "calendar": [
+    "Calendario",
+    "Calendar"
+  ],
+  "taskManager": [
+    "Gestor de tareas",
+    "Task manager"
+  ],
+  "braveShortcuts": [
+    "Atajos de Brave",
+    "Brave shortcuts"
+  ],
+  "firefoxShortcuts": [
+    "Atajos de Firefox",
+    "Firefox shortcuts"
+  ],
+  "chromeShortcuts": [
+    "Atajos de Google Chrome",
+    "Google Chrome shortcuts"
+  ],
+  "edgeShortcuts": [
+    "Atajos de Microsoft Edge",
+    "Microsoft Edge shortcuts"
+  ],
+  "windowsShortcuts": [
+    "Atajos de Windows",
+    "Windows shortcuts"
+  ],
+  "linuxCommands": [
+    "Comandos de Linux",
+    "Linux commands"
+  ],
+  "noSong": [
+    "Ninguna canción",
+    "No song selected"
+  ],
+  "playerHelp": [
+    "Reproduce audio local o una carpeta con varias canciones",
+    "Play local audio or a folder with several tracks"
+  ],
+  "previous": [
+    "Anterior",
+    "Previous"
+  ],
+  "play": [
+    "Reproducir",
+    "Play"
+  ],
+  "next": [
+    "Siguiente",
+    "Next"
+  ],
+  "progress": [
+    "Progreso",
+    "Progress"
+  ],
+  "localAudio": [
+    "Audio local",
+    "Local audio"
+  ],
+  "folder": [
+    "Carpeta",
+    "Folder"
+  ],
+  "playFolder": [
+    "Reproducir una carpeta completa",
+    "Play an entire folder"
+  ],
+  "loadingWeather": [
+    "Cargando clima…",
+    "Loading weather…"
+  ],
+  "previousMonth": [
+    "Mes anterior",
+    "Previous month"
+  ],
+  "nextMonth": [
+    "Mes siguiente",
+    "Next month"
+  ],
+  "hidePanel": [
+    "Ocultar panel lateral",
+    "Hide side panel"
+  ],
+  "noCategory": [
+    "Sin categoría",
+    "Uncategorized"
+  ],
+  "pending": [
+    "Pendiente",
+    "Pending"
+  ],
+  "noActivity": [
+    "Aún no hay actividad",
+    "No activity yet"
+  ],
+  "locatingWeather": [
+    "Buscando tu ubicación…",
+    "Finding your location…"
+  ],
+  "weatherUnavailable": [
+    "No se pudo obtener el clima.",
+    "Weather could not be retrieved."
+  ],
+  "locationUnavailable": [
+    "No se pudo obtener tu ubicación. Introduce una ciudad:",
+    "Your location could not be retrieved. Enter a city:"
+  ],
+  "searchCity": [
+    "Buscar ciudad",
+    "Search city"
+  ],
+  "cityNotFound": [
+    "No se encontró la ciudad.",
+    "City not found."
+  ],
+  "feelsLike": [
+    "Sensación",
+    "Feels like"
+  ],
+  "humidity": [
+    "Humedad",
+    "Humidity"
+  ],
+  "wind": [
+    "Viento",
+    "Wind"
+  ],
+  "yourLocation": [
+    "Tu ubicación",
+    "Your location"
+  ],
+  "icons": [
+    "Iconos",
+    "Icons"
+  ],
+  "list": [
+    "Lista",
+    "List"
+  ],
+  "cards": [
+    "Flashcards",
+    "Cards"
+  ],
+  "viewCards": [
+    "Vista tarjetas",
+    "Card view"
+  ],
+  "viewList": [
+    "Vista lista",
+    "List view"
+  ],
+  "viewIcons": [
+    "Vista iconos",
+    "Icon view"
+  ],
+  "copyRow": [
+    "Pulsa una fila para copiarla",
+    "Click a row to copy it"
+  ],
+  "tabsWindows": [
+    "Pestañas y ventanas",
+    "Tabs and windows"
+  ],
+  "addressSearch": [
+    "Barra de direcciones y búsqueda",
+    "Address bar and search"
+  ],
+  "historyBookmarks": [
+    "Historial y marcadores",
+    "History and bookmarks"
+  ],
+  "newTab": [
+    "Nueva pestaña",
+    "New tab"
+  ],
+  "closeTab": [
+    "Cerrar pestaña",
+    "Close tab"
+  ],
+  "nextTab": [
+    "Siguiente pestaña",
+    "Next tab"
+  ],
+  "previousTab": [
+    "Pestaña anterior",
+    "Previous tab"
+  ],
+  "newWindow": [
+    "Nueva ventana",
+    "New window"
+  ],
+  "back": [
+    "Atrás",
+    "Back"
+  ],
+  "forward": [
+    "Adelante",
+    "Forward"
+  ],
+  "reload": [
+    "Recargar",
+    "Reload"
+  ],
+  "homepage": [
+    "Página de inicio",
+    "Home page"
+  ],
+  "fullscreen": [
+    "Pantalla completa",
+    "Full screen"
+  ],
+  "history": [
+    "Historial",
+    "History"
+  ],
+  "downloads": [
+    "Descargas",
+    "Downloads"
+  ],
+  "zoom": [
+    "Zoom",
+    "Zoom"
+  ],
+  "print": [
+    "Imprimir",
+    "Print"
+  ],
+  "savePage": [
+    "Guardar página",
+    "Save page"
+  ],
+  "trackPosition": [
+    "{current} de {total} · {size}",
+    "{current} of {total} · {size}"
+  ],
+  "playlist": [
+    "Lista de reproducción",
+    "Playlist"
+  ],
+  "playing": [
+    "Reproduciendo",
+    "Playing"
+  ]
 };
 
 Object.entries(UI_COMMON).forEach(([key, translations]) => {
@@ -215,165 +558,632 @@ Object.entries(UI_COMMON).forEach(([key, translations]) => {
 // Textos de los widgets que se crean dinámicamente. Mantenerlos aquí evita
 // que Calendario y Notas vuelvan a quedarse fijos en un único idioma.
 const WIDGET_TEXT = {
-  taskManager: ['Gestor de tareas', 'Task manager', 'Gestor de tasques', 'Zereginen kudeatzailea', 'Aufgabenmanager', 'Gestionnaire de tâches', 'Gestore attività', 'Gestor de tarefas', 'Xestor de tarefas'],
-  localTasks: ['Tus tareas se guardan solo en este navegador.', 'Your tasks stay only in this browser.', 'Les teves tasques només es desen en aquest navegador.', 'Zure zereginak nabigatzaile honetan soilik gordetzen dira.', 'Deine Aufgaben bleiben nur in diesem Browser.', 'Vos tâches restent uniquement dans ce navigateur.', 'Le attività restano solo in questo browser.', 'As tuas tarefas ficam apenas neste navegador.', 'As túas tarefas só se gardan neste navegador.'],
-  board: ['Tablero', 'Board', 'Tauler', 'Taula', 'Tafel', 'Tableau', 'Bacheca', 'Quadro', 'Taboleiro'],
-  calendar: ['Calendario', 'Calendar', 'Calendari', 'Egutegia', 'Kalender', 'Calendrier', 'Calendario', 'Calendário', 'Calendario'],
-  importIcs: ['Importar .ics', 'Import .ics', 'Importa .ics', 'Inportatu .ics', '.ics importieren', 'Importer .ics', 'Importa .ics', 'Importar .ics', 'Importar .ics'],
-  exportIcs: ['Exportar .ics', 'Export .ics', 'Exporta .ics', 'Esportatu .ics', '.ics exportieren', 'Exporter .ics', 'Esporta .ics', 'Exportar .ics', 'Exportar .ics'],
-  syncNow: ['Sincronizar ahora', 'Sync now', 'Sincronitza ara', 'Sinkronizatu orain', 'Jetzt synchronisieren', 'Synchroniser', 'Sincronizza ora', 'Sincronizar agora', 'Sincronizar agora'],
-  calendarAutoSync: ['Sincronización inteligente del calendario', 'Smart calendar sync', 'Sincronització intel·ligent del calendari', 'Egutegiaren sinkronizazio adimenduna', 'Intelligente Kalendersynchronisierung', 'Synchronisation intelligente du calendrier', 'Sincronizzazione intelligente del calendario', 'Sincronização inteligente do calendário', 'Sincronización intelixente do calendario'],
-  calendarAutoSyncHelp: ['También se comprueba al abrir el Dashboard, entrar en Calendario y volver a esta pestaña. Nunca abre el inicio de sesión automáticamente.', 'Also checks when opening the Dashboard, entering Calendar and returning to this tab. It never opens sign-in automatically.', 'També es comprova en obrir el Dashboard, entrar al Calendari i tornar a aquesta pestanya. Mai obre l’inici de sessió automàticament.', 'Dashboarda irekitzean, Egutegian sartzean eta fitxa honetara itzultzean ere egiaztatzen da. Ez du inoiz saio-hasiera automatikoki irekitzen.', 'Es wird auch beim Öffnen des Dashboards, beim Aufrufen des Kalenders und bei der Rückkehr zu diesem Tab geprüft. Die Anmeldung wird nie automatisch geöffnet.', 'Une vérification est aussi effectuée à l’ouverture du Dashboard, à l’entrée dans Calendrier et au retour sur cet onglet. La connexion ne s’ouvre jamais automatiquement.', 'Il controllo avviene anche all’apertura del Dashboard, entrando nel Calendario e tornando a questa scheda. L’accesso non viene mai aperto automaticamente.', 'Também verifica ao abrir o Dashboard, entrar no Calendário e voltar a este separador. Nunca abre o início de sessão automaticamente.', 'Tamén se comproba ao abrir o Dashboard, entrar no Calendario e volver a esta lapela. Nunca abre o inicio de sesión automaticamente.'],
-  calendarAutoOff: ['Desactivada', 'Off', 'Desactivada', 'Desaktibatuta', 'Deaktiviert', 'Désactivée', 'Disattivata', 'Desativada', 'Desactivada'],
-  calendarEveryMinutes: ['Cada {minutes} minutos', 'Every {minutes} minutes', 'Cada {minutes} minuts', '{minutes} minuturo', 'Alle {minutes} Minuten', 'Toutes les {minutes} minutes', 'Ogni {minutes} minuti', 'A cada {minutes} minutos', 'Cada {minutes} minutos'],
-  calendarSyncRemoved: ['{count} eliminados', '{count} removed', '{count} eliminats', '{count} ezabatuta', '{count} entfernt', '{count} supprimés', '{count} eliminati', '{count} removidos', '{count} eliminados'],
-  newTask: ['Nueva tarea', 'New task', 'Tasca nova', 'Zeregin berria', 'Neue Aufgabe', 'Nouvelle tâche', 'Nuova attività', 'Nova tarefa', 'Nova tarefa'],
-  taskTodo: ['Por hacer', 'To do', 'Per fer', 'Egiteko', 'Zu erledigen', 'À faire', 'Da fare', 'Por fazer', 'Por facer'],
-  taskDoing: ['En curso', 'In progress', 'En curs', 'Martxan', 'In Bearbeitung', 'En cours', 'In corso', 'Em curso', 'En curso'],
-  taskDone: ['Hecho', 'Done', 'Fet', 'Eginda', 'Erledigt', 'Terminé', 'Fatto', 'Concluída', 'Feita'],
-  dropTask: ['Suelta una tarea aquí', 'Drop a task here', 'Deixa anar una tasca aquí', 'Jaregin zeregin bat hemen', 'Aufgabe hier ablegen', 'Déposez une tâche ici', 'Rilascia qui un’attività', 'Larga uma tarefa aqui', 'Solta unha tarefa aquí'],
-  noDueDates: ['Sin vencimientos', 'No due dates', 'Sense venciments', 'Mugarik gabe', 'Keine Fälligkeiten', 'Aucune échéance', 'Nessuna scadenza', 'Sem prazos', 'Sen vencementos'],
-  taskSort: ['Ordenar', 'Sort', 'Ordena', 'Ordenatu', 'Sortieren', 'Trier', 'Ordina', 'Ordenar', 'Ordenar'],
-  taskSortManual: ['Orden manual', 'Manual order', 'Ordre manual', 'Eskuzko ordena', 'Manuelle Reihenfolge', 'Ordre manuel', 'Ordine manuale', 'Ordem manual', 'Orde manual'],
-  taskSortDue: ['Fecha más próxima', 'Nearest due date', 'Data més pròxima', 'Hurbileneko data', 'Nächste Fälligkeit', 'Échéance la plus proche', 'Scadenza più vicina', 'Data mais próxima', 'Data máis próxima'],
-  taskSortPriority: ['Prioridad', 'Priority', 'Prioritat', 'Lehentasuna', 'Priorität', 'Priorité', 'Priorità', 'Prioridade', 'Prioridade'],
-  taskSortUpdated: ['Actualizadas recientemente', 'Recently updated', 'Actualitzades recentment', 'Duela gutxi eguneratuak', 'Zuletzt aktualisiert', 'Récemment mises à jour', 'Aggiornate di recente', 'Atualizadas recentemente', 'Actualizadas recentemente'],
-  taskComfortable: ['Vista cómoda', 'Comfortable view', 'Vista còmoda', 'Ikuspegi erosoa', 'Komfortable Ansicht', 'Vue confortable', 'Vista comoda', 'Vista confortável', 'Vista cómoda'],
-  taskCompact: ['Vista compacta', 'Compact view', 'Vista compacta', 'Ikuspegi trinkoa', 'Kompakte Ansicht', 'Vue compacte', 'Vista compatta', 'Vista compacta', 'Vista compacta'],
-  taskReorderHelp: ['Arrastra una tarjeta para colocarla exactamente donde quieras.', 'Drag a card to place it exactly where you want.', 'Arrossega una targeta per col·locar-la exactament on vulguis.', 'Arrastatu txartela nahi duzun tokian jartzeko.', 'Ziehe eine Karte genau an die gewünschte Position.', 'Faites glisser une carte pour la placer exactement où vous le souhaitez.', 'Trascina una scheda per posizionarla esattamente dove vuoi.', 'Arrasta um cartão para o colocares exatamente onde quiseres.', 'Arrastra unha tarxeta para colocala exactamente onde queiras.'],
-  taskProperties: ['Propiedades', 'Properties', 'Propietats', 'Propietateak', 'Eigenschaften', 'Propriétés', 'Proprietà', 'Propriedades', 'Propiedades'],
-  priority: ['Prioridad', 'Priority', 'Prioritat', 'Lehentasuna', 'Priorität', 'Priorité', 'Priorità', 'Prioridade', 'Prioridade'],
-  priorityLow: ['Baja', 'Low', 'Baixa', 'Baxua', 'Niedrig', 'Basse', 'Bassa', 'Baixa', 'Baixa'],
-  priorityNormal: ['Normal', 'Normal', 'Normal', 'Normala', 'Normal', 'Normale', 'Normale', 'Normal', 'Normal'],
-  priorityHigh: ['Alta', 'High', 'Alta', 'Altua', 'Hoch', 'Haute', 'Alta', 'Alta', 'Alta'],
-  priorityUrgent: ['Urgente', 'Urgent', 'Urgent', 'Premiazkoa', 'Dringend', 'Urgente', 'Urgente', 'Urgente', 'Urxente'],
-  calendarMonth: ['Mes', 'Month', 'Mes', 'Hilabetea', 'Monat', 'Mois', 'Mese', 'Mês', 'Mes'],
-  calendarWeek: ['Semana', 'Week', 'Setmana', 'Astea', 'Woche', 'Semaine', 'Settimana', 'Semana', 'Semana'],
-  calendarAgenda: ['Agenda', 'Agenda', 'Agenda', 'Agenda', 'Agenda', 'Agenda', 'Agenda', 'Agenda', 'Axenda'],
-  today: ['Hoy', 'Today', 'Avui', 'Gaur', 'Heute', 'Aujourd’hui', 'Oggi', 'Hoje', 'Hoxe'],
-  previousPeriod: ['Periodo anterior', 'Previous period', 'Període anterior', 'Aurreko aldia', 'Vorheriger Zeitraum', 'Période précédente', 'Periodo precedente', 'Período anterior', 'Período anterior'],
-  nextPeriod: ['Periodo siguiente', 'Next period', 'Període següent', 'Hurrengo aldia', 'Nächster Zeitraum', 'Période suivante', 'Periodo successivo', 'Período seguinte', 'Período seguinte'],
-  noCalendarTasks: ['No hay tareas con fecha en este periodo.', 'There are no dated tasks in this period.', 'No hi ha tasques amb data en aquest període.', 'Ez dago datadun zereginik aldi honetan.', 'In diesem Zeitraum gibt es keine datierten Aufgaben.', 'Aucune tâche datée pour cette période.', 'Non ci sono attività con data in questo periodo.', 'Não há tarefas com data neste período.', 'Non hai tarefas con data neste período.'],
-  calendarHelp: ['Añade una fecha a una tarea para verla en el calendario y poder sincronizarla.', 'Add a date to a task to see it in the calendar and sync it.', 'Afegeix una data a una tasca per veure-la al calendari i sincronitzar-la.', 'Gehitu data bat zereginari egutegian ikusi eta sinkronizatzeko.', 'Füge einer Aufgabe ein Datum hinzu, um sie im Kalender zu sehen und zu synchronisieren.', 'Ajoutez une date à une tâche pour la voir dans le calendrier et la synchroniser.', 'Aggiungi una data a un’attività per vederla nel calendario e sincronizzarla.', 'Adiciona uma data a uma tarefa para a veres no calendário e sincronizares.', 'Engade unha data a unha tarefa para vela no calendario e sincronizala.'],
-  dueLabel: ['Vence', 'Due', 'Venç', 'Epemuga', 'Fällig', 'Échéance', 'Scade', 'Prazo', 'Vence'],
-  reminderLabel: ['Aviso', 'Reminder', 'Avís', 'Abisua', 'Erinnerung', 'Rappel', 'Promemoria', 'Aviso', 'Aviso'],
-  clearDate: ['Sin fecha', 'No date', 'Sense data', 'Datarik gabe', 'Ohne Datum', 'Sans date', 'Senza data', 'Sem data', 'Sen data'],
-  edit: ['Editar', 'Edit', 'Edita', 'Editatu', 'Bearbeiten', 'Modifier', 'Modifica', 'Editar', 'Editar'],
-  done: ['Hecha', 'Done', 'Feta', 'Eginda', 'Erledigt', 'Terminée', 'Fatta', 'Concluída', 'Feita'],
-  reopen: ['Reabrir', 'Reopen', 'Reobre', 'Berriro ireki', 'Wieder öffnen', 'Rouvrir', 'Riapri', 'Reabrir', 'Reabrir'],
-  taskTitle: ['Título', 'Title', 'Títol', 'Izenburua', 'Titel', 'Titre', 'Titolo', 'Título', 'Título'],
-  taskTitlePlaceholder: ['Título de la tarea', 'Task title', 'Títol de la tasca', 'Zereginaren izenburua', 'Aufgabentitel', 'Titre de la tâche', 'Titolo dell’attività', 'Título da tarefa', 'Título da tarefa'],
-  notes: ['Notas', 'Notes', 'Notes', 'Oharrak', 'Notizen', 'Notes', 'Note', 'Notas', 'Notas'],
-  notesPlaceholder: ['Notas, enlaces o contexto (opcional)', 'Notes, links or context (optional)', 'Notes, enllaços o context (opcional)', 'Oharrak, estekak edo testuingurua (aukerakoa)', 'Notizen, Links oder Kontext (optional)', 'Notes, liens ou contexte (facultatif)', 'Note, link o contesto (facoltativo)', 'Notas, ligações ou contexto (opcional)', 'Notas, ligazóns ou contexto (opcional)'],
-  column: ['Columna', 'Column', 'Columna', 'Zutabea', 'Spalte', 'Colonne', 'Colonna', 'Coluna', 'Columna'],
-  dueDate: ['Fecha y hora', 'Date and time', 'Data i hora', 'Data eta ordua', 'Datum und Uhrzeit', 'Date et heure', 'Data e ora', 'Data e hora', 'Data e hora'],
-  reminder: ['Recordatorio', 'Reminder', 'Recordatori', 'Oroigarria', 'Erinnerung', 'Rappel', 'Promemoria', 'Lembrete', 'Lembrete'],
-  reminderHelp: ['El aviso se muestra aunque el dashboard esté cerrado. Déjalo vacío si no quieres una notificación.', 'The alert can appear while the dashboard is closed. Leave it empty to skip notifications.', 'L’avís es mostra encara que el dashboard estigui tancat. Deixa’l buit per no rebre notificacions.', 'Abisua dashboarda itxita egon arren ager daiteke. Utzi hutsik jakinarazpenik nahi ez baduzu.', 'Der Hinweis kann erscheinen, auch wenn das Dashboard geschlossen ist. Leer lassen, um keine Benachrichtigung zu erhalten.', 'L’alerte peut apparaître même lorsque le dashboard est fermé. Laissez vide pour ne pas recevoir de notification.', 'L’avviso può comparire anche a dashboard chiuso. Lascia vuoto per non ricevere notifiche.', 'O aviso pode aparecer com o dashboard fechado. Deixa vazio para não receber notificações.', 'O aviso pode aparecer co dashboard pechado. Déixao baleiro para non recibir avisos.'],
-  calendarTarget: ['Calendario de sincronización', 'Sync calendar', 'Calendari de sincronització', 'Sinkronizazio-egutegia', 'Synchronisierungskalender', 'Calendrier de synchronisation', 'Calendario di sincronizzazione', 'Calendário de sincronização', 'Calendario de sincronización'],
-  noSync: ['Solo local (sin sincronizar)', 'Local only (no sync)', 'Només local (sense sincronitzar)', 'Lokala soilik (sinkronizaziorik gabe)', 'Nur lokal (ohne Synchronisierung)', 'Local uniquement (sans synchronisation)', 'Solo locale (senza sincronizzazione)', 'Apenas local (sem sincronização)', 'Só local (sen sincronización)'],
-  calendarHub: ['Calendarios', 'Calendars', 'Calendaris', 'Egutegiak', 'Kalender', 'Calendriers', 'Calendari', 'Calendários', 'Calendarios'],
-  chooseIcs: ['Elegir archivo .ics', 'Choose .ics file', 'Tria un fitxer .ics', 'Aukeratu .ics fitxategia', '.ics-Datei wählen', 'Choisir un fichier .ics', 'Scegli file .ics', 'Escolher ficheiro .ics', 'Escoller ficheiro .ics'],
-  calendarLocalInfo: ['Puedes importar uno o varios calendarios .ics. Sus eventos se suman sin borrar los ya existentes.', 'You can import one or more .ics calendars. Their events are added without deleting existing ones.', 'Pots importar un o diversos calendaris .ics. Els esdeveniments se sumen sense esborrar els existents.', 'Eguneko .ics bat edo gehiago inporta ditzakezu. Gertaerak gehitzen dira lehendik daudenak ezabatu gabe.', 'Du kannst einen oder mehrere .ics-Kalender importieren. Ihre Ereignisse werden hinzugefügt, ohne vorhandene zu löschen.', 'Vous pouvez importer un ou plusieurs calendriers .ics. Leurs événements s’ajoutent sans supprimer ceux existants.', 'Puoi importare uno o più calendari .ics. Gli eventi si aggiungono senza eliminare quelli esistenti.', 'Podes importar um ou mais calendários .ics. Os eventos são adicionados sem apagar os existentes.', 'Podes importar un ou varios calendarios .ics. Os eventos engádense sen borrar os existentes.'],
-  personalConnection: ['Conexión personal opcional', 'Optional personal connection', 'Connexió personal opcional', 'Aukerako konexio pertsonala', 'Optionale persönliche Verbindung', 'Connexion personnelle facultative', 'Connessione personale opzionale', 'Ligação pessoal opcional', 'Conexión persoal opcional'],
-  setupConnection: ['Configurar mi conexión', 'Set up my connection', 'Configura la meva connexió', 'Konfiguratu nire konexioa', 'Meine Verbindung einrichten', 'Configurer ma connexion', 'Configura la mia connessione', 'Configurar a minha ligação', 'Configurar a miña conexión'],
-  connected: ['Conectado', 'Connected', 'Connectat', 'Konektatuta', 'Verbunden', 'Connecté', 'Connesso', 'Ligado', 'Conectado'],
-  disconnect: ['Desconectar y borrar datos locales', 'Disconnect and erase local data', 'Desconnecta i esborra les dades locals', 'Deskonektatu eta ezabatu datu lokalak', 'Trennen und lokale Daten löschen', 'Déconnecter et effacer les données locales', 'Disconnetti ed elimina i dati locali', 'Desligar e apagar dados locais', 'Desconectar e borrar datos locais'],
-  clientId: ['Tu Client ID', 'Your Client ID', 'El teu Client ID', 'Zure Client ID', 'Deine Client ID', 'Votre Client ID', 'Il tuo Client ID', 'O teu Client ID', 'O teu Client ID'],
-  redirectUri: ['URI de redirección', 'Redirect URI', 'URI de redirecció', 'Birbideratze URIa', 'Weiterleitungs-URI', 'URI de redirection', 'URI di reindirizzamento', 'URI de redirecionamento', 'URI de redirección'],
-  copy: ['Copiar', 'Copy', 'Copia', 'Kopiatu', 'Kopieren', 'Copier', 'Copia', 'Copiar', 'Copiar'],
-  noSecret: ['Nunca pegues una clave secreta ni tu contraseña. Solo se necesita el Client ID.', 'Never paste a client secret or your password. Only the Client ID is needed.', 'No enganxis mai una clau secreta ni la contrasenya. Només cal el Client ID.', 'Ez itsatsi inoiz gako sekreturik edo pasahitzik. Client IDa baino ez da behar.', 'Füge niemals ein Client Secret oder Passwort ein. Nur die Client ID wird benötigt.', 'Ne collez jamais de secret client ou de mot de passe. Seul le Client ID est nécessaire.', 'Non incollare mai un client secret o la password. Serve solo il Client ID.', 'Nunca coloques uma chave secreta ou palavra-passe. Só é necessário o Client ID.', 'Nunca pegues unha clave secreta nin o contrasinal. Só se necesita o Client ID.'],
-  saveConnect: ['Guardar y conectar', 'Save and connect', 'Desa i connecta', 'Gorde eta konektatu', 'Speichern und verbinden', 'Enregistrer et connecter', 'Salva e connetti', 'Guardar e ligar', 'Gardar e conectar'],
-  calendarExtensionOnly: ['Esta función requiere instalar DashboardDP como extensión.', 'This feature requires DashboardDP to be installed as an extension.', 'Aquesta funció requereix instal·lar DashboardDP com a extensió.', 'Funtzio honek DashboardDP luzapen gisa instalatzea behar du.', 'Diese Funktion erfordert DashboardDP als Erweiterung.', 'Cette fonction nécessite DashboardDP installé comme extension.', 'Questa funzione richiede DashboardDP installato come estensione.', 'Esta função requer o DashboardDP instalado como extensão.', 'Esta función require DashboardDP instalado como extensión.'],
-  calendarUnsupportedBrowser: ['Este navegador no permite la autorización segura para esta extensión.', 'This browser does not support secure authorization for this extension.', 'Aquest navegador no permet l’autorització segura per a aquesta extensió.', 'Nabigatzaile honek ez du luzapen honetarako baimen segurua onartzen.', 'Dieser Browser unterstützt keine sichere Autorisierung für diese Erweiterung.', 'Ce navigateur ne permet pas l’autorisation sécurisée pour cette extension.', 'Questo browser non supporta l’autorizzazione sicura per questa estensione.', 'Este navegador não permite autorização segura para esta extensão.', 'Este navegador non permite autorización segura para esta extensión.'],
-  calendarBraveIdentityDisabled: ['En Brave, abre brave://settings/extensions y activa «Permitir el inicio de sesión de Google para extensiones». Después vuelve a intentar la conexión.', 'In Brave, open brave://settings/extensions and enable “Allow Google login for extensions”. Then try connecting again.', 'A Brave, obre brave://settings/extensions i activa «Permet l’inici de sessió de Google per a extensions». Després, torna a provar la connexió.', 'Brave-n, ireki brave://settings/extensions eta aktibatu «Baimendu Google saio-hasiera luzapenetarako». Ondoren, saiatu berriro konektatzen.', 'Öffne in Brave brave://settings/extensions und aktiviere „Google-Anmeldung für Erweiterungen zulassen“. Versuche danach die Verbindung erneut.', 'Dans Brave, ouvrez brave://settings/extensions et activez « Autoriser la connexion Google pour les extensions ». Réessayez ensuite de vous connecter.', 'In Brave, apri brave://settings/extensions e attiva « Consenti l’accesso Google per le estensioni ». Quindi prova di nuovo a connetterti.', 'No Brave, abre brave://settings/extensions e ativa « Permitir início de sessão Google para extensões ». Depois tenta ligar novamente.', 'En Brave, abre brave://settings/extensions e activa « Permitir o inicio de sesión de Google para extensións ». Despois tenta conectar de novo.'],
-  calendarGooglePersonalMode: ['Modo personal avanzado: Google requiere un cliente OAuth de tipo «Extensión de Chrome», no «Aplicación web». Este modo no usa ni guarda claves secretas.', 'Advanced personal mode: Google requires a “Chrome Extension” OAuth client, not a “Web application”. This mode never uses or stores client secrets.', 'Mode personal avançat: Google requereix un client OAuth de tipus «Extensió de Chrome», no «Aplicació web». Aquest mode no fa servir ni desa claus secretes.', 'Modu pertsonal aurreratua: Googlek «Chrome luzapena» motako OAuth bezeroa behar du, ez «Web aplikazioa». Modu honek ez du gako sekreturik erabiltzen edo gordetzen.', 'Erweiterter persönlicher Modus: Google benötigt einen OAuth-Client vom Typ „Chrome-Erweiterung“, nicht „Webanwendung“. Dieser Modus verwendet oder speichert keine Client Secrets.', 'Mode personnel avancé : Google requiert un client OAuth de type « Extension Chrome », et non « Application Web ». Ce mode n’utilise ni ne stocke de secrets client.', 'Modalità personale avanzata: Google richiede un client OAuth di tipo « Estensione Chrome », non « Applicazione web ». Questa modalità non usa né memorizza segreti client.', 'Modo pessoal avançado: o Google requer um cliente OAuth do tipo « Extensão Chrome », e não « Aplicação Web ». Este modo não usa nem guarda segredos de cliente.', 'Modo persoal avanzado: Google require un cliente OAuth de tipo « Extensión de Chrome », non « Aplicación web ». Este modo non usa nin garda claves secretas.'],
-  calendarGoogleManifestReady: ['Cliente personal detectado. Puedes conectar Google Calendar desde esta pestaña de DashboardDP.', 'Personal client detected. You can connect Google Calendar from this DashboardDP tab.', 'Client personal detectat. Pots connectar Google Calendar des d’aquesta pestanya de DashboardDP.', 'Bezero pertsonala atzeman da. Google Calendar DashboardDP fitxa honetatik konekta dezakezu.', 'Persönlicher Client erkannt. Du kannst Google Calendar über diesen DashboardDP-Tab verbinden.', 'Client personnel détecté. Vous pouvez connecter Google Calendar depuis cet onglet DashboardDP.', 'Client personale rilevato. Puoi collegare Google Calendar da questa scheda DashboardDP.', 'Cliente pessoal detetado. Podes ligar o Google Calendar neste separador DashboardDP.', 'Cliente persoal detectado. Podes conectar Google Calendar desde esta lapela de DashboardDP.'],
-  calendarGoogleManifestMissing: ['Introduce el Client ID de tu cliente «Extensión de Chrome». DashboardDP descargará un manifest personal sin secretos: sustitúyelo en la carpeta de la extensión y recárgala en Brave.', 'Enter the Client ID of your “Chrome Extension” client. DashboardDP will download a secret-free personal manifest: replace it in the extension folder and reload it in Brave.', 'Introdueix el Client ID del teu client «Extensió de Chrome». DashboardDP baixarà un manifest personal sense secrets: substitueix-lo a la carpeta de l’extensió i recarrega-la a Brave.', 'Sartu zure «Chrome luzapena» bezeroaren Client IDa. DashboardDPk sekreturik gabeko manifest pertsonala deskargatuko du: ordeztu luzapenaren karpetan eta berriro kargatu Brave-n.', 'Gib die Client ID deines „Chrome-Erweiterung“-Clients ein. DashboardDP lädt ein persönliches Manifest ohne Geheimnisse herunter: Ersetze es im Erweiterungsordner und lade Brave neu.', 'Saisissez le Client ID de votre client « Extension Chrome ». DashboardDP téléchargera un manifest personnel sans secret : remplacez-le dans le dossier de l’extension et rechargez Brave.', 'Inserisci il Client ID del client « Estensione Chrome ». DashboardDP scaricherà un manifest personale senza segreti: sostituiscilo nella cartella dell’estensione e ricarica Brave.', 'Introduz o Client ID do teu cliente « Extensão Chrome ». O DashboardDP descarregará um manifest pessoal sem segredos: substitui-o na pasta da extensão e recarrega no Brave.', 'Introduce o Client ID do teu cliente « Extensión de Chrome ». DashboardDP descargará un manifest persoal sen segredos: substitúeo no cartafol da extensión e recárgaa en Brave.'],
-  calendarGoogleDownloadManifest: ['Descargar manifest personal', 'Download personal manifest', 'Baixa el manifest personal', 'Deskargatu manifest pertsonala', 'Persönliches Manifest herunterladen', 'Télécharger le manifest personnel', 'Scarica manifest personale', 'Descarregar manifest pessoal', 'Descargar manifest persoal'],
-  calendarGoogleManifestDownloaded: ['Manifest personal descargado. Sustituye manifest.json en la carpeta de DashboardDP y pulsa Recargar en brave://extensions.', 'Personal manifest downloaded. Replace manifest.json in the DashboardDP folder and click Reload in brave://extensions.', 'Manifest personal baixat. Substitueix manifest.json a la carpeta de DashboardDP i prem Recarrega a brave://extensions.', 'Manifest pertsonala deskargatu da. Ordeztu manifest.json DashboardDP karpetan eta sakatu Berriro kargatu brave://extensions helbidean.', 'Persönliches Manifest heruntergeladen. Ersetze manifest.json im DashboardDP-Ordner und klicke in brave://extensions auf Neu laden.', 'Manifest personnel téléchargé. Remplacez manifest.json dans le dossier DashboardDP et cliquez sur Recharger dans brave://extensions.', 'Manifest personale scaricato. Sostituisci manifest.json nella cartella DashboardDP e fai clic su Ricarica in brave://extensions.', 'Manifest pessoal descarregado. Substitui manifest.json na pasta DashboardDP e clica em Recarregar em brave://extensions.', 'Manifest persoal descargado. Substitúe manifest.json no cartafol DashboardDP e preme Recargar en brave://extensions.'],
-  calendarGoogleOpenExtensionTab: ['Para conectar Google Calendar, abre DashboardDP desde su icono fijado y realiza la conexión en la pestaña que se abrirá.', 'To connect Google Calendar, open DashboardDP from its pinned icon and complete the connection in the tab that opens.', 'Per connectar Google Calendar, obre DashboardDP des de la seva icona fixada i fes la connexió a la pestanya que s’obrirà.', 'Google Calendar konektatzeko, ireki DashboardDP ainguratutako ikonotik eta egin konexioa irekiko den fitxan.', 'Um Google Calendar zu verbinden, öffne DashboardDP über sein angeheftetes Symbol und führe die Verbindung im geöffneten Tab durch.', 'Pour connecter Google Calendar, ouvrez DashboardDP depuis son icône épinglée et effectuez la connexion dans l’onglet qui s’ouvre.', 'Per collegare Google Calendar, apri DashboardDP dalla sua icona fissata ed effettua la connessione nella scheda che si apre.', 'Para ligar o Google Calendar, abre o DashboardDP pelo ícone fixado e conclui a ligação no separador que será aberto.', 'Para conectar Google Calendar, abre DashboardDP desde a súa icona fixada e realiza a conexión na lapela que se abrirá.'],
-  calendarGoogleStep1: ['Copia el ID de esta extensión.', 'Copy this extension ID.', 'Copia l’ID d’aquesta extensió.', 'Kopiatu luzapen honen IDa.', 'Kopiere diese Erweiterungs-ID.', 'Copiez l’ID de cette extension.', 'Copia l’ID di questa estensione.', 'Copia o ID desta extensão.', 'Copia o ID desta extensión.'],
-  calendarGoogleStep2: ['En Google Cloud crea un proyecto personal y activa «Google Calendar API».', 'In Google Cloud, create a personal project and enable “Google Calendar API”.', 'A Google Cloud crea un projecte personal i activa «Google Calendar API».', 'Google Cloud-en, sortu proiektu pertsonal bat eta aktibatu «Google Calendar API».', 'Erstelle in Google Cloud ein persönliches Projekt und aktiviere die „Google Calendar API“.', 'Dans Google Cloud, créez un projet personnel et activez « Google Calendar API ».', 'In Google Cloud, crea un progetto personale e attiva «Google Calendar API».', 'No Google Cloud, cria um projeto pessoal e ativa «Google Calendar API».', 'En Google Cloud crea un proxecto persoal e activa «Google Calendar API».'],
-  calendarGoogleStep3: ['En «Google Auth platform», configura el consentimiento para uso personal y añade tu cuenta como usuario de prueba si Google lo solicita.', 'In “Google Auth platform”, configure consent for personal use and add your account as a test user if Google requests it.', 'A «Google Auth platform», configura el consentiment per a ús personal i afegeix el teu compte com a usuari de prova si Google t’ho demana.', '«Google Auth platform»-en, konfiguratu baimena erabilera pertsonalerako eta gehitu zure kontua probako erabiltzaile gisa Googlek eskatzen badu.', 'Konfiguriere in der „Google Auth platform“ die Einwilligung für die persönliche Nutzung und füge dein Konto als Testnutzer hinzu, falls Google dies verlangt.', 'Dans « Google Auth platform », configurez le consentement pour un usage personnel et ajoutez votre compte comme utilisateur test si Google le demande.', 'In « Google Auth platform », configura il consenso per uso personale e aggiungi il tuo account come utente di prova se Google lo richiede.', 'Na «Google Auth platform», configura o consentimento para uso pessoal e adiciona a tua conta como utilizador de teste se o Google o pedir.', 'En «Google Auth platform», configura o consentimento para uso persoal e engade a túa conta como usuario de proba se Google o solicita.'],
-  calendarGoogleStep4: ['Crea una credencial OAuth de tipo «Extensión de Chrome», pega el ID de arriba como «ID de elemento» y copia su Client ID. No elijas «Aplicación web».', 'Create a “Chrome Extension” OAuth credential, paste the ID above as its “Item ID”, and copy its Client ID. Do not choose “Web application”.', 'Crea una credencial OAuth de tipus «Extensió de Chrome», enganxa l’ID de dalt com a «ID de l’element» i copia’n el Client ID. No triïs «Aplicació web».', 'Sortu «Chrome luzapena» motako OAuth kredentzial bat, itsatsi goiko IDa «Elementu ID» gisa eta kopiatu Client IDa. Ez aukeratu «Web aplikazioa».', 'Erstelle OAuth-Anmeldedaten vom Typ „Chrome-Erweiterung“, füge die obige ID als „Element-ID“ ein und kopiere die Client ID. Wähle nicht „Webanwendung“.', 'Créez des identifiants OAuth de type « Extension Chrome », collez l’ID ci-dessus comme « ID de l’élément » et copiez le Client ID. Ne choisissez pas « Application Web ».', 'Crea una credenziale OAuth di tipo « Estensione Chrome », incolla l’ID sopra come « ID elemento » e copia il Client ID. Non scegliere « Applicazione web ».', 'Cria uma credencial OAuth do tipo « Extensão Chrome », cola o ID acima como « ID do item » e copia o Client ID. Não escolhas « Aplicação Web ».', 'Crea unha credencial OAuth de tipo «Extensión de Chrome», pega o ID anterior como «ID de elemento» e copia o Client ID. Non elixas «Aplicación web».'],
-  calendarGoogleStep5: ['Pega ese Client ID aquí. Descarga el manifest personal, sustitúyelo como manifest.json en la carpeta de DashboardDP y pulsa Recargar en brave://extensions.', 'Paste that Client ID here. Download the personal manifest, replace manifest.json in the DashboardDP folder, and click Reload in brave://extensions.', 'Enganxa aquest Client ID aquí. Baixa el manifest personal, substitueix manifest.json a la carpeta DashboardDP i prem Recarrega a brave://extensions.', 'Itsatsi Client ID hori hemen. Deskargatu manifest pertsonala, ordeztu manifest.json DashboardDP karpetan eta sakatu Berriro kargatu brave://extensions helbidean.', 'Füge diese Client ID hier ein. Lade das persönliche Manifest herunter, ersetze manifest.json im DashboardDP-Ordner und klicke in brave://extensions auf Neu laden.', 'Collez ce Client ID ici. Téléchargez le manifest personnel, remplacez manifest.json dans le dossier DashboardDP et cliquez sur Recharger dans brave://extensions.', 'Incolla qui il Client ID. Scarica il manifest personale, sostituisci manifest.json nella cartella DashboardDP e fai clic su Ricarica in brave://extensions.', 'Cola aqui esse Client ID. Descarrega o manifest pessoal, substitui manifest.json na pasta DashboardDP e clica em Recarregar em brave://extensions.', 'Pega aquí ese Client ID. Descarga o manifest persoal, substitúeo como manifest.json no cartafol de DashboardDP e preme Recargar en brave://extensions.'],
-  calendarExtensionId: ['ID de esta extensión', 'This extension ID', 'ID d’aquesta extensió', 'Luzapen honen IDa', 'ID dieser Erweiterung', 'ID de cette extension', 'ID di questa estensione', 'ID desta extensão', 'ID desta extensión'],
-  calendarGoogleConnect: ['Conectar Google Calendar', 'Connect Google Calendar', 'Connecta Google Calendar', 'Konektatu Google Calendar', 'Google Calendar verbinden', 'Connecter Google Calendar', 'Collega Google Calendar', 'Ligar Google Calendar', 'Conectar Google Calendar'],
-  calendarPermissionDenied: ['No se concedieron los permisos necesarios.', 'The required permissions were not granted.', 'No s’han concedit els permisos necessaris.', 'Beharrezko baimenak ez dira eman.', 'Die erforderlichen Berechtigungen wurden nicht erteilt.', 'Les autorisations requises n’ont pas été accordées.', 'Le autorizzazioni necessarie non sono state concesse.', 'As permissões necessárias não foram concedidas.', 'Non se concederon os permisos necesarios.'],
-  calendarClientIdRequired: ['Introduce un Client ID válido.', 'Enter a valid Client ID.', 'Introdueix un Client ID vàlid.', 'Sartu baliozko Client ID bat.', 'Gib eine gültige Client ID ein.', 'Saisissez un Client ID valide.', 'Inserisci un Client ID valido.', 'Introduz um Client ID válido.', 'Introduce un Client ID válido.'],
-  calendarConnectionFailed: ['No se pudo conectar el calendario.', 'The calendar could not be connected.', 'No s’ha pogut connectar el calendari.', 'Ezin izan da egutegia konektatu.', 'Der Kalender konnte nicht verbunden werden.', 'Le calendrier n’a pas pu être connecté.', 'Non è stato possibile connettere il calendario.', 'Não foi possível ligar o calendário.', 'Non se puido conectar o calendario.'],
-  calendarReconnectNeeded: ['La autorización ha caducado. Tu configuración sigue guardada: pulsa «Renovar acceso y sincronizar».', 'Authorization expired. Your setup is still saved: select “Renew access and sync”.', 'L’autorització ha caducat. La configuració continua desada: prem «Renova l’accés i sincronitza».', 'Baimena iraungi da. Konfigurazioa gordeta dago: sakatu «Berritu sarbidea eta sinkronizatu».', 'Die Autorisierung ist abgelaufen. Deine Einrichtung ist gespeichert: Wähle „Zugriff erneuern und synchronisieren“.', 'L’autorisation a expiré. Votre configuration est conservée : choisissez « Renouveler l’accès et synchroniser ».', 'L’autorizzazione è scaduta. La configurazione è ancora salvata: scegli «Rinnova accesso e sincronizza».', 'A autorização expirou. A configuração continua guardada: seleciona «Renovar acesso e sincronizar».', 'A autorización caducou. A configuración segue gardada: preme «Renovar acceso e sincronizar».'],
-  calendarRenewAccess: ['Renovar acceso', 'Renew access', 'Renova l’accés', 'Berritu sarbidea', 'Zugriff erneuern', 'Renouveler l’accès', 'Rinnova accesso', 'Renovar acesso', 'Renovar acceso'],
-  calendarRenewAndSync: ['Renovar acceso y sincronizar', 'Renew access and sync', 'Renova l’accés i sincronitza', 'Berritu sarbidea eta sinkronizatu', 'Zugriff erneuern und synchronisieren', 'Renouveler l’accès et synchroniser', 'Rinnova accesso e sincronizza', 'Renovar acesso e sincronizar', 'Renovar acceso e sincronizar'],
-  calendarConnectionPaused: ['Conexión guardada · falta renovar la autorización', 'Connection saved · authorization renewal required', 'Connexió desada · cal renovar l’autorització', 'Konexioa gordeta · baimena berritu behar da', 'Verbindung gespeichert · Autorisierung muss erneuert werden', 'Connexion enregistrée · autorisation à renouveler', 'Connessione salvata · autorizzazione da rinnovare', 'Ligação guardada · é necessário renovar a autorização', 'Conexión gardada · cómpre renovar a autorización'],
-  calendarAccessRestored: ['Acceso al calendario recuperado.', 'Calendar access restored.', 'Accés al calendari recuperat.', 'Egutegirako sarbidea berreskuratu da.', 'Kalenderzugriff wiederhergestellt.', 'Accès au calendrier rétabli.', 'Accesso al calendario ripristinato.', 'Acesso ao calendário recuperado.', 'Acceso ao calendario recuperado.'],
-  calendarRenewHelp: ['DashboardDP intentará renovar el acceso automáticamente al abrir Brave. Si Google cierra la sesión o exige confirmación, usa «Renovar acceso»; no tendrás que repetir la configuración.', 'DashboardDP will try to renew access automatically when Brave opens. If Google signs you out or asks for confirmation, use “Renew access”; you will not need to repeat setup.', 'DashboardDP intentarà renovar l’accés automàticament en obrir Brave. Si Google tanca la sessió o demana confirmació, fes servir «Renova l’accés»; no caldrà repetir la configuració.', 'DashboardDPk Brave irekitzean sarbidea automatikoki berritzen saiatuko da. Googlek saioa ixten badu edo baieztapena eskatzen badu, erabili «Berritu sarbidea»; ez duzu konfigurazioa errepikatu beharko.', 'DashboardDP versucht beim Öffnen von Brave, den Zugriff automatisch zu erneuern. Wenn Google dich abmeldet oder eine Bestätigung verlangt, nutze „Zugriff erneuern“; die Einrichtung muss nicht wiederholt werden.', 'DashboardDP tentera de renouveler automatiquement l’accès à l’ouverture de Brave. Si Google vous déconnecte ou demande une confirmation, utilisez « Renouveler l’accès » ; vous n’aurez pas à refaire la configuration.', 'DashboardDP proverà a rinnovare automaticamente l’accesso all’apertura di Brave. Se Google disconnette l’account o chiede conferma, usa «Rinnova accesso»; non dovrai ripetere la configurazione.', 'O DashboardDP tentará renovar o acesso automaticamente ao abrir o Brave. Se o Google terminar a sessão ou pedir confirmação, usa «Renovar acesso»; não terás de repetir a configuração.', 'DashboardDP tentará renovar o acceso automaticamente ao abrir Brave. Se Google pecha a sesión ou pide confirmación, usa «Renovar acceso»; non terás que repetir a configuración.'],
-  calendarSyncFailed: ['No se pudo sincronizar el calendario.', 'The calendar could not be synchronized.', 'No s’ha pogut sincronitzar el calendari.', 'Ezin izan da egutegia sinkronizatu.', 'Der Kalender konnte nicht synchronisiert werden.', 'Le calendrier n’a pas pu être synchronisé.', 'Non è stato possibile sincronizzare il calendario.', 'Não foi possível sincronizar o calendário.', 'Non se puido sincronizar o calendario.'],
-  calendarSecurityCheckFailed: ['La comprobación de seguridad falló. Inténtalo otra vez.', 'The security check failed. Try again.', 'La comprovació de seguretat ha fallat. Torna-ho a provar.', 'Segurtasun-egiaztapenak huts egin du. Saiatu berriro.', 'Die Sicherheitsprüfung ist fehlgeschlagen. Versuche es erneut.', 'La vérification de sécurité a échoué. Réessayez.', 'Il controllo di sicurezza non è riuscito. Riprova.', 'A verificação de segurança falhou. Tenta novamente.', 'A comprobación de seguridade fallou. Téntao outra vez.'],
-  calendarConnectionCancelled: ['La conexión se canceló.', 'The connection was cancelled.', 'La connexió s’ha cancel·lat.', 'Konexioa ezeztatu da.', 'Die Verbindung wurde abgebrochen.', 'La connexion a été annulée.', 'La connessione è stata annullata.', 'A ligação foi cancelada.', 'A conexión cancelouse.'],
-  calendarUntitledEvent: ['Evento sin título', 'Untitled event', 'Esdeveniment sense títol', 'Izenbururik gabeko gertaera', 'Ereignis ohne Titel', 'Événement sans titre', 'Evento senza titolo', 'Evento sem título', 'Evento sen título'],
-  calendarNoConnection: ['Configura primero una conexión personal.', 'Set up a personal connection first.', 'Configura primer una connexió personal.', 'Lehenik konexio pertsonal bat konfiguratu.', 'Richte zuerst eine persönliche Verbindung ein.', 'Configurez d’abord une connexion personnelle.', 'Configura prima una connessione personale.', 'Configura primeiro uma ligação pessoal.', 'Configura primeiro unha conexión persoal.'],
-  calendarSyncSummary: ['Sincronización terminada: {imported} añadidos, {updated} actualizados y {pushed} enviados.', 'Sync complete: {imported} added, {updated} updated and {pushed} sent.', 'Sincronització acabada: {imported} afegits, {updated} actualitzats i {pushed} enviats.', 'Sinkronizazioa amaituta: {imported} gehituta, {updated} eguneratuta eta {pushed} bidalita.', 'Synchronisierung beendet: {imported} hinzugefügt, {updated} aktualisiert und {pushed} gesendet.', 'Synchronisation terminée : {imported} ajoutés, {updated} mis à jour et {pushed} envoyés.', 'Sincronizzazione completata: {imported} aggiunti, {updated} aggiornati e {pushed} inviati.', 'Sincronização concluída: {imported} adicionados, {updated} atualizados e {pushed} enviados.', 'Sincronización rematada: {imported} engadidos, {updated} actualizados e {pushed} enviados.']
-  ,stickyNotes: ['Notas adhesivas', 'Sticky notes', 'Notes adhesives', 'Ohar itsaskorrak', 'Haftnotizen', 'Notes adhésives', 'Note adesive', 'Notas adesivas', 'Notas adhesivas']
-  ,stickySubtitle: ['Notas locales, rápidas y ligeras.', 'Local, quick and lightweight notes.', 'Notes locals, ràpids i lleugers.', 'Ohar lokal, azkar eta arinak.', 'Lokale, schnelle und leichte Notizen.', 'Notes locales, rapides et légères.', 'Note locali, rapide e leggere.', 'Notas locais, rápidas e leves.', 'Notas locais, rápidas e lixeiras.']
-  ,newNote: ['Nueva nota', 'New note', 'Nota nova', 'Ohar berria', 'Neue Notiz', 'Nouvelle note', 'Nuova nota', 'Nova nota', 'Nova nota']
-  ,noteCount: ['{count} notas', '{count} notes', '{count} notes', '{count} ohar', '{count} Notizen', '{count} notes', '{count} note', '{count} notas', '{count} notas']
-  ,stickyEmpty: ['Crea una nota para guardar una idea, una lista o una imagen.', 'Create a note to save an idea, list or image.', 'Crea una nota per desar una idea, una llista o una imatge.', 'Sortu ohar bat ideia, zerrenda edo irudi bat gordetzeko.', 'Erstelle eine Notiz für eine Idee, Liste oder ein Bild.', 'Créez une note pour enregistrer une idée, une liste ou une image.', 'Crea una nota per salvare un’idea, una lista o un’immagine.', 'Cria uma nota para guardar uma ideia, lista ou imagem.', 'Crea unha nota para gardar unha idea, lista ou imaxe.']
-  ,untitledNote: ['Sin título', 'Untitled', 'Sense títol', 'Izenbururik gabe', 'Ohne Titel', 'Sans titre', 'Senza titolo', 'Sem título', 'Sen título']
-  ,pinnedNote: ['Fijada', 'Pinned', 'Fixada', 'Finkatuta', 'Angeheftet', 'Épinglée', 'Fissata', 'Fixada', 'Fixada']
-  ,emptyNote: ['Nota vacía', 'Empty note', 'Nota buida', 'Ohar hutsa', 'Leere Notiz', 'Note vide', 'Nota vuota', 'Nota vazia', 'Nota baleira']
-  ,pin: ['Fijar', 'Pin', 'Fixa', 'Finkatu', 'Anheften', 'Épingler', 'Fissa', 'Fixar', 'Fixar']
-  ,unpin: ['Desfijar', 'Unpin', 'Desfixa', 'Desfinkatu', 'Lösen', 'Désépingler', 'Sblocca', 'Desafixar', 'Desfixar']
-  ,delete: ['Eliminar', 'Delete', 'Suprimeix', 'Ezabatu', 'Löschen', 'Supprimer', 'Elimina', 'Eliminar', 'Eliminar']
-  ,editNote: ['Editar nota', 'Edit note', 'Edita la nota', 'Editatu oharra', 'Notiz bearbeiten', 'Modifier la note', 'Modifica nota', 'Editar nota', 'Editar nota']
-  ,noteTitlePlaceholder: ['Título de la nota', 'Note title', 'Títol de la nota', 'Oharraren izenburua', 'Notiztitel', 'Titre de la note', 'Titolo della nota', 'Título da nota', 'Título da nota']
-  ,noteContent: ['Contenido de la nota', 'Note content', 'Contingut de la nota', 'Oharraren edukia', 'Notizinhalt', 'Contenu de la note', 'Contenuto della nota', 'Conteúdo da nota', 'Contido da nota']
-  ,fontFamily: ['Fuente', 'Font', 'Font', 'Letra-tipoa', 'Schriftart', 'Police', 'Carattere', 'Tipo de letra', 'Fonte']
-  ,fontSize: ['Tamaño', 'Size', 'Mida', 'Tamaina', 'Größe', 'Taille', 'Dimensione', 'Tamanho', 'Tamaño']
-  ,heading: ['Título', 'Heading', 'Títol', 'Izenburua', 'Überschrift', 'Titre', 'Titolo', 'Título', 'Título']
-  ,list: ['Lista', 'List', 'Llista', 'Zerrenda', 'Liste', 'Liste', 'Elenco', 'Lista', 'Lista']
-  ,image: ['Imagen', 'Image', 'Imatge', 'Irudia', 'Bild', 'Image', 'Immagine', 'Imagem', 'Imaxe']
-  ,noteColor: ['Color de la nota', 'Note color', 'Color de la nota', 'Oharraren kolorea', 'Notizfarbe', 'Couleur de la note', 'Colore della nota', 'Cor da nota', 'Cor da nota']
-  ,saveNote: ['Guardar nota', 'Save note', 'Desa la nota', 'Gorde oharra', 'Notiz speichern', 'Enregistrer la note', 'Salva nota', 'Guardar nota', 'Gardar nota']
-  ,calendarGoogleIcs: ['Google descarga los calendarios en un ZIP: extrae sus .ics e impórtalos juntos.', 'Google downloads calendars in a ZIP: extract its .ics files and import them together.', 'Google descarrega els calendaris en un ZIP: extreu-ne els .ics i importa’ls junts.', 'Googlek egutegiak ZIP batean deskargatzen ditu: atera .ics fitxategiak eta inportatu batera.', 'Google lädt Kalender als ZIP herunter: .ics-Dateien entpacken und zusammen importieren.', 'Google télécharge les calendriers dans un ZIP : extrayez les .ics et importez-les ensemble.', 'Google scarica i calendari in uno ZIP: estrai i .ics e importali insieme.', 'O Google descarrega calendários num ZIP: extrai os .ics e importa-os juntos.', 'Google descarga os calendarios nun ZIP: extrae os .ics e impórtaos xuntos.']
-  ,calendarMicrosoftIcs: ['Importa un .ics o configura tu propia conexión segura.', 'Import an .ics file or set up your own secure connection.', 'Importa un .ics o configura la teva connexió segura.', 'Inportatu .ics bat edo konfiguratu zure konexio segurua.', 'Importiere eine .ics-Datei oder richte deine sichere Verbindung ein.', 'Importez un .ics ou configurez votre propre connexion sécurisée.', 'Importa un .ics o configura la tua connessione sicura.', 'Importa um .ics ou configura a tua ligação segura.', 'Importa un .ics ou configura a túa conexión segura.']
-  ,calendarPersonalStorage: ['La conexión personal es opcional. El Client ID, los permisos y los datos se guardan únicamente en tu navegador; DashboardDP no utiliza servidores propios.', 'The personal connection is optional. Client ID, permissions and data stay only in your browser; DashboardDP uses no own server.', 'La connexió personal és opcional. El Client ID, els permisos i les dades només es desen al navegador; DashboardDP no usa servidor propi.', 'Konexio pertsonala aukerakoa da. Client IDa, baimenak eta datuak zure nabigatzailean soilik gordetzen dira; DashboardDPk ez du zerbitzari propiorik erabiltzen.', 'Die persönliche Verbindung ist optional. Client ID, Berechtigungen und Daten bleiben nur im Browser; DashboardDP nutzt keinen eigenen Server.', 'La connexion personnelle est facultative. Client ID, autorisations et données restent dans votre navigateur ; DashboardDP n’utilise aucun serveur propre.', 'La connessione personale è opzionale. Client ID, autorizzazioni e dati restano solo nel browser; DashboardDP non usa server propri.', 'A ligação pessoal é opcional. Client ID, permissões e dados ficam apenas no navegador; o DashboardDP não usa servidor próprio.', 'A conexión persoal é opcional. Client ID, permisos e datos só quedan no navegador; DashboardDP non usa servidor propio.']
-  ,calendarGuideLead: ['Esta conexión es personal y opcional: creas tu propio Client ID y autorizas tu propia cuenta. No introduzcas contraseñas ni claves secretas. Los datos de acceso se guardan solo en tu navegador y no se incluyen al exportar el Dashboard.', 'This is a personal, optional connection: you create your own Client ID and authorize your own account. Never enter passwords or client secrets. Access data stays in your browser and is not included in Dashboard exports.', 'Aquesta connexió és personal i opcional: crees el teu Client ID i autoritzes el teu compte. No introdueixis contrasenyes ni claus secretes. Les dades només es desen al navegador i no s’exporten.', 'Konexio hau pertsonala eta aukerakoa da: zure Client IDa sortu eta zure kontua baimentzen duzu. Ez sartu pasahitzik edo gako sekreturik. Datuak nabigatzailean bakarrik gordetzen dira.', 'Diese Verbindung ist persönlich und optional: Du erstellst deine Client ID und autorisierst dein Konto. Gib niemals Passwörter oder Client Secrets ein. Zugangsdaten bleiben im Browser und werden nicht exportiert.', 'Cette connexion est personnelle et facultative : vous créez votre Client ID et autorisez votre compte. Ne saisissez jamais de mot de passe ni de secret client. Les données restent dans le navigateur et ne sont pas exportées.', 'Questa connessione è personale e facoltativa: crei il tuo Client ID e autorizzi il tuo account. Non inserire password o client secret. I dati restano nel browser e non vengono esportati.', 'Esta ligação é pessoal e opcional: crias o teu Client ID e autorizas a tua conta. Nunca introduzas palavras-passe ou client secret. Os dados ficam no navegador e não são exportados.', 'Esta conexión é persoal e opcional: creas o teu Client ID e autorizas a túa conta. Non introduzas contrasinais nin client secret. Os datos quedan no navegador e non se exportan.']
-  ,calendarSecurityResponsibility: ['Seguridad y responsabilidad: esta opción es avanzada y voluntaria. Tú gestionas tu proyecto OAuth y sus permisos. DashboardDP solo solicita acceso al calendario que eliges mediante la ventana oficial del proveedor.', 'Security and responsibility: this is an advanced, voluntary option. You manage your OAuth project and its permissions. DashboardDP requests access only to the calendar you choose through the provider’s official window.', 'Seguretat i responsabilitat: és una opció avançada i voluntària. Tu gestiones el projecte OAuth i els permisos. DashboardDP només demana accés al calendari triat mitjançant la finestra oficial.', 'Segurtasuna eta erantzukizuna: aukera aurreratu eta borondatezkoa da. Zuk kudeatzen dituzu OAuth proiektua eta baimenak. DashboardDPk aukeratutako egutegirako sarbidea besterik ez du eskatzen.', 'Sicherheit und Verantwortung: Dies ist eine freiwillige erweiterte Option. Du verwaltest dein OAuth-Projekt und dessen Berechtigungen. DashboardDP fordert nur Zugriff auf den gewählten Kalender über das offizielle Fenster an.', 'Sécurité et responsabilité : cette option est avancée et volontaire. Vous gérez votre projet OAuth et ses autorisations. DashboardDP ne demande l’accès qu’au calendrier choisi via la fenêtre officielle.', 'Sicurezza e responsabilità: questa è un’opzione avanzata e volontaria. Gestisci tu il progetto OAuth e le autorizzazioni. DashboardDP richiede accesso solo al calendario scelto tramite la finestra ufficiale.', 'Segurança e responsabilidade: esta opção é avançada e voluntária. Tu geres o projeto OAuth e as permissões. O DashboardDP pede acesso apenas ao calendário escolhido pela janela oficial.', 'Seguridade e responsabilidade: esta opción é avanzada e voluntaria. Ti xestionas o proxecto OAuth e os permisos. DashboardDP só solicita acceso ao calendario elixido pola xanela oficial.']
-  ,backToBoard: ['Volver al tablero', 'Back to board', 'Tornar al tauler', 'Itzuli taulara', 'Zurück zur Tafel', 'Retour au tableau', 'Torna alla bacheca', 'Voltar ao quadro', 'Volver ao taboleiro']
-  ,redirectCopied: ['URI copiada', 'URI copied', 'URI copiada', 'URIa kopiatuta', 'URI kopiert', 'URI copiée', 'URI copiata', 'URI copiado', 'URI copiada']
-  ,connectionReady: ['Conexión preparada', 'Connection ready', 'Connexió preparada', 'Konexioa prest', 'Verbindung bereit', 'Connexion prête', 'Connessione pronta', 'Ligação pronta', 'Conexión preparada']
-  ,disconnected: ['Desconectado', 'Disconnected', 'Desconnectat', 'Deskonektatuta', 'Getrennt', 'Déconnecté', 'Disconnesso', 'Desligado', 'Desconectado']
-  ,calendarPermissionTitle: ['Antes de conectar {service}', 'Before connecting {service}', 'Abans de connectar {service}', '{service} konektatu aurretik', 'Vor dem Verbinden mit {service}', 'Avant de connecter {service}', 'Prima di connettere {service}', 'Antes de ligar {service}', 'Antes de conectar {service}']
-  ,calendarPermissionIntro: ['Brave mostrará un aviso de permiso. Es normal: permite a DashboardDP comunicarse solo con los servicios oficiales necesarios para iniciar sesión y sincronizar tu calendario.', 'Brave will show a permission prompt. This is normal: it allows DashboardDP to communicate only with the official services needed to sign in and sync your calendar.', 'Brave mostrarà un avís de permís. És normal: permet a DashboardDP comunicar-se només amb els serveis oficials necessaris per iniciar sessió i sincronitzar el calendari.', 'Brave-k baimen-ohar bat erakutsiko du. Normala da: DashboardDPri saioa hasteko eta egutegia sinkronizatzeko behar diren zerbitzu ofizialekin soilik komunikatzeko aukera ematen dio.', 'Brave zeigt eine Berechtigungsabfrage. Das ist normal: Sie erlaubt DashboardDP nur die Kommunikation mit den offiziellen Diensten für Anmeldung und Kalendersynchronisierung.', 'Brave affichera une demande d’autorisation. C’est normal : elle permet à DashboardDP de communiquer uniquement avec les services officiels nécessaires à la connexion et à la synchronisation du calendrier.', 'Brave mostrerà una richiesta di autorizzazione. È normale: consente a DashboardDP di comunicare solo con i servizi ufficiali necessari per accedere e sincronizzare il calendario.', 'O Brave mostrará um pedido de permissão. É normal: permite ao DashboardDP comunicar apenas com os serviços oficiais necessários para iniciar sessão e sincronizar o calendário.', 'Brave mostrará un aviso de permiso. É normal: permite que DashboardDP se comunique só cos servizos oficiais necesarios para iniciar sesión e sincronizar o calendario.']
-  ,calendarPermissionServices: ['Brave mostrará estos servicios oficiales:', 'Brave will show these official services:', 'Brave mostrarà aquests serveis oficials:', 'Brave-k zerbitzu ofizial hauek erakutsiko ditu:', 'Brave zeigt diese offiziellen Dienste:', 'Brave affichera ces services officiels :', 'Brave mostrerà questi servizi ufficiali:', 'O Brave mostrará estes serviços oficiais:', 'Brave mostrará estes servizos oficiais:']
-  ,calendarPermissionLogin: ['Inicio de sesión seguro', 'Secure sign-in', 'Inici de sessió segur', 'Saio-hasiera segurua', 'Sichere Anmeldung', 'Connexion sécurisée', 'Accesso sicuro', 'Início de sessão seguro', 'Inicio de sesión seguro']
-  ,calendarPermissionToken: ['Autorización segura', 'Secure authorization', 'Autorització segura', 'Baimen segurua', 'Sichere Autorisierung', 'Autorisation sécurisée', 'Autorizzazione sicura', 'Autorização segura', 'Autorización segura']
-  ,calendarPermissionSync: ['Sincronización del calendario', 'Calendar synchronization', 'Sincronització del calendari', 'Egutegiaren sinkronizazioa', 'Kalendersynchronisierung', 'Synchronisation du calendrier', 'Sincronizzazione del calendario', 'Sincronização do calendário', 'Sincronización do calendario']
-  ,calendarPermissionNoAccess: ['DashboardDP no solicita acceso a tu contraseña, Gmail, Drive, favoritos ni historial. En el paso siguiente, el propio proveedor mostrará y pedirá los permisos concretos del calendario. Puedes cancelar ahora o en cualquier momento.', 'DashboardDP does not request access to your password, Gmail, Drive, bookmarks, or browsing history. In the next step, the provider itself will show and request the exact calendar permissions. You can cancel now or at any time.', 'DashboardDP no demana accés a la contrasenya, Gmail, Drive, favorits ni historial. En el pas següent, el proveïdor mostrarà i demanarà els permisos concrets del calendari. Pots cancel·lar ara o en qualsevol moment.', 'DashboardDPk ez du zure pasahitza, Gmail, Drive, laster-markoak edo nabigazio-historialerako sarbiderik eskatzen. Hurrengo urratsean, hornitzaileak berak egutegiaren baimen zehatzak erakutsi eta eskatuko ditu. Orain edo edozein unetan ezeztatu dezakezu.', 'DashboardDP fordert keinen Zugriff auf dein Passwort, Gmail, Drive, Lesezeichen oder den Browserverlauf an. Im nächsten Schritt zeigt der Anbieter selbst die genauen Kalenderberechtigungen an und fordert sie an. Du kannst jetzt oder jederzeit abbrechen.', 'DashboardDP ne demande aucun accès à votre mot de passe, Gmail, Drive, vos favoris ou votre historique de navigation. À l’étape suivante, le fournisseur affichera et demandera les autorisations précises du calendrier. Vous pouvez annuler maintenant ou à tout moment.', 'DashboardDP non richiede accesso alla password, a Gmail, Drive, preferiti o cronologia di navigazione. Nel passaggio successivo, il provider mostrerà e richiederà le autorizzazioni specifiche del calendario. Puoi annullare ora o in qualsiasi momento.', 'O DashboardDP não pede acesso à tua palavra-passe, Gmail, Drive, favoritos ou histórico de navegação. No passo seguinte, o próprio fornecedor mostrará e pedirá as permissões específicas do calendário. Podes cancelar agora ou a qualquer momento.', 'DashboardDP non solicita acceso ao teu contrasinal, Gmail, Drive, favoritos ou historial de navegación. No seguinte paso, o propio provedor mostrará e pedirá os permisos concretos do calendario. Podes cancelar agora ou en calquera momento.']
-  ,calendarPermissionContinue: ['Continuar y mostrar permiso de Brave', 'Continue and show Brave permission', 'Continua i mostra el permís de Brave', 'Jarraitu eta erakutsi Brave-ren baimena', 'Fortfahren und Brave-Berechtigung anzeigen', 'Continuer et afficher l’autorisation Brave', 'Continua e mostra l’autorizzazione di Brave', 'Continuar e mostrar permissão do Brave', 'Continuar e mostrar permiso de Brave']
-  ,notesVisible: ['Notas visibles', 'Visible notes', 'Notes visibles', 'Ohar ikusgaiak', 'Sichtbare Notizen', 'Notes visibles', 'Note visibili', 'Notas visíveis', 'Notas visibles']
-  ,showInPanel: ['Mostrar en mi barra personalizada', 'Show in my custom bar', 'Mostra a la meva barra personalitzada', 'Erakutsi nire barra pertsonalizatuan', 'In meiner persönlichen Leiste anzeigen', 'Afficher dans ma barre personnalisée', 'Mostra nella mia barra personalizzata', 'Mostrar na minha barra personalizada', 'Mostrar na miña barra personalizada']
-  ,noNotesVisible: ['Aún no has elegido notas para mostrar aquí.', 'You have not selected any notes to show here yet.', 'Encara no has triat notes per mostrar aquí.', 'Oraindik ez duzu hemen erakusteko oharrik aukeratu.', 'Du hast noch keine Notizen ausgewählt, die hier angezeigt werden.', 'Vous n’avez pas encore sélectionné de notes à afficher ici.', 'Non hai ancora scelto note da mostrare qui.', 'Ainda não escolheste notas para mostrar aqui.', 'Aínda non elixiches notas para mostrar aquí.']
-  ,chooseNotes: ['Elegir notas', 'Choose notes', 'Triar notes', 'Aukeratu oharrak', 'Notizen auswählen', 'Choisir des notes', 'Scegli note', 'Escolher notas', 'Escoller notas']
-  ,notesMasonry: ['Usar dos columnas masonry', 'Use two-column masonry', 'Utilitza dues columnes masonry', 'Erabili bi zutabeko masonry', 'Zweispaltiges Masonry verwenden', 'Utiliser deux colonnes masonry', 'Usa due colonne masonry', 'Usar duas colunas masonry', 'Usar dúas columnas masonry']
-  ,notesStack: ['Usar una columna', 'Use one column', 'Utilitza una columna', 'Erabili zutabe bat', 'Eine Spalte verwenden', 'Utiliser une colonne', 'Usa una colonna', 'Usar uma coluna', 'Usar unha columna']
-  ,sortQuickAccess: ['Ordenar fijados y grupos', 'Sort pinned items and groups', 'Ordena fixats i grups', 'Ordenatu finkatuak eta taldeak', 'Angeheftete Elemente und Gruppen sortieren', 'Trier les favoris épinglés et les groupes', 'Ordina elementi fissati e gruppi', 'Ordenar fixados e grupos', 'Ordenar fixados e grupos']
-  ,sortWorkspaces: ['Ordenar espacios de trabajo', 'Sort workspaces', 'Ordena espais de treball', 'Ordenatu lan-eremuak', 'Arbeitsbereiche sortieren', 'Trier les espaces de travail', 'Ordina spazi di lavoro', 'Ordenar espaços de trabalho', 'Ordenar espazos de traballo']
-  ,sortCustom: ['Personalizado', 'Custom', 'Personalitzat', 'Pertsonalizatua', 'Benutzerdefiniert', 'Personnalisé', 'Personalizzato', 'Personalizado', 'Personalizado']
-  ,sortNameAsc: ['Nombre: A–Z', 'Name: A–Z', 'Nom: A–Z', 'Izena: A–Z', 'Name: A–Z', 'Nom : A–Z', 'Nome: A–Z', 'Nome: A–Z', 'Nome: A–Z']
-  ,sortNameDesc: ['Nombre: Z–A', 'Name: Z–A', 'Nom: Z–A', 'Izena: Z–A', 'Name: Z–A', 'Nom : Z–A', 'Nome: Z–A', 'Nome: Z–A', 'Nome: Z–A']
-  ,sortRecentDesc: ['Fecha: reciente → antiguo', 'Date: newest → oldest', 'Data: recent → antiga', 'Data: berriena → zaharrena', 'Datum: neu → alt', 'Date : récente → ancienne', 'Data: recente → meno recente', 'Data: recente → antiga', 'Data: recente → antiga']
-  ,sortRecentAsc: ['Fecha: antiguo → reciente', 'Date: oldest → newest', 'Data: antiga → recent', 'Data: zaharrena → berriena', 'Datum: alt → neu', 'Date : ancienne → récente', 'Data: meno recente → recente', 'Data: antiga → recente', 'Data: antiga → recente']
-  ,sortUseDesc: ['Uso: mayor → menor', 'Usage: highest → lowest', 'Ús: major → menor', 'Erabilera: handiena → txikiena', 'Nutzung: hoch → niedrig', 'Utilisation : élevée → faible', 'Uso: maggiore → minore', 'Uso: maior → menor', 'Uso: maior → menor']
-  ,sortUseAsc: ['Uso: menor → mayor', 'Usage: lowest → highest', 'Ús: menor → major', 'Erabilera: txikiena → handiena', 'Nutzung: niedrig → hoch', 'Utilisation : faible → élevée', 'Uso: minore → maggiore', 'Uso: menor → maior', 'Uso: menor → maior']
-  ,sortAccessDesc: ['Acceso: reciente → antiguo', 'Access: newest → oldest', 'Accés: recent → antic', 'Sarbidea: berriena → zaharrena', 'Zugriff: neu → alt', 'Accès : récent → ancien', 'Accesso: recente → meno recente', 'Acesso: recente → antigo', 'Acceso: recente → antigo']
-  ,sortAccessAsc: ['Acceso: antiguo → reciente', 'Access: oldest → newest', 'Accés: antic → recent', 'Sarbidea: zaharrena → berriena', 'Zugriff: alt → neu', 'Accès : ancien → récent', 'Accesso: meno recente → recente', 'Acesso: antigo → recente', 'Acceso: antigo → recente']
+  "taskManager": [
+    "Gestor de tareas",
+    "Task manager"
+  ],
+  "localTasks": [
+    "Tus tareas se guardan solo en este navegador.",
+    "Your tasks stay only in this browser."
+  ],
+  "board": [
+    "Tablero",
+    "Board"
+  ],
+  "calendar": [
+    "Calendario",
+    "Calendar"
+  ],
+  "importIcs": [
+    "Importar .ics",
+    "Import .ics"
+  ],
+  "exportIcs": [
+    "Exportar .ics",
+    "Export .ics"
+  ],
+  "syncNow": [
+    "Sincronizar ahora",
+    "Sync now"
+  ],
+  "calendarAutoSync": [
+    "Sincronización inteligente del calendario",
+    "Smart calendar sync"
+  ],
+  "calendarAutoSyncHelp": [
+    "También se comprueba al abrir el Dashboard, entrar en Calendario y volver a esta pestaña. Nunca abre el inicio de sesión automáticamente.",
+    "Also checks when opening the Dashboard, entering Calendar and returning to this tab. It never opens sign-in automatically."
+  ],
+  "calendarAutoOff": [
+    "Desactivada",
+    "Off"
+  ],
+  "calendarEveryMinutes": [
+    "Cada {minutes} minutos",
+    "Every {minutes} minutes"
+  ],
+  "calendarSyncRemoved": [
+    "{count} eliminados",
+    "{count} removed"
+  ],
+  "newTask": [
+    "Nueva tarea",
+    "New task"
+  ],
+  "taskTodo": [
+    "Por hacer",
+    "To do"
+  ],
+  "taskDoing": [
+    "En curso",
+    "In progress"
+  ],
+  "taskDone": [
+    "Hecho",
+    "Done"
+  ],
+  "dropTask": [
+    "Suelta una tarea aquí",
+    "Drop a task here"
+  ],
+  "noDueDates": [
+    "Sin vencimientos",
+    "No due dates"
+  ],
+  "taskSort": [
+    "Ordenar",
+    "Sort"
+  ],
+  "taskSortManual": [
+    "Orden manual",
+    "Manual order"
+  ],
+  "taskSortDue": [
+    "Fecha más próxima",
+    "Nearest due date"
+  ],
+  "taskSortPriority": [
+    "Prioridad",
+    "Priority"
+  ],
+  "taskSortUpdated": [
+    "Actualizadas recientemente",
+    "Recently updated"
+  ],
+  "taskComfortable": [
+    "Vista cómoda",
+    "Comfortable view"
+  ],
+  "taskCompact": [
+    "Vista compacta",
+    "Compact view"
+  ],
+  "taskReorderHelp": [
+    "Arrastra una tarjeta para colocarla exactamente donde quieras.",
+    "Drag a card to place it exactly where you want."
+  ],
+  "taskProperties": [
+    "Propiedades",
+    "Properties"
+  ],
+  "priority": [
+    "Prioridad",
+    "Priority"
+  ],
+  "priorityLow": [
+    "Baja",
+    "Low"
+  ],
+  "priorityNormal": [
+    "Normal",
+    "Normal"
+  ],
+  "priorityHigh": [
+    "Alta",
+    "High"
+  ],
+  "priorityUrgent": [
+    "Urgente",
+    "Urgent"
+  ],
+  "calendarMonth": [
+    "Mes",
+    "Month"
+  ],
+  "calendarWeek": [
+    "Semana",
+    "Week"
+  ],
+  "calendarAgenda": [
+    "Agenda",
+    "Agenda"
+  ],
+  "today": [
+    "Hoy",
+    "Today"
+  ],
+  "previousPeriod": [
+    "Periodo anterior",
+    "Previous period"
+  ],
+  "nextPeriod": [
+    "Periodo siguiente",
+    "Next period"
+  ],
+  "noCalendarTasks": [
+    "No hay tareas con fecha en este periodo.",
+    "There are no dated tasks in this period."
+  ],
+  "calendarHelp": [
+    "Añade una fecha a una tarea para verla en el calendario y poder sincronizarla.",
+    "Add a date to a task to see it in the calendar and sync it."
+  ],
+  "dueLabel": [
+    "Vence",
+    "Due"
+  ],
+  "reminderLabel": [
+    "Aviso",
+    "Reminder"
+  ],
+  "clearDate": [
+    "Sin fecha",
+    "No date"
+  ],
+  "edit": [
+    "Editar",
+    "Edit"
+  ],
+  "done": [
+    "Hecha",
+    "Done"
+  ],
+  "reopen": [
+    "Reabrir",
+    "Reopen"
+  ],
+  "taskTitle": [
+    "Título",
+    "Title"
+  ],
+  "taskTitlePlaceholder": [
+    "Título de la tarea",
+    "Task title"
+  ],
+  "notes": [
+    "Notas",
+    "Notes"
+  ],
+  "notesPlaceholder": [
+    "Notas, enlaces o contexto (opcional)",
+    "Notes, links or context (optional)"
+  ],
+  "column": [
+    "Columna",
+    "Column"
+  ],
+  "dueDate": [
+    "Fecha y hora",
+    "Date and time"
+  ],
+  "reminder": [
+    "Recordatorio",
+    "Reminder"
+  ],
+  "reminderHelp": [
+    "El aviso se muestra aunque el dashboard esté cerrado. Déjalo vacío si no quieres una notificación.",
+    "The alert can appear while the dashboard is closed. Leave it empty to skip notifications."
+  ],
+  "calendarTarget": [
+    "Calendario de sincronización",
+    "Sync calendar"
+  ],
+  "noSync": [
+    "Solo local (sin sincronizar)",
+    "Local only (no sync)"
+  ],
+  "calendarHub": [
+    "Calendarios",
+    "Calendars"
+  ],
+  "chooseIcs": [
+    "Elegir archivo .ics",
+    "Choose .ics file"
+  ],
+  "calendarLocalInfo": [
+    "Puedes importar uno o varios calendarios .ics. Sus eventos se suman sin borrar los ya existentes.",
+    "You can import one or more .ics calendars. Their events are added without deleting existing ones."
+  ],
+  "personalConnection": [
+    "Conexión personal opcional",
+    "Optional personal connection"
+  ],
+  "setupConnection": [
+    "Configurar mi conexión",
+    "Set up my connection"
+  ],
+  "connected": [
+    "Conectado",
+    "Connected"
+  ],
+  "disconnect": [
+    "Desconectar y borrar datos locales",
+    "Disconnect and erase local data"
+  ],
+  "clientId": [
+    "Tu Client ID",
+    "Your Client ID"
+  ],
+  "redirectUri": [
+    "URI de redirección",
+    "Redirect URI"
+  ],
+  "copy": [
+    "Copiar",
+    "Copy"
+  ],
+  "noSecret": [
+    "Nunca pegues una clave secreta ni tu contraseña. Solo se necesita el Client ID.",
+    "Never paste a client secret or your password. Only the Client ID is needed."
+  ],
+  "saveConnect": [
+    "Guardar y conectar",
+    "Save and connect"
+  ],
+  "calendarExtensionOnly": [
+    "Esta función requiere instalar DashboardDP como extensión.",
+    "This feature requires DashboardDP to be installed as an extension."
+  ],
+  "calendarUnsupportedBrowser": [
+    "Este navegador no permite la autorización segura para esta extensión.",
+    "This browser does not support secure authorization for this extension."
+  ],
+  "calendarBraveIdentityDisabled": [
+    "En Brave, abre brave://settings/extensions y activa «Permitir el inicio de sesión de Google para extensiones». Después vuelve a intentar la conexión.",
+    "In Brave, open brave://settings/extensions and enable “Allow Google login for extensions”. Then try connecting again."
+  ],
+  "calendarGooglePersonalMode": [
+    "Modo personal avanzado: Google requiere un cliente OAuth de tipo «Extensión de Chrome», no «Aplicación web». Este modo no usa ni guarda claves secretas.",
+    "Advanced personal mode: Google requires a “Chrome Extension” OAuth client, not a “Web application”. This mode never uses or stores client secrets."
+  ],
+  "calendarGoogleManifestReady": [
+    "Cliente personal detectado. Puedes conectar Google Calendar desde esta pestaña de DashboardDP.",
+    "Personal client detected. You can connect Google Calendar from this DashboardDP tab."
+  ],
+  "calendarGoogleManifestMissing": [
+    "Introduce el Client ID de tu cliente «Extensión de Chrome». DashboardDP descargará un manifest personal sin secretos: sustitúyelo en la carpeta de la extensión y recárgala en Brave.",
+    "Enter the Client ID of your “Chrome Extension” client. DashboardDP will download a secret-free personal manifest: replace it in the extension folder and reload it in Brave."
+  ],
+  "calendarGoogleDownloadManifest": [
+    "Descargar manifest personal",
+    "Download personal manifest"
+  ],
+  "calendarGoogleManifestDownloaded": [
+    "Manifest personal descargado. Sustituye manifest.json en la carpeta de DashboardDP y pulsa Recargar en brave://extensions.",
+    "Personal manifest downloaded. Replace manifest.json in the DashboardDP folder and click Reload in brave://extensions."
+  ],
+  "calendarGoogleOpenExtensionTab": [
+    "Para conectar Google Calendar, abre DashboardDP desde su icono fijado y realiza la conexión en la pestaña que se abrirá.",
+    "To connect Google Calendar, open DashboardDP from its pinned icon and complete the connection in the tab that opens."
+  ],
+  "calendarGoogleStep1": [
+    "Copia el ID de esta extensión.",
+    "Copy this extension ID."
+  ],
+  "calendarGoogleStep2": [
+    "En Google Cloud crea un proyecto personal y activa «Google Calendar API».",
+    "In Google Cloud, create a personal project and enable “Google Calendar API”."
+  ],
+  "calendarGoogleStep3": [
+    "En «Google Auth platform», configura el consentimiento para uso personal y añade tu cuenta como usuario de prueba si Google lo solicita.",
+    "In “Google Auth platform”, configure consent for personal use and add your account as a test user if Google requests it."
+  ],
+  "calendarGoogleStep4": [
+    "Crea una credencial OAuth de tipo «Extensión de Chrome», pega el ID de arriba como «ID de elemento» y copia su Client ID. No elijas «Aplicación web».",
+    "Create a “Chrome Extension” OAuth credential, paste the ID above as its “Item ID”, and copy its Client ID. Do not choose “Web application”."
+  ],
+  "calendarGoogleStep5": [
+    "Pega ese Client ID aquí. Descarga el manifest personal, sustitúyelo como manifest.json en la carpeta de DashboardDP y pulsa Recargar en brave://extensions.",
+    "Paste that Client ID here. Download the personal manifest, replace manifest.json in the DashboardDP folder, and click Reload in brave://extensions."
+  ],
+  "calendarExtensionId": [
+    "ID de esta extensión",
+    "This extension ID"
+  ],
+  "calendarGoogleConnect": [
+    "Conectar Google Calendar",
+    "Connect Google Calendar"
+  ],
+  "calendarPermissionDenied": [
+    "No se concedieron los permisos necesarios.",
+    "The required permissions were not granted."
+  ],
+  "calendarClientIdRequired": [
+    "Introduce un Client ID válido.",
+    "Enter a valid Client ID."
+  ],
+  "calendarConnectionFailed": [
+    "No se pudo conectar el calendario.",
+    "The calendar could not be connected."
+  ],
+  "calendarReconnectNeeded": [
+    "La autorización ha caducado. Tu configuración sigue guardada: pulsa «Renovar acceso y sincronizar».",
+    "Authorization expired. Your setup is still saved: select “Renew access and sync”."
+  ],
+  "calendarRenewAccess": [
+    "Renovar acceso",
+    "Renew access"
+  ],
+  "calendarRenewAndSync": [
+    "Renovar acceso y sincronizar",
+    "Renew access and sync"
+  ],
+  "calendarConnectionPaused": [
+    "Conexión guardada · falta renovar la autorización",
+    "Connection saved · authorization renewal required"
+  ],
+  "calendarAccessRestored": [
+    "Acceso al calendario recuperado.",
+    "Calendar access restored."
+  ],
+  "calendarRenewHelp": [
+    "DashboardDP intentará renovar el acceso automáticamente al abrir Brave. Si Google cierra la sesión o exige confirmación, usa «Renovar acceso»; no tendrás que repetir la configuración.",
+    "DashboardDP will try to renew access automatically when Brave opens. If Google signs you out or asks for confirmation, use “Renew access”; you will not need to repeat setup."
+  ],
+  "calendarSyncFailed": [
+    "No se pudo sincronizar el calendario.",
+    "The calendar could not be synchronized."
+  ],
+  "calendarSecurityCheckFailed": [
+    "La comprobación de seguridad falló. Inténtalo otra vez.",
+    "The security check failed. Try again."
+  ],
+  "calendarConnectionCancelled": [
+    "La conexión se canceló.",
+    "The connection was cancelled."
+  ],
+  "calendarUntitledEvent": [
+    "Evento sin título",
+    "Untitled event"
+  ],
+  "calendarNoConnection": [
+    "Configura primero una conexión personal.",
+    "Set up a personal connection first."
+  ],
+  "calendarSyncSummary": [
+    "Sincronización terminada: {imported} añadidos, {updated} actualizados y {pushed} enviados.",
+    "Sync complete: {imported} added, {updated} updated and {pushed} sent."
+  ],
+  "stickyNotes": [
+    "Notas adhesivas",
+    "Sticky notes"
+  ],
+  "stickySubtitle": [
+    "Notas locales, rápidas y ligeras.",
+    "Local, quick and lightweight notes."
+  ],
+  "newNote": [
+    "Nueva nota",
+    "New note"
+  ],
+  "noteCount": [
+    "{count} notas",
+    "{count} notes"
+  ],
+  "stickyEmpty": [
+    "Crea una nota para guardar una idea, una lista o una imagen.",
+    "Create a note to save an idea, list or image."
+  ],
+  "untitledNote": [
+    "Sin título",
+    "Untitled"
+  ],
+  "pinnedNote": [
+    "Fijada",
+    "Pinned"
+  ],
+  "emptyNote": [
+    "Nota vacía",
+    "Empty note"
+  ],
+  "pin": [
+    "Fijar",
+    "Pin"
+  ],
+  "unpin": [
+    "Desfijar",
+    "Unpin"
+  ],
+  "delete": [
+    "Eliminar",
+    "Delete"
+  ],
+  "editNote": [
+    "Editar nota",
+    "Edit note"
+  ],
+  "noteTitlePlaceholder": [
+    "Título de la nota",
+    "Note title"
+  ],
+  "noteContent": [
+    "Contenido de la nota",
+    "Note content"
+  ],
+  "fontFamily": [
+    "Fuente",
+    "Font"
+  ],
+  "fontSize": [
+    "Tamaño",
+    "Size"
+  ],
+  "heading": [
+    "Título",
+    "Heading"
+  ],
+  "list": [
+    "Lista",
+    "List"
+  ],
+  "image": [
+    "Imagen",
+    "Image"
+  ],
+  "noteColor": [
+    "Color de la nota",
+    "Note color"
+  ],
+  "saveNote": [
+    "Guardar nota",
+    "Save note"
+  ],
+  "calendarGoogleIcs": [
+    "Google descarga los calendarios en un ZIP: extrae sus .ics e impórtalos juntos.",
+    "Google downloads calendars in a ZIP: extract its .ics files and import them together."
+  ],
+  "calendarMicrosoftIcs": [
+    "Importa un .ics o configura tu propia conexión segura.",
+    "Import an .ics file or set up your own secure connection."
+  ],
+  "calendarPersonalStorage": [
+    "La conexión personal es opcional. El Client ID, los permisos y los datos se guardan únicamente en tu navegador; DashboardDP no utiliza servidores propios.",
+    "The personal connection is optional. Client ID, permissions and data stay only in your browser; DashboardDP uses no own server."
+  ],
+  "calendarGuideLead": [
+    "Esta conexión es personal y opcional: creas tu propio Client ID y autorizas tu propia cuenta. No introduzcas contraseñas ni claves secretas. Los datos de acceso se guardan solo en tu navegador y no se incluyen al exportar el Dashboard.",
+    "This is a personal, optional connection: you create your own Client ID and authorize your own account. Never enter passwords or client secrets. Access data stays in your browser and is not included in Dashboard exports."
+  ],
+  "calendarSecurityResponsibility": [
+    "Seguridad y responsabilidad: esta opción es avanzada y voluntaria. Tú gestionas tu proyecto OAuth y sus permisos. DashboardDP solo solicita acceso al calendario que eliges mediante la ventana oficial del proveedor.",
+    "Security and responsibility: this is an advanced, voluntary option. You manage your OAuth project and its permissions. DashboardDP requests access only to the calendar you choose through the provider’s official window."
+  ],
+  "backToBoard": [
+    "Volver al tablero",
+    "Back to board"
+  ],
+  "redirectCopied": [
+    "URI copiada",
+    "URI copied"
+  ],
+  "connectionReady": [
+    "Conexión preparada",
+    "Connection ready"
+  ],
+  "disconnected": [
+    "Desconectado",
+    "Disconnected"
+  ],
+  "calendarPermissionTitle": [
+    "Antes de conectar {service}",
+    "Before connecting {service}"
+  ],
+  "calendarPermissionIntro": [
+    "Brave mostrará un aviso de permiso. Es normal: permite a DashboardDP comunicarse solo con los servicios oficiales necesarios para iniciar sesión y sincronizar tu calendario.",
+    "Brave will show a permission prompt. This is normal: it allows DashboardDP to communicate only with the official services needed to sign in and sync your calendar."
+  ],
+  "calendarPermissionServices": [
+    "Brave mostrará estos servicios oficiales:",
+    "Brave will show these official services:"
+  ],
+  "calendarPermissionLogin": [
+    "Inicio de sesión seguro",
+    "Secure sign-in"
+  ],
+  "calendarPermissionToken": [
+    "Autorización segura",
+    "Secure authorization"
+  ],
+  "calendarPermissionSync": [
+    "Sincronización del calendario",
+    "Calendar synchronization"
+  ],
+  "calendarPermissionNoAccess": [
+    "DashboardDP no solicita acceso a tu contraseña, Gmail, Drive, favoritos ni historial. En el paso siguiente, el propio proveedor mostrará y pedirá los permisos concretos del calendario. Puedes cancelar ahora o en cualquier momento.",
+    "DashboardDP does not request access to your password, Gmail, Drive, bookmarks, or browsing history. In the next step, the provider itself will show and request the exact calendar permissions. You can cancel now or at any time."
+  ],
+  "calendarPermissionContinue": [
+    "Continuar y mostrar permiso de Brave",
+    "Continue and show Brave permission"
+  ],
+  "notesVisible": [
+    "Notas visibles",
+    "Visible notes"
+  ],
+  "showInPanel": [
+    "Mostrar en mi barra personalizada",
+    "Show in my custom bar"
+  ],
+  "noNotesVisible": [
+    "Aún no has elegido notas para mostrar aquí.",
+    "You have not selected any notes to show here yet."
+  ],
+  "chooseNotes": [
+    "Elegir notas",
+    "Choose notes"
+  ],
+  "notesMasonry": [
+    "Usar dos columnas masonry",
+    "Use two-column masonry"
+  ],
+  "notesStack": [
+    "Usar una columna",
+    "Use one column"
+  ],
+  "sortQuickAccess": [
+    "Ordenar fijados y grupos",
+    "Sort pinned items and groups"
+  ],
+  "sortWorkspaces": [
+    "Ordenar espacios de trabajo",
+    "Sort workspaces"
+  ],
+  "sortCustom": [
+    "Personalizado",
+    "Custom"
+  ],
+  "sortNameAsc": [
+    "Nombre: A–Z",
+    "Name: A–Z"
+  ],
+  "sortNameDesc": [
+    "Nombre: Z–A",
+    "Name: Z–A"
+  ],
+  "sortRecentDesc": [
+    "Fecha: reciente → antiguo",
+    "Date: newest → oldest"
+  ],
+  "sortRecentAsc": [
+    "Fecha: antiguo → reciente",
+    "Date: oldest → newest"
+  ],
+  "sortUseDesc": [
+    "Uso: mayor → menor",
+    "Usage: highest → lowest"
+  ],
+  "sortUseAsc": [
+    "Uso: menor → mayor",
+    "Usage: lowest → highest"
+  ],
+  "sortAccessDesc": [
+    "Acceso: reciente → antiguo",
+    "Access: newest → oldest"
+  ],
+  "sortAccessAsc": [
+    "Acceso: antiguo → reciente",
+    "Access: oldest → newest"
+  ]
 };
 Object.entries(WIDGET_TEXT).forEach(([key, translations]) => {
   LANGUAGES.forEach((language, index) => { UI_TEXT[language.id][key] = translations[index]; });
 });
 
+if (typeof EXTRA_UI_ROWS !== 'undefined') EXTRA_UI_ROWS.forEach((row,index)=>{
+  if(row.length!==LANGUAGES.length)throw new Error('Incomplete interface translation: '+row[0]);
+  const key=Object.keys(UI_TEXT.es).find(key=>UI_TEXT.es[key]===row[0])||'extraUi'+index;
+  LANGUAGES.forEach((language,i)=>{UI_TEXT[language.id][key]=row[i];});
+});
 const UI_SOURCE_KEYS = Object.fromEntries(Object.keys(UI_TEXT.es).map((key) => [UI_TEXT.es[key], key]));
 const UI_SOURCE_TEXT_NODES = new WeakMap();
 const UI_SOURCE_ATTRIBUTES = new WeakMap();
@@ -383,17 +1193,25 @@ function localizeUiString(value) {
   return key ? t(key) : value;
 }
 
+function formatUiText(source,variables={}) {
+  let result=localizeUiString(source);
+  Object.entries(variables).forEach(([key,value])=>{result=result.replaceAll('{'+key+'}',String(value));});
+  return result;
+}
+
 function translateStaticInterface() {
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const nodes = [];
   while (walker.nextNode()) nodes.push(walker.currentNode);
   nodes.forEach((node) => {
+    if(node.parentElement?.closest('[data-i18n-skip="true"], input, textarea, [contenteditable="true"], pre, code'))return;
     const source = UI_SOURCE_TEXT_NODES.get(node) || node.nodeValue;
     if (!UI_SOURCE_KEYS[source]) return;
     UI_SOURCE_TEXT_NODES.set(node, source);
     node.nodeValue = localizeUiString(source);
   });
   document.querySelectorAll('[title], [aria-label], [placeholder]').forEach((node) => {
+    if(node.closest('[data-i18n-skip="true"]'))return;
     const saved = UI_SOURCE_ATTRIBUTES.get(node) || {};
     ['title', 'aria-label', 'placeholder'].forEach((attribute) => {
       if (!node.hasAttribute(attribute)) return;
@@ -438,8 +1256,9 @@ function applyInterfaceLanguage() {
     ['#sidebar .sidebar-section:nth-child(2) .sidebar-section-title', 'categories'],
     ['#workspaces .section-title', 'workspaces'],
     ['#quickAccess .section-title', 'quick'],
-    ['#panel .panel-section:nth-child(1) .panel-section-title', 'recent'],
-    ['#panel .panel-section:nth-child(2) .panel-section-title', 'statistics'],
+    ['#panelRecentSection .panel-section-title', 'recent'],
+    ['#panelStatsSection .panel-section-title', 'statistics'],
+    ['#panelToolsSection .panel-section-title', 'widgets'],
     ['#stats .stat:nth-child(1) dt', 'totalFavorites'],
     ['#stats .stat:nth-child(2) dt', 'categories'],
     ['#stats .stat:nth-child(3) dt', 'pinned']
@@ -447,6 +1266,11 @@ function applyInterfaceLanguage() {
   staticText.forEach(([selector, key]) => {
     const node = document.querySelector(selector);
     if (node) node.textContent = t(key);
+  });
+  document.querySelectorAll('.navigation-shortcuts .sidebar-item').forEach(button => {
+    const label = button.querySelector('span').textContent;
+    button.title = label;
+    button.setAttribute('aria-label', label);
   });
   if (els.searchInput) {
     els.searchInput.placeholder = t('searchBookmarks');
@@ -600,7 +1424,11 @@ function el(tag, attrs, children) {
   if (attrs) {
     for (const [key, value] of Object.entries(attrs)) {
       if (key === 'class') node.className = value;
-      else if (key === 'text') node.textContent = localizeUiString(value);
+      else if (key === 'text') {
+        node.textContent = attrs.i18n === false ? value : localizeUiString(value);
+        if (attrs.i18n !== false && UI_SOURCE_KEYS[value] && node.firstChild) UI_SOURCE_TEXT_NODES.set(node.firstChild,value);
+      }
+      else if (key === 'i18n') { if(value===false)node.dataset.i18nSkip='true'; }
       else if (key === 'html') node.innerHTML = value;
       else if (key === 'dataset') Object.assign(node.dataset, value);
       else if (key.startsWith('on') && typeof value === 'function') {
@@ -611,6 +1439,7 @@ function el(tag, attrs, children) {
         else node.removeAttribute(key);
       } else if (value !== undefined && value !== null) {
         node.setAttribute(key, ['title', 'aria-label', 'placeholder'].includes(key) ? localizeUiString(value) : value);
+        if(['title','aria-label','placeholder'].includes(key)&&UI_SOURCE_KEYS[value]) UI_SOURCE_ATTRIBUTES.set(node,{...(UI_SOURCE_ATTRIBUTES.get(node)||{}),[key]:value});
       }
     }
   }
@@ -669,7 +1498,21 @@ const COLLECTION_ICON_OPTIONS = [
   { id: 'cloud', label: 'Nube', icon: ICONS.cloud },
   { id: 'video', label: 'Vídeo', icon: ICONS.video },
   { id: 'music', label: 'Música', icon: ICONS.music },
-  { id: 'grid', label: 'Cuadrícula', icon: ICONS.grid }
+  { id: 'grid', label: 'Cuadrícula', icon: ICONS.grid },
+  ...[
+    ['study','Estudio','<path d="m2 9 10-5 10 5-10 5zM6 11v6q6 5 12 0v-6M22 9v8"/>'],
+    ['book','Lectura','<path d="M12 5v16M12 5Q7 2 2 4v15q5-2 10 2 5-4 10-2V4q-5-2-10 1"/>'],
+    ['travel','Viajes','<path d="m22 2-7 20-4-9-9-4zM22 2 11 13"/>'],
+    ['code','Programación','<path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18"/>'],
+    ['computer','Informática','<rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>'],
+    ['design','Diseño','<path d="m15 3 6 6-9 9-6-6zM6 12l-3 9 9-3M3 21l6-6"/>'],
+    ['science','Ciencia','<path d="M9 3h6M10 3v7L3 21h18L14 10V3M7 15h10"/>'],
+    ['health','Salud','<path d="M20 5c-3-3-6-1-8 1-2-2-5-4-8-1-5 5 3 11 8 16 5-5 13-11 8-16Z"/>'],
+    ['finance','Finanzas','<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h3"/>'],
+    ['games','Juegos','<path d="M7 7h10q4 0 5 11c0 3-5 0-6-2H8c-1 2-6 5-6 2Q3 7 7 7ZM6 10v4M4 12h4M16 11h.01M19 14h.01"/>'],
+    ['camera','Fotografía','<path d="m8 5 2-2h4l2 2h4a2 2 0 0 1 2 2v12H2V7a2 2 0 0 1 2-2z"/><circle cx="12" cy="12" r="4"/>'],
+    ['globe','Idiomas y mundo','<circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/>']
+  ].map(([id,label,shape])=>({id,label,icon:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${shape}</svg>`}))
 ];
 
 function getCollectionIcon(id, fallback = 'folder') {
@@ -1308,8 +2151,24 @@ function loadData() {
   }
 }
 
-function saveData() {
+function preserveNewerAuditResults(current, stored) {
+  if (!Array.isArray(current?.bookmarks) || !Array.isArray(stored?.bookmarks)) return;
+  const previous = new Map(stored.bookmarks.map(b=>[b.id,b]));
+  current.bookmarks.forEach(bookmark=>{
+    const saved=previous.get(bookmark.id);
+    if(!saved || saved.url !== bookmark.url || !['available','missing','youtube_missing','restricted','server_error','timeout','network_error','skipped'].includes(saved.auditStatus))return;
+    if((Number(saved.auditCheckedAt)||0) <= (Number(bookmark.auditCheckedAt)||0))return;
+    ['auditStatus','auditDetail','auditHttpStatus','auditCheckedAt'].forEach(key=>{bookmark[key]=saved[key];});
+  });
+}
+
+function saveData({ replaceAudit = false } = {}) {
   try {
+    // Otra pestaña puede haber completado una auditoría después de cargar ésta.
+    // Restaurar/restablecer deben poder reemplazar explícitamente el estado.
+    if (!replaceAudit) {
+      try { preserveNewerAuditResults(state.data, JSON.parse(localStorage.getItem(APP.storageKey) || 'null')); } catch {}
+    }
     localStorage.setItem(APP.storageKey, JSON.stringify(state.data));
   } catch (error) {
     console.error('Error guardando datos:', error);
@@ -1403,6 +2262,7 @@ function migrateData(data, persist = true) {
 
   migrated.settings = migrated.settings || { ...APP.defaults.settings };
   migrated.settings = { ...APP.defaults.settings, ...migrated.settings };
+  if(!['es','en'].includes(migrated.settings.language)){migrated.settings.language='es';changed=true;}
   const legacySortModes = { name: 'name-asc', frequent: 'frequent-desc', recent: 'recent-desc' };
   if (legacySortModes[migrated.settings.sortMode]) {
     migrated.settings.sortMode = legacySortModes[migrated.settings.sortMode];
@@ -1607,6 +2467,7 @@ function migrateData(data, persist = true) {
     order: typeof widget.order === 'number' ? widget.order : wi
   })).filter((widget) => widget.url);
   const panelNativeTypes = new Set();
+  if(ensureSidebarBars(migrated))changed=true;
   migrated.panelCustomBlocks = migrated.panelCustomBlocks.map((block, bi) => {
     const type = ['recent', 'stats', 'tools', 'notes', 'iframe'].includes(block.type) ? block.type : 'iframe';
     const title = typeof block.title === 'string' && block.title.trim() ? block.title.trim().slice(0, 80) : (type === 'iframe' ? `Widget ${bi + 1}` : '');
@@ -1624,23 +2485,26 @@ function migrateData(data, persist = true) {
       width,
       height,
       manualLayouts,
-      embedCode: type === 'iframe' && url ? buildCustomIframeCode({ url, title, width, height }) : '',
+      barId: block.barId,
+      libraryEntryId: typeof block.libraryEntryId==='string'?block.libraryEntryId:'',
+      embedCode: type === 'iframe' && url ? preserveCustomIframeCode(block.embedCode, { url, title, width, height }) : '',
       createdAt: Number.isFinite(Number(block.createdAt)) ? Number(block.createdAt) : Date.now(),
       order: typeof block.order === 'number' ? block.order : bi
     };
   }).filter((block) => {
     if (block.type === 'iframe') return !!block.url;
-    if (panelNativeTypes.has(block.type)) return false;
-    panelNativeTypes.add(block.type);
+    const nativeKey=block.barId+':'+block.type;
+    if (panelNativeTypes.has(nativeKey)) return false;
+    panelNativeTypes.add(nativeKey);
     return true;
-  }).slice(0, MAX_CUSTOM_PANEL_BLOCKS);
+  }).slice(0, MAX_CUSTOM_PANEL_BLOCKS*9);
   // Compatibilidad: los widgets creados con la versión anterior se trasladan
   // a la nueva barra personal para que no desaparezcan al actualizar.
   if (!migrated.panelCustomBlocks.length && migrated.customWidgets.length) {
     migrated.panelCustomBlocks = migrated.customWidgets.slice(0, MAX_CUSTOM_PANEL_BLOCKS).map((widget, wi) => {
       const width = normalizeIframeWidth(widget.width) || '100%';
       const height = normalizeIframeHeight(widget.height) || 320;
-      return { ...widget, type: 'iframe', width, height, embedCode: buildCustomIframeCode({ url: widget.url, title: widget.title, width, height }), order: wi };
+      return { ...widget, type: 'iframe', width, height, embedCode: preserveCustomIframeCode(widget.embedCode, { url: widget.url, title: widget.title, width, height }), order: wi };
     });
     migrated.settings.panelMode = 'custom';
     changed = true;
@@ -1810,7 +2674,7 @@ function restoreTrashEntry(entryId, options = {}) {
   } else if (entry.type === 'custom-widget' && payload.widget && !customWidgets().some((item) => item.id === payload.widget.id)) {
     state.data.customWidgets.push(cloneBackupValue(payload.widget));
     restored = true;
-  } else if (entry.type === 'widget-library' && payload.widget && !widgetLibrary().some((item) => item.id === payload.widget.id)) {
+  } else if (entry.type === 'widget-library' && payload.widget && !widgetLibrary().some((item) => item.id === payload.widget.id||repositoryWidgetKey(item.url)===repositoryWidgetKey(payload.widget.url))) {
     state.data.widgetLibrary.push(cloneBackupValue(payload.widget));
     restored = true;
   } else if (entry.type === 'task' && payload.task && !tasks().some((item) => item.id === payload.task.id)) {
@@ -2358,29 +3222,36 @@ function mergeDashboardData(current, incoming) {
     stats.widgets++;
   });
   merged.widgetLibrary = Array.isArray(merged.widgetLibrary) ? merged.widgetLibrary : [];
-  const knownWidgetLibraryEntries = new Set(merged.widgetLibrary.map(widgetLibrarySignature));
+  const knownWidgetLibraryEntries = new Set(merged.widgetLibrary.map(entry=>repositoryWidgetKey(entry.url)));
   (source.widgetLibrary || []).forEach((entry) => {
     const normalized = normalizeWidgetLibraryEntry(entry, merged.widgetLibrary.length);
-    if (!normalized || knownWidgetLibraryEntries.has(widgetLibrarySignature(normalized))) return;
+    if (!normalized || knownWidgetLibraryEntries.has(repositoryWidgetKey(normalized.url))) return;
     normalized.id = uid();
     normalized.order = merged.widgetLibrary.length;
     merged.widgetLibrary.push(normalized);
-    knownWidgetLibraryEntries.add(widgetLibrarySignature(normalized));
+    knownWidgetLibraryEntries.add(repositoryWidgetKey(normalized.url));
     stats.widgets++;
   });
   merged.panelCustomBlocks = Array.isArray(merged.panelCustomBlocks) ? merged.panelCustomBlocks : [];
-  const existingPanelTypes = new Set(merged.panelCustomBlocks.filter((block) => block.type !== 'iframe').map((block) => block.type));
-  const existingPanelUrls = new Set(merged.panelCustomBlocks.filter((block) => block.type === 'iframe').map((block) => block.url));
+  ensureSidebarBars(merged);ensureSidebarBars(source);
+  const barMap=new Map();source.sidebars.forEach(bar=>{
+    let target=merged.sidebars.find(current=>current.kind==='default'&&bar.kind==='default'||current.id===bar.id&&current.name===bar.name);
+    if(!target&&merged.sidebars.length<9){target={...bar,id:uid(),layouts:{...bar.layouts}};merged.sidebars.push(target);}
+    if(target)barMap.set(bar.id,target.id);
+  });
+  const existingPanelTypes = new Set(merged.panelCustomBlocks.filter((block) => block.type !== 'iframe').map((block) => block.barId+':'+block.type));
+  const existingPanelUrls = new Set(merged.panelCustomBlocks.filter((block) => block.type === 'iframe').map((block) => block.barId+':'+repositoryWidgetKey(block.url)));
   source.panelCustomBlocks.forEach((block) => {
-    if (merged.panelCustomBlocks.length >= MAX_CUSTOM_PANEL_BLOCKS) return;
+    const barId=barMap.get(block.barId);if(!barId||merged.panelCustomBlocks.filter(item=>item.barId===barId).length>=MAX_CUSTOM_PANEL_BLOCKS)return;
     if (block.type === 'iframe') {
-      if (!isValidEmbedUrl(block.url) || existingPanelUrls.has(block.url)) return;
-      existingPanelUrls.add(block.url);
+      const key=barId+':'+repositoryWidgetKey(block.url);
+      if (!isValidEmbedUrl(block.url) || existingPanelUrls.has(key)) return;
+      existingPanelUrls.add(key);
     } else {
-      if (existingPanelTypes.has(block.type)) return;
-      existingPanelTypes.add(block.type);
+      if (existingPanelTypes.has(barId+':'+block.type)) return;
+      existingPanelTypes.add(barId+':'+block.type);
     }
-    merged.panelCustomBlocks.push({ ...block, id: uid(), order: merged.panelCustomBlocks.length });
+    merged.panelCustomBlocks.push({ ...block,barId, id: uid(), order: merged.panelCustomBlocks.filter(item=>item.barId===barId).length });
     stats.widgets++;
   });
 
@@ -2485,6 +3356,7 @@ async function restoreFullBackup(backup) {
   const previousTaskIds = tasks().map((task) => task.id);
   const restored = migrateData(detachImportedNativeLinks(backup.dashboard), false);
   state.data = restored;
+  state.data.settings.initialSetupComplete = true;
   state.data.settings.lastBackupAt = Date.now();
   state.currentView = 'home';
   state.activeCategoryId = null;
@@ -2495,7 +3367,7 @@ async function restoreFullBackup(backup) {
   previousTaskIds.forEach((id) => syncTaskReminder({ id, status: 'done' }));
   personalCalendarConnections = restoredCalendarConnections(backup.calendarConnections);
   try { await savePersonalCalendarConnections(); } catch {}
-  saveData();
+  saveData({ replaceAudit: true });
   applySkin(state.data.settings.skin || 'default');
   applyTheme(state.data.settings.theme || 'dark');
   applyWallpaper();
@@ -2523,13 +3395,13 @@ function confirmFullBackupRestore(backup, fileName) {
   body.append(
     el('p', { text: `Archivo: ${fileName}. Esta acción sustituirá el Dashboard actual por la copia guardada.` }),
     el('p', { class: 'modal-subtitle', text: `${dashboard.bookmarks.length} favoritos · ${dashboard.categories.length} categorías · ${dashboard.workspaces.length} espacios · ${dashboard.quickGroups.length} grupos fijados · ${dashboard.tasks.length} tareas/eventos · ${dashboard.stickyNotes.length} notas · ${dashboard.panelCustomBlocks.length} bloques personalizados${connections ? ` · ${connections} conexiones de calendario para renovar` : ''}` }),
-    el('p', { text: 'Antes de restaurar se descargará una copia completa del estado actual. Las cuentas de Google y Microsoft requerirán renovar el acceso por seguridad.' }),
+    el('p', { text: 'Restaurar reemplaza los datos actuales y no descarga otro JSON. Si quieres conservar el estado anterior, usa primero «Descargar estado actual». Las cuentas de Google y Microsoft requerirán renovar el acceso por seguridad.' }),
     el('p', { text: 'La escritura de marcadores quedará desactivada. Los vínculos con el navegador de origen se descartarán: vuelve a elegir la carpeta de sincronización desde Ajustes después de restaurar.' })
   );
   const footer = el('div', { class: 'modal-footer' });
   footer.append(el('button', { class: 'btn', text: 'Cancelar', onclick: closeModal }));
-  footer.append(el('button', { class: 'btn primary', text: 'Crear copia y restaurar', onclick: async () => {
-    exportData();
+  footer.append(el('button', { class: 'btn secondary', text: 'Descargar estado actual', onclick: exportData }));
+  footer.append(el('button', { class: 'btn primary', text: 'Restaurar esta copia', onclick: async () => {
     await restoreFullBackup(backup);
     closeModal();
   } }));
@@ -3143,9 +4015,25 @@ function applyTheme(theme) {
   els.themeToggle.setAttribute('title', t(light ? 'darkMode' : 'lightMode'));
 }
 
+const INTERFACE_FONTS={
+  default:['Default',''],
+  sans:['Sans / sistema','system-ui, sans-serif'],
+  arial:['Arial','Arial, Helvetica, sans-serif'],
+  verdana:['Verdana','Verdana, Geneva, sans-serif'],
+  roboto:['Roboto','Roboto, Arial, sans-serif'],
+  inter:['Inter','Inter, Arial, sans-serif'],
+  segoe:['Segoe UI','"Segoe UI", system-ui, sans-serif'],
+  tahoma:['Tahoma','Tahoma, Verdana, sans-serif'],
+  trebuchet:['Trebuchet MS','"Trebuchet MS", Arial, sans-serif'],
+  georgia:['Georgia','Georgia, serif'],
+  times:['Times New Roman','"Times New Roman", Times, serif'],
+  courier:['Courier New','"Courier New", monospace']
+};
+function applyInterfaceFont(){const font=INTERFACE_FONTS[state.data?.settings?.interfaceFont]?.[1];if(font)document.body.style.setProperty('--font',font);else document.body.style.removeProperty('--font');}
 function applySkin(skin) {
   const s = APP.themes[skin] ? skin : 'default';
   document.body.setAttribute('data-theme', s);
+  applyInterfaceFont();
 }
 
 function applyWallpaper() {
@@ -3202,6 +4090,16 @@ function renderCategoryNode(cat, depth) {
     class: 'category-row' + (isActive ? ' active' : isAncestor ? ' ancestor-active' : ''),
     style: `padding-left:${8 + depth * 16}px;${categoryColorStyle(cat)}`
   });
+  row.draggable=true;
+  row.addEventListener('dragstart',event=>{event.stopPropagation();event.dataTransfer.effectAllowed='move';event.dataTransfer.setData('application/x-dashboard-category',cat.id);});
+  row.addEventListener('dragover',event=>{if(![...event.dataTransfer.types].some(type=>['application/x-dashboard-category','application/x-dashboard-sidebar-bookmark'].includes(type)))return;event.preventDefault();event.stopPropagation();event.dataTransfer.dropEffect='move';row.classList.add('drop-inside');});
+  row.addEventListener('dragleave',()=>row.classList.remove('drop-inside'));
+  row.addEventListener('drop',event=>{
+    const source=event.dataTransfer.getData('application/x-dashboard-category'),bookmark=event.dataTransfer.getData('application/x-dashboard-sidebar-bookmark');
+    if(!source&&!bookmark)return;event.preventDefault();event.stopPropagation();row.classList.remove('drop-inside');
+    if(source){if(source===cat.id||getDescendantIds(source).includes(cat.id)){toast('No puedes mover una carpeta dentro de sí misma o de sus subcarpetas','error');return;}updateCategory(source,{parentId:cat.id});}
+    else moveBookmark(bookmark,cat.id);
+  });
 
   const chevron = hasChildren
     ? el('button', {
@@ -3218,20 +4116,16 @@ function renderCategoryNode(cat, depth) {
   const count = el('span', { class: 'category-item-count', text: String(getDirectCount(cat.id)) });
 
   const actions = el('span', { class: 'category-item-actions' });
-  actions.append(
-    el('button', {
-      class: 'icon-btn', 'aria-label': `Editar ${cat.name}`, title: 'Editar', html: ICONS.edit,
-      onclick: (e) => { e.stopPropagation(); openCategoryForm(cat.id); }
-    }),
-    el('button', {
-      class: 'icon-btn', 'aria-label': `Añadir subcategoría a ${cat.name}`, title: 'Añadir subcategoría', html: ICONS.plus,
-      onclick: (e) => { e.stopPropagation(); openCategoryForm(null, cat.id); }
-    }),
-    el('button', {
-      class: 'icon-btn', 'aria-label': `Eliminar ${cat.name}`, title: 'Eliminar', html: ICONS.trash,
-      onclick: (e) => { e.stopPropagation(); confirmDeleteCategory(cat.id); }
-    })
-  );
+  actions.append(el('button', {
+    class:'icon-btn element-menu-trigger', type:'button', title:'Más opciones', 'aria-label':`Más opciones: ${cat.name}`, 'aria-haspopup':'menu', html:ICONS.more,
+    onclick:e=>{e.stopPropagation();openElementActions(e.currentTarget,[
+      {label:'Editar',icon:ICONS.edit,fn:()=>openCategoryForm(cat.id)},
+      {label:'Mover a…',icon:ICONS.move,fn:()=>openCategoryMove(cat.id)},
+      {label:'Añadir subcategoría',icon:ICONS.plus,fn:()=>openCategoryForm(null,cat.id)},
+      {label:'Añadir favorito',icon:ICONS.plus,fn:()=>openBookmarkForm(null,{categoryId:cat.id})},
+      {label:'Eliminar',icon:ICONS.trash,danger:true,fn:()=>confirmDeleteCategory(cat.id)}
+    ],cat.name);}
+  }));
 
   row.append(chevron, dot, name, count, actions);
   row.addEventListener('click', () => selectCategory(cat.id));
@@ -3246,10 +4140,7 @@ function renderCategoryNode(cat, depth) {
       link.addEventListener('dragstart',event=>{event.stopPropagation();state.draggingId=bookmark.id;state.draggingQuickKey=null;event.dataTransfer.effectAllowed='copy';event.dataTransfer.setData('application/x-dashboard-sidebar-bookmark',bookmark.id);event.dataTransfer.setData('text/plain',bookmark.id);});
       link.addEventListener('dragend',()=>{state.draggingId=null;hideDropOverlay();});
       const actions=el('span',{class:'sidebar-bookmark-actions'});
-      actions.append(
-        el('button',{class:'icon-btn small',title:'Renombrar enlace','aria-label':'Renombrar '+bookmark.name,html:ICONS.edit,onclick:e=>{e.stopPropagation();openSidebarBookmarkRename(bookmark.id);}}),
-        el('button',{class:'icon-btn small danger',title:'Eliminar enlace','aria-label':'Eliminar '+bookmark.name,html:ICONS.trash,onclick:e=>{e.stopPropagation();confirmDeleteBookmark(bookmark.id);}})
-      );
+      actions.append(el('button',{class:'icon-btn small element-menu-trigger',type:'button',title:'Más opciones','aria-label':'Más opciones: '+bookmark.name,'aria-haspopup':'menu',html:ICONS.more,onclick:e=>{e.stopPropagation();openCardMenu(bookmark.id,e.currentTarget);}}));
       item.append(link,actions);subList.append(item);
     });
     li.appendChild(subList);
@@ -3579,7 +4470,7 @@ function getWorkspace(id) {
 
 function openWorkspaceForm(workspaceId) {
   const editing = workspaceId ? getWorkspace(workspaceId) : null;
-  const modal = el('div', { class: 'modal' });
+  const modal = el('div', { class: 'modal workspace-form-modal' });
   const header = el('div', { class: 'modal-header' });
   header.append(el('h2', { class: 'modal-title', text: editing ? 'Editar espacio' : 'Nuevo espacio de trabajo' }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', onclick: closeModal }));
   const body = el('div', { class: 'modal-body' });
@@ -3623,7 +4514,7 @@ function openWorkspaceForm(workspaceId) {
   const renderPicker = () => {
     const query = normalizeSearchText(filterInput.value);
     tree.textContent = '';
-    selectionInfo.textContent = `${selected.size} seleccionados`;
+    selectionInfo.textContent = formatUiText('{count} seleccionados',{count:selected.size});
     const makeBookmark = (bookmark, depth) => {
       const label = el('label', { class: 'workspace-bookmark', style: `padding-left:${28 + depth * 18}px` });
       const input = el('input', { type: 'checkbox' });
@@ -3631,10 +4522,10 @@ function openWorkspaceForm(workspaceId) {
       input.addEventListener('change', () => {
         if (input.checked) selected.add(bookmark.id);
         else selected.delete(bookmark.id);
-        selectionInfo.textContent = `${selected.size} seleccionados`;
+        selectionInfo.textContent = formatUiText('{count} seleccionados',{count:selected.size});
       });
       const meta = bookmark.tags && bookmark.tags.length ? ` · #${bookmark.tags.slice(0, 2).join(' #')}` : '';
-      label.append(input, el('span', { class: 'workspace-bookmark-name', text: bookmark.name }), el('span', { class: 'workspace-bookmark-domain', text: `${getDomain(bookmark.url)}${meta}` }));
+      label.append(input, el('span', { class: 'workspace-bookmark-name' },[el('span',{class:'compact-link-favicon','aria-hidden':'true',html:renderFavicon(bookmark,16)}),el('span',{class:'compact-link-title',text:bookmark.name})]), el('span', { class: 'workspace-bookmark-domain', text: `${getDomain(bookmark.url)}${meta}` }));
       return label;
     };
     const makeCategory = (category, depth) => {
@@ -3680,6 +4571,10 @@ function openWorkspaceForm(workspaceId) {
   filterInput.addEventListener('input', renderPicker);
   renderPicker();
   body.append(filterInput, selectionInfo, tree);
+  const configuration=el('div',{class:'workspace-form-configuration'}),picker=el('div',{class:'workspace-form-picker'});
+  const pickerLabel=iconGroup.nextSibling;
+  configuration.append(...[...body.children].filter(node=>![pickerLabel,filterInput,selectionInfo,tree].includes(node)));
+  picker.append(pickerLabel,filterInput,selectionInfo,tree);body.append(configuration,picker);
   const footer = el('div', { class: 'modal-footer' });
   if (editing) footer.append(el('button', { class: 'btn danger', text: 'Eliminar espacio', onclick: () => { closeModal(); confirmDeleteWorkspace(editing.id); } }));
   footer.append(el('button', { class: 'btn', text: 'Cancelar', onclick: closeModal }));
@@ -3856,13 +4751,20 @@ function renderWorkspaces() {
   workspaces.forEach((workspace) => {
     const card = el('div', { class: 'workspace-card', style: `--workspace-color:${workspace.color}` });
     const open = el('button', { class: 'workspace-open', 'aria-label': `Abrir espacio ${workspace.name}` });
-    open.append(el('span', { class: 'workspace-icon', html: getCollectionIcon(workspace.icon, 'briefcase').icon }), el('span', { class: 'workspace-name', text: workspace.name }), el('span', { class: 'workspace-count', text: `${workspace.bookmarkIds.length} enlaces` }));
+    open.append(el('span', { class: 'workspace-icon', html: getCollectionIcon(workspace.icon, 'briefcase').icon }), el('span', { class: 'workspace-name', text: workspace.name }));
     open.addEventListener('click', () => openWorkspace(workspace.id));
-    const edit = el('button', { class: 'icon-btn small', 'aria-label': `Editar ${workspace.name}`, title: 'Editar espacio', html: ICONS.edit, onclick: () => openWorkspaceForm(workspace.id) });
+    const edit = collectionActionsButton(workspace,true);
     card.append(open, edit);
     enableWorkspaceOrdering(card, workspace);
     area.appendChild(card);
   });
+}
+
+function collectionActionsButton(item, workspace=false) {
+  return el('button',{class:'icon-btn small element-menu-trigger collection-menu-trigger',type:'button',title:'Más opciones','aria-label':'Más opciones: '+item.name,'aria-haspopup':'menu',style:`color:${item.color||'var(--primary)'}`,html:ICONS.more,onclick:event=>{event.stopPropagation();openElementActions(event.currentTarget,[
+    {label:'Editar',icon:ICONS.edit,fn:()=>workspace?openWorkspaceForm(item.id):openQuickGroupForm(item.id)},
+    {label:'Eliminar',icon:ICONS.trash,danger:true,fn:()=>workspace?confirmDeleteWorkspace(item.id):confirmDeleteQuickGroup(item.id)}
+  ],item.name);}});
 }
 
 function renderQuickAccess() {
@@ -4028,23 +4930,17 @@ function renderQuickGroupFolder(group, members, entry) {
   const groupIcon = getCollectionIcon(group.icon, 'folder');
   stack.classList.toggle('folder-like', groupIcon.id === 'folder');
   stack.appendChild(el('span', { class: 'quick-group-symbol', html: groupIcon.icon }));
-  btn.append(stack, el('span', { class: 'quick-group-count', text: String(members.length) }), el('span', { class: 'quick-group-name', text: group.name }));
+  btn.append(stack, el('span', { class: 'quick-group-name', text: group.name }));
   btn.addEventListener('click', () => toggleQuickGroup(group.id));
   wrap.appendChild(btn);
+  wrap.appendChild(collectionActionsButton(group));
   enableQuickTopLevelOrdering(wrap, entry, group.id);
 
-  if (state.editMode) {
-    const actions = el('div', { class: 'quick-group-actions' });
-    actions.append(
-      el('button', { class: 'icon-btn small', 'aria-label': `Renombrar grupo ${group.name}`, title: 'Renombrar grupo', html: ICONS.edit, onclick: (e) => { e.stopPropagation(); openQuickGroupForm(group.id); } }),
-      el('button', { class: 'icon-btn small danger', 'aria-label': `Disolver grupo ${group.name}`, title: 'Disolver grupo', html: ICONS.trash, onclick: (e) => { e.stopPropagation(); confirmDeleteQuickGroup(group.id); } })
-    );
-    wrap.appendChild(actions);
-  }
 
   let body = null;
   if (expanded) {
     body = el('div', { class: 'quick-group-body' });
+    body.appendChild(el('button',{class:'quick-group-close',type:'button',text:'×',title:'Cerrar grupo','aria-label':'Cerrar grupo '+group.name,onclick:event=>{event.stopPropagation();expandedQuickGroups.delete(group.id);renderQuickAccess();}}));
     body.style.setProperty('--group-color', group.color || '');
     const bodyGrid = el('div', { class: 'quick-grid quick-icons-grid' });
     members.forEach((b) => {
@@ -4090,8 +4986,8 @@ function quickRowItem(bookmark, entry = null) {
       onclick: (e) => { e.stopPropagation(); togglePin(bookmark.id); }
     }),
     el('button', {
-      class: 'icon-btn', 'aria-label': 'Más opciones', title: 'Opciones', html: ICONS.more,
-      onclick: (e) => { e.stopPropagation(); openCardMenu(bookmark.id); }
+      class: 'icon-btn element-menu-trigger', 'aria-label': 'Más opciones', 'aria-haspopup':'menu', title: 'Opciones', html: ICONS.more,
+      onclick: (e) => { e.stopPropagation(); openCardMenu(bookmark.id,e.currentTarget); }
     })
   );
 
@@ -4136,19 +5032,10 @@ function renderQuickList(area, entries, byGroup) {
       el('span', { class: 'quick-chev', html: ICONS.chevronRight }),
       el('span', { class: 'quick-group-dot' }),
       el('span', { class: 'quick-list-group-name', text: g.name }),
-      el('span', { class: 'quick-list-group-count', text: String(members.length) })
     );
     toggleBtn.addEventListener('click', () => toggleQuickGroup(g.id));
     head.appendChild(toggleBtn);
-
-    if (state.editMode) {
-      const actions = el('div', { class: 'quick-list-group-actions' });
-      actions.append(
-        el('button', { class: 'icon-btn small', 'aria-label': `Renombrar grupo ${g.name}`, title: 'Renombrar grupo', html: ICONS.edit, onclick: () => openQuickGroupForm(g.id) }),
-        el('button', { class: 'icon-btn small danger', 'aria-label': `Disolver grupo ${g.name}`, title: 'Disolver grupo', html: ICONS.trash, onclick: () => confirmDeleteQuickGroup(g.id) })
-      );
-      head.appendChild(actions);
-    }
+    head.appendChild(collectionActionsButton(g));
     section.appendChild(head);
 
     enableQuickTopLevelOrdering(section, entry, g.id);
@@ -4186,14 +5073,7 @@ function renderQuickCards(area, entries, byGroup) {
     const section = el('div', { class: 'quick-cards-group' });
     section.style.setProperty('--group-color', g.color || '');
     const header = el('div', { class: 'quick-cards-group-header' });
-    header.append(el('span', { class: 'quick-group-dot' }), el('span', { class: 'quick-cards-group-name', text: g.name }), el('span', { class: 'quick-cards-group-count', text: String(members.length) }));
-
-    if (state.editMode) {
-      header.append(
-        el('button', { class: 'icon-btn small', 'aria-label': `Renombrar grupo ${g.name}`, title: 'Renombrar grupo', html: ICONS.edit, onclick: () => openQuickGroupForm(g.id) }),
-        el('button', { class: 'icon-btn small danger', 'aria-label': `Disolver grupo ${g.name}`, title: 'Disolver grupo', html: ICONS.trash, onclick: () => confirmDeleteQuickGroup(g.id) })
-      );
-    }
+    header.append(el('span', { class: 'quick-group-dot' }), el('span', { class: 'quick-cards-group-name', text: g.name }),collectionActionsButton(g));
 
     const grid = el('div', { class: 'quick-cards-grid' });
     members.forEach((b) => grid.appendChild(renderCard(b, { categoryColor: false })));
@@ -4467,8 +5347,8 @@ function renderCard(bookmark, options = {}) {
       onclick: (e) => { e.stopPropagation(); togglePin(bookmark.id); }
     }),
     el('button', {
-      class: 'icon-btn', 'aria-label': 'Más opciones', title: 'Opciones', html: ICONS.more,
-      onclick: (e) => { e.stopPropagation(); openCardMenu(bookmark.id); }
+      class: 'icon-btn element-menu-trigger', 'aria-label': 'Más opciones', 'aria-haspopup':'menu', title: 'Opciones', html: ICONS.more,
+      onclick: (e) => { e.stopPropagation(); openCardMenu(bookmark.id,e.currentTarget); }
     })
   );
   top.append(favicon, actions);
@@ -4538,8 +5418,8 @@ function renderRow(bookmark) {
       onclick: (e) => { e.stopPropagation(); togglePin(bookmark.id); }
     }),
     el('button', {
-      class: 'icon-btn', 'aria-label': 'Más opciones', title: 'Opciones', html: ICONS.more,
-      onclick: (e) => { e.stopPropagation(); openCardMenu(bookmark.id); }
+      class: 'icon-btn element-menu-trigger', 'aria-label': 'Más opciones', 'aria-haspopup':'menu', title: 'Opciones', html: ICONS.more,
+      onclick: (e) => { e.stopPropagation(); openCardMenu(bookmark.id,e.currentTarget); }
     })
   );
 
@@ -4614,18 +5494,33 @@ function showIconTooltip(item, x, y) {
   showTooltip(item.dataset.tipName, item.dataset.tipUrl || '', x, y);
 }
 
-function openCardMenu(bookmarkId) {
+function openElementActions(anchor, actions, name) {
+  document.querySelectorAll('.element-actions-menu').forEach(menu=>menu.hidePopover());
+  const menu=el('div',{class:'element-actions-menu',popover:'auto',role:'menu','aria-label':name});
+  const close=()=>{if(menu.matches(':popover-open'))menu.hidePopover();};
+  const buttons=actions.map(action=>el('button',{class:'element-action'+(action.danger?' danger':''),type:'button',role:'menuitem',html:action.icon,onclick:()=>{close();action.fn();}}));
+  buttons.forEach((button,index)=>{button.append(el('span',{text:actions[index].label}));menu.append(button);});
+  const cleanup=()=>{anchor?.setAttribute('aria-expanded','false');window.removeEventListener('resize',close);document.removeEventListener('scroll',onScroll,true);menu.remove();};
+  const onScroll=event=>{if(!menu.contains(event.target))close();};
+  menu.addEventListener('toggle',()=>{if(!menu.matches(':popover-open'))cleanup();});
+  menu.addEventListener('keydown',event=>{
+    const index=buttons.indexOf(document.activeElement);
+    if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();buttons[(index+(event.key==='ArrowDown'?1:-1)+buttons.length)%buttons.length].focus();}
+    if(event.key==='Home'||event.key==='End'){event.preventDefault();buttons[event.key==='Home'?0:buttons.length-1].focus();}
+    if(event.key==='Escape'){event.preventDefault();close();anchor?.focus();}
+  });
+  document.body.append(menu);translateStaticInterface();menu.showPopover();
+  const rect=anchor?.getBoundingClientRect()||{left:16,right:16,top:16,bottom:16};
+  menu.style.left=Math.max(8,Math.min(rect.right-menu.offsetWidth,innerWidth-menu.offsetWidth-8))+'px';
+  menu.style.top=Math.max(8,rect.bottom+4+menu.offsetHeight<=innerHeight-8?rect.bottom+4:rect.top-menu.offsetHeight-4)+'px';
+  anchor?.setAttribute('aria-expanded','true');
+  window.addEventListener('resize',close);document.addEventListener('scroll',onScroll,true);buttons[0]?.focus();
+}
+
+function openCardMenu(bookmarkId, anchor = document.activeElement) {
   const bookmark = getBookmark(bookmarkId);
   if (!bookmark) return;
 
-  const modal = el('div', { class: 'modal menu-modal' });
-  const header = el('div', { class: 'modal-header' });
-  header.append(el('h2', { class: 'modal-title', text: bookmark.name }), el('button', {
-    class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>',
-    onclick: closeModal
-  }));
-
-  const body = el('div', { class: 'modal-body' });
   const actions = [
     { label: 'Editar', icon: ICONS.edit, fn: () => { closeModal(); openBookmarkForm(bookmark.id); } },
     { label: 'Duplicar', icon: ICONS.duplicate, fn: () => { closeModal(); duplicateBookmark(bookmarkId); } },
@@ -4644,7 +5539,7 @@ function openCardMenu(bookmarkId) {
       const formGroup = el('div', { class: 'form-group' });
       formGroup.append(el('label', { class: 'form-label', for: 'moveCategory', text: 'Categoría' }));
       const select = el('select', { class: 'form-select', id: 'moveCategory' });
-      select.appendChild(categoryOptionsEl(bookmark.categoryId));
+      select.append(...categoryOptionsEl(bookmark.categoryId).children);
       formGroup.appendChild(select);
       b2.appendChild(formGroup);
       const footer = el('div', { class: 'modal-footer' });
@@ -4659,17 +5554,7 @@ function openCardMenu(bookmarkId) {
     fn: () => { closeModal(); confirmDeleteBookmark(bookmarkId); }
   });
 
-  actions.forEach((action) => {
-    body.appendChild(el('button', {
-      class: 'btn ' + (action.danger ? 'danger' : 'secondary'),
-      style: 'justify-content:flex-start;width:100%',
-      html: action.icon + '<span>' + action.label + '</span>',
-      onclick: action.fn
-    }));
-  });
-
-  modal.append(header, body);
-  openModal(modal);
+  openElementActions(anchor,actions,bookmark.name);
 }
 
 function categoryOptionsEl(selectedId) {
@@ -5057,18 +5942,22 @@ function handleExternalDrop(e) {
 
 function initDropZone() {
   let dragCounter = 0;
-  const internalDragActive = () => !!(state.draggingId || state.draggingQuickKey || state.draggingWorkspaceId);
+  let localDrag = false;
+  const internalDragActive = event => localDrag || !!(state.draggingId || state.draggingQuickKey || state.draggingWorkspaceId) || Array.from(event?.dataTransfer?.types || []).some(type=>type.startsWith('application/dashboard-')||type.startsWith('application/x-dashboard-'));
+  window.addEventListener('dragstart',()=>{localDrag=true;dragCounter=0;hideDropOverlay();},true);
+  window.addEventListener('dragend',()=>{localDrag=false;dragCounter=0;hideDropOverlay();},true);
 
   window.addEventListener('dragenter', (e) => {
     if (state.currentView === 'later' || Array.from(e.dataTransfer?.types || []).some(t=>t.startsWith('application/dashboard-'))) return;
-    if (externalDropZoneLocked || internalDragActive()) return;
+    if (externalDropZoneLocked || internalDragActive(e)) return;
+    if (!Array.from(e.dataTransfer?.types || []).some(type=>type==='text/uri-list'||type==='text/plain')) return;
     dragCounter++;
     showDropOverlay();
   });
 
   window.addEventListener('dragover', (e) => {
     if (externalDropZoneLocked) { e.preventDefault(); return; }
-    if (internalDragActive()) return;
+    if (internalDragActive(e)) return;
     const types = e.dataTransfer ? Array.from(e.dataTransfer.types || []) : [];
     if (types.some((t) => t === 'text/uri-list' || t === 'text/plain')) e.preventDefault();
   });
@@ -5080,12 +5969,13 @@ function initDropZone() {
   });
 
   window.addEventListener('drop', (e) => {
+    const internal=internalDragActive(e);localDrag=false;
+    if(internal){dragCounter=0;hideDropOverlay();return;}
     if (e.defaultPrevented || state.currentView === 'later' || Array.from(e.dataTransfer?.types || []).some(t=>t.startsWith('application/dashboard-'))) { hideDropOverlay(); return; }
     if (externalDropZoneLocked) { e.preventDefault(); return; }
     dragCounter = 0;
     hideDropOverlay();
     e.preventDefault();
-    if (internalDragActive()) return;
     handleExternalDrop(e);
   });
 }
@@ -5123,9 +6013,62 @@ function isValidEmbedUrl(value) {
   try { return new URL(String(value || '')).protocol === 'https:'; } catch { return false; }
 }
 
-/* Política uniforme: ningún proveedor recibe excepciones de origen. */
-function widgetIframeSandbox() {
-  return 'allow-scripts allow-forms allow-popups';
+/* Compatibilidad HTTPS sin compartir el origen ni los datos de la extensión. */
+function widgetIframeSandbox(value) {
+  const baseline = 'allow-scripts allow-forms allow-popups';
+  try {
+    const url = new URL(value);
+    // El sitio conserva su origen web, distinto del chrome-extension:// padre.
+    // No habilitar este modo para srcdoc, archivos o contenido de la extensión.
+    if (url.protocol === 'https:' && !url.username && !url.password) {
+      return baseline + ' allow-same-origin';
+    }
+  } catch { /* mantener el aislamiento por defecto */ }
+  return baseline;
+}
+
+function phetWidgetAttribution(url) {
+  try{if(new URL(url).origin!=='https://phet.colorado.edu')return null;}catch{return null;}
+  return el('div',{class:'widget-attribution'},[
+    el('span',{text:'Simulación de PhET Interactive Simulations, University of Colorado Boulder, bajo licencia CC BY-NC 4.0 (https://phet.colorado.edu).'}),
+    el('a',{href:'https://creativecommons.org/licenses/by-nc/4.0/',target:'_blank',rel:'noopener noreferrer',text:'CC BY-NC 4.0'}),
+    el('a',{href:'https://phet.colorado.edu/en/licensing/',target:'_blank',rel:'noopener noreferrer',text:'Condiciones de PhET'})
+  ]);
+}
+
+function widgetEmbedContent(frame,url) {
+  // El proveedor publica un envoltorio responsive y crédito como parte del código.
+  // Se construye con DOM local; nunca se ejecuta HTML arbitrario del repositorio.
+  try{if(new URL(url).origin==='https://www.metercustom.net'){
+    const outer=el('div'),minimum=el('div'),ratio=el('div');
+    outer.style.textAlign='right';minimum.style.minHeight='360px';
+    ratio.style.cssText='width:100%;height:0;padding-bottom:50%;position:relative;';
+    frame.style.cssText='border:none;position:absolute;top:0;left:0;width:100%;height:100%;min-height:360px;border:none;overflow:hidden !important;';
+    ratio.append(frame);minimum.append(ratio);outer.append(minimum,document.createTextNode('provided by '),el('a',{href:'https://www.meter.net',target:'_blank',rel:'noopener noreferrer',text:'METER.net',i18n:false}));
+    return outer;
+  }}catch{}
+  return frame;
+}
+
+function widgetProviderAttribution(url) {
+  const phet=phetWidgetAttribution(url);if(phet)return phet;
+  const providers={
+    'embed.windy.com':['Windy','https://www.windy.com/'],
+    'www.google.com':['Google Maps','https://www.google.com/maps'],
+    'eyes.nasa.gov':["NASA’s Eyes",'https://science.nasa.gov/eyes/'],
+    'www.toolkitsapp.com':['ToolkitsApp','https://www.toolkitsapp.com/'],
+    'hifreetools.com':['HIFreeTools','https://hifreetools.com/'],
+    'www.metercustom.net':['METER.net','https://www.meter.net/'],
+    'haowordtool.com':['HaoWordTool','https://haowordtool.com/'],
+    'calculations.tools':['Calculations.tools','https://calculations.tools/'],
+    'vclock.eu':['vclock.eu','https://vclock.eu/'],
+    'widget.us.com':['Widget.us.com','https://widget.us.com/'],
+    'tools.goat-lab.net':['GOAT Lab','https://tools.goat-lab.net/'],
+    'www.techcompare.app':['TechCompare','https://www.techcompare.app/']
+  };
+  let provider;try{provider=providers[new URL(url).hostname];}catch{return null;}
+  if(!provider)return null;
+  return el('div',{class:'widget-attribution'},[el('span',{text:'Servicio proporcionado por'}),el('a',{href:provider[1],target:'_blank',rel:'noopener noreferrer',text:provider[0],i18n:false})]);
 }
 
 function renderCustomWidgets() {
@@ -5154,10 +6097,12 @@ function renderCustomWidgets() {
     cardHead.append(el('span', { class: 'custom-widget-title', text: widget.title }), actions);
     const frame = el('iframe', {
       class: 'custom-widget-frame', src: widget.url, title: widget.title,
-      sandbox: widgetIframeSandbox(widget.url), referrerpolicy: 'no-referrer', loading: 'lazy'
+      sandbox: widgetIframeSandbox(widget.url), allow: "camera 'none'; microphone 'none'; geolocation 'none'", referrerpolicy: 'no-referrer', loading: 'lazy'
     });
+    applyCustomIframePresentation(frame,widget);
     frame.style.height = `${Math.max(160, Math.min(900, Number(widget.height) || 320))}px`;
-    card.append(cardHead, frame);
+    card.append(cardHead, widgetEmbedContent(frame,widget.url));
+    const attribution=widgetProviderAttribution(widget.url);if(attribution)card.append(attribution);
     section.appendChild(card);
   });
 }
@@ -5222,11 +6167,12 @@ function confirmDeleteCustomWidget(widgetId) {
 }
 
 function panelCustomBlocks() {
-  return Array.isArray(state.data.panelCustomBlocks) ? state.data.panelCustomBlocks : [];
+  const id=activeSidebar().id;
+  return state.data.panelCustomBlocks.filter(block=>block.barId===id);
 }
 
 function getPanelMode() {
-  return state.data.settings.panelMode === 'custom' ? 'custom' : 'default';
+  return activeSidebar().kind==='default'?'default':'custom';
 }
 
 function nativePanelSection(type) {
@@ -5391,36 +6337,46 @@ function renderCustomPanel() {
   const custom = getPanelMode() === 'custom';
   const layout = getPanelCustomLayout();
   els.panel.classList.toggle('custom-mode', custom);
-  els.panelModeLabel.textContent = custom ? 'Barra Personal' : 'Barra por Defecto';
-  els.panelModeBtn.textContent = custom ? '▤' : '▥';
+  renderSidebarSwitcher();
+  els.panelModeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M15 3v18M6 7h6M6 11h6M6 15h4"/></svg>';
   els.panelModeBtn.title = custom ? 'Mostrar Barra por Defecto' : 'Mostrar Barra Personal';
   els.panelModeBtn.setAttribute('aria-label', els.panelModeBtn.title);
   els.panelModeBtn.classList.toggle('primary', !custom);
   els.panelLayoutBtn.classList.toggle('hidden', !custom);
   els.panelResetLayoutBtn?.classList.toggle('hidden', !custom || layout !== 'masonry');
   if (els.panelResetLayoutBtn) {
-    els.panelResetLayoutBtn.textContent = '↺';
+    els.panelResetLayoutBtn.innerHTML = ICONS.reset;
     els.panelResetLayoutBtn.title = t('resetMasonry');
     els.panelResetLayoutBtn.setAttribute('aria-label', t('resetMasonry'));
   }
-  els.panelLayoutBtn.textContent = layout === 'stack' ? '☷' : layout === 'grid' ? '▦' : '⌗';
+  const layoutShape = layout === 'stack' ? '<rect x="4" y="3" width="16" height="7" rx="2"/><rect x="4" y="14" width="16" height="7" rx="2"/>' : layout === 'grid' ? '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>' : '<rect x="3" y="3" width="7" height="11" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="18" width="7" height="3" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>';
+  els.panelLayoutBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">'+layoutShape+'</svg>';
   els.panelLayoutBtn.title = layout === 'stack' ? 'Usar cuadrícula compacta' : layout === 'grid' ? 'Ajustar mosaico manualmente' : 'Usar vista vertical';
   els.panelLayoutBtn.setAttribute('aria-label', els.panelLayoutBtn.title);
   els.panelContent.textContent = '';
   if (!custom) {
-    [els.panelRecentSection, els.panelStatsSection, els.panelToolsSection].forEach((section) => { if (section) els.panelContent.appendChild(section); });
-    els.panelContent.appendChild(renderPanelNotesSection({ standard: true }));
+    [els.panelStatsSection, els.panelToolsSection].forEach((section) => { if (section) els.panelContent.appendChild(section); });
+    const oldNotes=document.getElementById('widgetNotesBtn');if(oldNotes){oldNotes.hidden=true;oldNotes.classList.add('hidden');}
+    const toolbar=oldNotes?.parentElement;
+    if(toolbar&&!toolbar.querySelector('.sidebar-library-shortcut')){
+      const library=el('button',{class:'widget-toggle sidebar-library-shortcut',type:'button',title:'Biblioteca de widgets','aria-label':'Biblioteca de widgets',html:ICONS.duplicate,onclick:openWidgetLibrary});
+      const audit=el('button',{class:'widget-toggle',type:'button',title:'Auditoría de favoritos','aria-label':'Auditoría de favoritos',html:ICONS.search,onclick:()=>openBookmarkAudit()});
+      oldNotes.after(library,audit);
+    }
+    toolbar?.querySelectorAll('.widget-toggle').forEach(button=>{
+      let label=button.querySelector('.widget-toggle-label');
+      if(!label){label=el('span',{class:'widget-toggle-label'});button.appendChild(label);}
+      label.textContent=button.getAttribute('aria-label')||button.title;
+    });
     return;
   }
   const area = el('div', { class: `custom-panel-area custom-panel-${layout}` });
-  const head = el('div', { class: 'custom-panel-head' });
-  head.append(el('h2', { class: 'panel-section-title', text: 'Mis bloques' }), el('button', { class: 'icon-btn small', type: 'button', title: 'Añadir bloque', 'aria-label': 'Añadir bloque', html: ICONS.plus, onclick: openPanelBlockPicker }));
   const blocksArea = el('div', { class: 'custom-panel-blocks' });
   const blocks = panelCustomBlocks().slice().sort((a, b) => a.order - b.order);
   if (layout === 'masonry') ensureManualPanelLayouts(blocks);
-  if (!blocks.length) blocksArea.appendChild(el('p', { class: 'custom-panel-empty', text: 'Esta barra está vacía. Pulsa + para añadir Recientes, Estadísticas, Widgets, Notas visibles o un iframe propio.' }));
+  if (!blocks.length) blocksArea.appendChild(el('p', { class: 'custom-panel-empty', text: 'Esta barra está vacía. Abre el menú de tres puntos y elige Añadir widget.' }));
   blocks.forEach((block, index) => blocksArea.appendChild(renderCustomPanelBlock(block, index, blocks.length, layout === 'masonry' ? blocksArea : null)));
-  area.append(head, blocksArea);
+  area.append(blocksArea);
   els.panelContent.appendChild(area);
   if (layout === 'masonry') requestAnimationFrame(() => { if (blocksArea.isConnected) updateManualPanelCanvasHeight(blocksArea); });
   updateCustomPanelGridLayout();
@@ -5451,11 +6407,13 @@ function renderCustomPanelBlock(block, index, total, manualCanvas = null) {
   }
   wrapper.appendChild(header);
   if (block.type === 'iframe') {
-    const frame = el('iframe', { class: 'custom-widget-frame', src: block.url, title: block.title, sandbox: widgetIframeSandbox(block.url), referrerpolicy: 'no-referrer', loading: 'lazy' });
+    const frame = el('iframe', { class: 'custom-widget-frame', src: block.url, title: block.title, sandbox: widgetIframeSandbox(block.url), allow: "camera 'none'; microphone 'none'; geolocation 'none'", referrerpolicy: 'no-referrer', loading: 'lazy' });
+    applyCustomIframePresentation(frame,block);
     frame.style.width = normalizeIframeWidth(block.width) || '100%';
     frame.style.maxWidth = '100%';
     frame.style.height = `${normalizeIframeHeight(block.height) || 320}px`;
-    wrapper.appendChild(frame);
+    wrapper.appendChild(widgetEmbedContent(frame,block.url));
+    const attribution=widgetProviderAttribution(block.url);if(attribution)wrapper.append(attribution);
   } else if (block.type === 'notes') {
     wrapper.appendChild(renderPanelNotesSection());
   } else {
@@ -5476,6 +6434,7 @@ function togglePanelCustomLayout() {
   const layout = getPanelCustomLayout();
   const layoutKey = getManualPanelLayoutKey();
   const next = layout === 'stack' ? 'grid' : layout === 'grid' ? 'masonry' : 'stack';
+  activeSidebar().layouts[layoutKey]=next;
   state.data.settings.panelCustomLayouts = {
     ...(state.data.settings.panelCustomLayouts || {}),
     [layoutKey]: next
@@ -5488,6 +6447,7 @@ function togglePanelCustomLayout() {
 
 function getPanelCustomLayout() {
   const layoutKey = getManualPanelLayoutKey();
+  if(activeSidebar().layouts[layoutKey])return activeSidebar().layouts[layoutKey];
   const layouts = state.data?.settings?.panelCustomLayouts;
   const selected = layouts?.[layoutKey];
   if (['stack', 'grid', 'masonry'].includes(selected)) return selected;
@@ -5496,6 +6456,7 @@ function getPanelCustomLayout() {
 
 function resetPanelManualLayout() {
   const layoutKey = getManualPanelLayoutKey();
+  activeSidebar().layouts[layoutKey]='grid';
   panelCustomBlocks().forEach((block) => {
     if (block.manualLayouts) delete block.manualLayouts[layoutKey];
     delete block.manualLayout;
@@ -5689,9 +6650,12 @@ function enableManualPanelBlockInteractions(block, wrapper, dragHandle, resizeHa
 }
 
 function openPanelBlockPicker() { openWidgetLibrary(); }
-function addPanelCustomBlock(type) {
-  if (panelCustomBlocks().length >= MAX_CUSTOM_PANEL_BLOCKS) return;
-  state.data.panelCustomBlocks.push({ id: uid(), type, title: '', url: '', height: 320, createdAt: Date.now(), order: panelCustomBlocks().length });
+function addPanelCustomBlock(type,barId=activeSidebar().id) {
+  const target=sidebarBars().find(bar=>bar.id===barId);if(!target)return;
+  if(target.kind==='default')return;
+  const blocks=state.data.panelCustomBlocks.filter(block=>block.barId===barId);
+  if(blocks.length>=MAX_CUSTOM_PANEL_BLOCKS||blocks.some(block=>block.type===type))return;
+  state.data.panelCustomBlocks.push({ id: uid(),barId, type, title: '', url: '', height: 320, createdAt: Date.now(), order: blocks.length });
   saveData();
   closeModal();
   renderPanel();
@@ -5739,8 +6703,65 @@ function parseCustomIframe(value) {
   };
 }
 
+function preserveCustomIframeCode(value, model, overrides = {}) {
+  const raw = typeof value === 'string' ? value : '';
+  const parsed = parseCustomIframe(raw);
+  if (!parsed || parsed.url !== model.url || !/^\s*<iframe\b/i.test(raw)) return buildCustomIframeCode(model);
+  const width = overrides.width ? normalizeIframeWidth(model.width) : null, height = overrides.height ? normalizeIframeHeight(model.height) : null;
+  if ((!width || width === parsed.width) && (!height || height === parsed.height)) return raw;
+  return raw.replace(/<iframe\b(?:[^>"']|"[^"]*"|'[^']*')*>/i, opening => {
+    const frame = new DOMParser().parseFromString(opening + '</iframe>', 'text/html').querySelector('iframe');
+    if (width && width !== parsed.width) { frame.setAttribute('width', width.endsWith('px') ? width.slice(0,-2) : width); if(frame.style.width)frame.style.width=width; }
+    if (height && height !== parsed.height) { frame.setAttribute('height', String(height)); if(frame.style.height)frame.style.height=height+'px'; }
+    return frame.outerHTML.replace(/<\/iframe>$/i,'');
+  });
+}
+
+function syncIframeDimensionFields(embedInput,widthInput,heightInput) {
+  const overrides={width:false,height:false};
+  widthInput.addEventListener('input',()=>{overrides.width=true;});
+  heightInput.addEventListener('input',()=>{overrides.height=true;});
+  embedInput.addEventListener('input',()=>{
+    const parsed=parseCustomIframe(embedInput.value);if(!parsed)return;
+    overrides.width=false;overrides.height=false;
+    if(parsed.width)widthInput.value=parsed.width;
+    if(parsed.height)heightInput.value=String(parsed.height);
+  });
+  return overrides;
+}
+
+function applyCustomIframePresentation(frame, entry) {
+  if(!entry.embedCode)return;
+  const original=new DOMParser().parseFromString(entry.embedCode,'text/html').querySelector('iframe');
+  if(!original||original.getAttribute('src')?.trim()!==entry.url)return;
+  // Preserve the original source, but never execute pasted markup or grant
+  // its arbitrary permissions, handlers, srcdoc, or host-page positioning.
+  for(const property of ['border','border-radius','background-color','box-shadow']){
+    const value=original.style.getPropertyValue(property);if(value)frame.style.setProperty(property,value);
+  }
+  if(original.hasAttribute('allowfullscreen'))frame.setAttribute('allowfullscreen','');
+}
+
 function widgetLibrary() {
   return Array.isArray(state.data.widgetLibrary) ? state.data.widgetLibrary : [];
+}
+
+function normalizeWidgetTranslations(value){
+ const result={};if(!value||typeof value!=='object')return result;
+ for(const lang of ['es','en']){
+  if(!value[lang]||typeof value[lang]!=='object')continue;result[lang]={};
+  for(const [field,max]of [['title',80],['description',4000],['widgetType',60]])if(typeof value[lang][field]==='string')result[lang][field]=value[lang][field].slice(0,max);
+ }return result;
+}
+function localizedWidgetEntry(entry){
+ const lang=state.data.settings.language==='en'?'en':'es',translated=entry.translations?.[lang];
+ if(lang==='es'||!translated)return entry;const result={...entry};
+ for(const field of ['title','description','widgetType'])if(typeof translated[field]==='string'&&entry.translationSource?.[field]===entry[field])result[field]=translated[field];
+ return result;
+}
+function localizedWidgetType(type){
+ const entry=widgetLibrary().find(w=>w.widgetType===type&&w.translations?.[state.data.settings.language]?.widgetType&&w.translationSource?.widgetType===type);
+ return entry?localizedWidgetEntry(entry).widgetType:type;
 }
 
 const WIDGET_LIBRARY_TYPES = ['Por defecto','Mapas','Desarrollo','Herramientas','Citas','Banca','Música','Tiempo','Productividad','Noticias','Otros'];
@@ -5760,8 +6781,12 @@ function normalizeWidgetLibraryEntry(entry, index = 0) {
     url,
     width,
     height,
-    embedCode: buildCustomIframeCode({ url, title, width, height }),
+    embedCode: preserveCustomIframeCode(entry.embedCode, { url, title, width, height }),
     description: typeof entry.description === 'string' ? entry.description.slice(0,4000) : '',
+    favorite: entry.favorite === true,
+    catalogId: typeof entry.catalogId === 'string' ? entry.catalogId.trim().slice(0,120) : '',
+    translations: normalizeWidgetTranslations(entry.translations),
+    translationSource: entry.translationSource&&typeof entry.translationSource==='object'?Object.fromEntries(['title','description','widgetType'].filter(field=>typeof entry.translationSource[field]==='string').map(field=>[field,entry.translationSource[field].slice(0,field==='description'?4000:field==='title'?80:60)])):{},
     widgetType: typeof entry.widgetType === 'string' && entry.widgetType.trim() ? entry.widgetType.trim().slice(0,60) : 'Otros',
     createdAt,
     updatedAt,
@@ -5782,13 +6807,15 @@ function saveWidgetToLibrary(widget, existingId = null) {
   const duplicate = widgetLibrary().find((entry) => entry.id !== current?.id && widgetLibrarySignature(entry) === signature);
   const now = Date.now();
   if (duplicate && !current) {
-    if (widget.description !== undefined) duplicate.description = normalized.description;
-    if (widget.widgetType !== undefined) duplicate.widgetType = normalized.widgetType;
     duplicate.lastUsedAt = now;
-    duplicate.updatedAt = now;
     return duplicate;
   }
   if (current) {
+    if (widget.translations === undefined) normalized.translations = current.translations || {};
+    if (widget.translationSource === undefined) normalized.translationSource = current.translationSource || {};
+    if (widget.embedCode === undefined) normalized.embedCode = preserveCustomIframeCode(current.embedCode, normalized);
+    if (widget.catalogId === undefined) normalized.catalogId = current.catalogId || '';
+    if (widget.favorite === undefined) normalized.favorite = current.favorite === true;
     if (widget.description === undefined) normalized.description = current.description || '';
     if (widget.widgetType === undefined) normalized.widgetType = current.widgetType || 'Otros';
     Object.assign(current, normalized, { id: current.id, createdAt: current.createdAt, updatedAt: now, lastUsedAt: now });
@@ -5808,13 +6835,17 @@ function copyWidgetLibraryCode(entry) {
   navigator.clipboard.writeText(code).then(() => toast('Código iframe copiado.', 'success')).catch(() => toast('No se pudo copiar automáticamente. Selecciona el código para copiarlo.', 'info'));
 }
 
-function addWidgetLibraryEntryToPanel(entryId) {
+function addWidgetLibraryEntryToPanel(entryId,barId=null) {
   const entry = widgetLibrary().find((item) => item.id === entryId);
   if (!entry) return;
-  if (panelCustomBlocks().length >= MAX_CUSTOM_PANEL_BLOCKS) { toast(`La barra personalizada admite un máximo de ${MAX_CUSTOM_PANEL_BLOCKS} bloques.`, 'info'); return; }
+  if(!barId){chooseWidgetSidebar(id=>addWidgetLibraryEntryToPanel(entryId,id),entry);return;}
+  if(!sidebarBars().some(bar=>bar.id===barId))return;
+  if(sidebarBars().find(bar=>bar.id===barId).kind==='default')return;
+  const destination=state.data.panelCustomBlocks.filter(block=>block.barId===barId);
+  if(destination.length>=MAX_CUSTOM_PANEL_BLOCKS||sidebarWidgetLocations(entry).some(bar=>bar.id===barId))return;
   const block = {
-    id: uid(), type: 'iframe', title: entry.title, url: entry.url, width: entry.width, height: entry.height,
-    embedCode: entry.embedCode || buildCustomIframeCode(entry), manualLayouts: {}, createdAt: Date.now(), order: panelCustomBlocks().length
+    id: uid(),barId,libraryEntryId:entry.id, type: 'iframe', title: entry.title, url: entry.url, width: entry.width, height: entry.height,
+    embedCode: entry.embedCode || buildCustomIframeCode(entry), manualLayouts: {}, createdAt: Date.now(), order: destination.length
   };
   state.data.panelCustomBlocks.push(block);
   entry.lastUsedAt = Date.now();
@@ -5832,15 +6863,14 @@ function openWidgetLibraryForm(entryId = null) {
   const body = el('div', { class: 'modal-body' });
   const descriptionInput=el('textarea',{class:'form-textarea',rows:'4',maxlength:'4000',placeholder:'Descripción del widget…'});
   descriptionInput.value=editing?.description||'';
-  const typeInput=el('input',{class:'form-input',type:'text',maxlength:'60',list:'widgetTypeSuggestions',value:editing?.widgetType||'Otros',placeholder:'Mapas, música, herramientas…'});
-  const typeSuggestions=el('datalist',{id:'widgetTypeSuggestions'});
-  WIDGET_LIBRARY_TYPES.forEach(value=>typeSuggestions.append(el('option',{value})));
-  body.append(taskFormGroup('Descripción',descriptionInput),taskFormGroup('Tipo de widget',typeInput),typeSuggestions);
+  const typeInput=el('input',{class:'form-input',type:'text',maxlength:'60',value:editing?.widgetType||'',placeholder:'Selecciona un tipo o escribe uno nuevo…'});
+  body.append(taskFormGroup('Descripción',descriptionInput),taskFormGroup('Tipo de widget',widgetTypeDropdown(typeInput,()=>widgetLibraryTypes().map(value=>({value,text:value})))));
   const titleInput = el('input', { class: 'form-input', type: 'text', maxlength: '80', placeholder: 'Ej.: Mapa del tiempo', value: editing ? editing.title : '' });
   const embedInput = el('textarea', { class: 'form-textarea iframe-code-input', rows: '7', placeholder: 'https://ejemplo.com/widget\n\no pega aquí el código <iframe> completo' });
   embedInput.value = editing ? (editing.embedCode || buildCustomIframeCode(editing)) : '';
   const widthInput = el('input', { class: 'form-input', type: 'text', inputmode: 'decimal', maxlength: '8', placeholder: '100% o 640', value: editing ? (normalizeIframeWidth(editing.width) || '100%') : '100%' });
   const heightInput = el('input', { class: 'form-input', type: 'number', min: '120', max: '1600', step: '20', value: String(editing ? (normalizeIframeHeight(editing.height) || 320) : 320) });
+  const dimensionOverrides=syncIframeDimensionFields(embedInput,widthInput,heightInput);
   body.append(
     el('p', { class: 'widget-library-lead', text: 'Los widgets guardados permanecen aquí aunque quites su bloque de la Barra Personal. Puedes conservar distintas versiones del mismo servicio.' }),
     taskFormGroup('Nombre del widget', titleInput), taskFormGroup('URL HTTPS o código iframe', embedInput), taskFormGroup('Ancho (px o %)', widthInput), taskFormGroup('Altura (px)', heightInput)
@@ -5853,7 +6883,7 @@ function openWidgetLibraryForm(entryId = null) {
     if (!width) { widthInput.classList.add('invalid'); widthInput.focus(); toast('Indica un ancho entre 120 y 1600 px, o un porcentaje hasta 100%.', 'error'); return; }
     const height = normalizeIframeHeight(heightInput.value || parsed.height || editing?.height || 320);
     if (!height) { heightInput.classList.add('invalid'); heightInput.focus(); toast('Indica una altura entre 120 y 1600 px.', 'error'); return; }
-    const saved = saveWidgetToLibrary({ title: titleInput.value.trim() || parsed.title || new URL(parsed.url).hostname, description:descriptionInput.value.trim(), widgetType:typeInput.value.trim()||'Otros', url: parsed.url, width, height }, editing?.id || null);
+    const saved = saveWidgetToLibrary({ title: titleInput.value.trim() || parsed.title || new URL(parsed.url).hostname, description:descriptionInput.value.trim(), widgetType:typeInput.value.trim()||'Otros', url: parsed.url, width, height, embedCode:preserveCustomIframeCode(embedInput.value,{url:parsed.url,width,height},dimensionOverrides) }, editing?.id || null);
     if (!saved) return;
     saveData();
     openWidgetLibrary();
@@ -5880,51 +6910,176 @@ function confirmDeleteWidgetLibraryEntry(entryId) {
 
 function openWidgetLibraryPreview(entry, back) {
   if(!isValidEmbedUrl(entry.url))return;
-  const frame=el('iframe',{src:entry.url,title:entry.title,sandbox:widgetIframeSandbox(entry.url),referrerpolicy:'no-referrer',loading:'lazy'});
+  const frame=el('iframe',{src:entry.url,title:entry.title,sandbox:widgetIframeSandbox(entry.url),allow:"camera 'none'; microphone 'none'; geolocation 'none'",referrerpolicy:'no-referrer',loading:'lazy'});
+  applyCustomIframePresentation(frame,entry);
   const close=()=>{frame.removeAttribute('src');back();};
   const modal=el('div',{class:'modal widget-library-preview-modal',role:'dialog','aria-label':entry.title});
-  modal.append(el('div',{class:'modal-header'},[el('h2',{class:'modal-title',text:entry.title}),el('button',{class:'modal-close',text:'×',title:'Cerrar vista previa','aria-label':'Cerrar vista previa',onclick:close})]),el('div',{class:'modal-body'},[frame]),el('div',{class:'modal-footer'},[el('span',{class:'form-hint',text:'Algunos servicios bloquean la incrustación.'}),el('button',{class:'btn',text:'Cerrar',onclick:close})]));
+  modal.append(el('div',{class:'modal-header'},[el('h2',{class:'modal-title',text:entry.title}),el('button',{class:'modal-close',text:'×',title:'Cerrar vista previa','aria-label':'Cerrar vista previa',onclick:close})]),el('div',{class:'modal-body'},[widgetEmbedContent(frame,entry.url)]),el('div',{class:'modal-footer'},[el('span',{class:'form-hint',text:'Algunos servicios bloquean la incrustación.'}),el('button',{class:'btn',text:'Cerrar',onclick:close})]));
+  const attribution=widgetProviderAttribution(entry.url);if(attribution)modal.querySelector('.modal-footer').prepend(attribution);
   openModal(modal);
+  // Liberar también al cerrar con Escape o el fondo, no solo con el botón.
+  const observer=new MutationObserver(()=>{if(!modal.isConnected){frame.removeAttribute('src');frame.remove();observer.disconnect();}});
+  observer.observe(document.body,{childList:true,subtree:true});
 }
 
+function isWidgetLibraryFavorite(entry) {
+ return entry.nativeType ? (state.data.settings.widgetLibraryNativeFavorites||[]).includes(entry.nativeType) : entry.favorite===true;
+}
+
+function toggleWidgetLibraryFavorite(entry) {
+ if(entry.nativeType){
+  const favorites=new Set(state.data.settings.widgetLibraryNativeFavorites||[]);
+  if(favorites.has(entry.nativeType))favorites.delete(entry.nativeType);else favorites.add(entry.nativeType);
+  state.data.settings.widgetLibraryNativeFavorites=[...favorites];
+ }else{entry.favorite=!entry.favorite;}
+ saveData();
+}
+
+function widgetLibraryTypes() {
+ return [...new Set(['Por defecto',...widgetLibrary().map(entry=>(entry.widgetType||'Otros').trim()).filter(Boolean)])].sort((a,b)=>a.localeCompare(b,getLocale(),{sensitivity:'base'}));
+}
+
+function widgetTypeDropdown(control, options) {
+ const getOptions=()=>typeof options==='function'?options():options;
+ const editable=control.tagName==='INPUT';
+ const wrapper=el('div',{class:'widget-type-dropdown'});
+ const trigger=editable?el('button',{class:'widget-type-toggle',type:'button',text:'▾','aria-label':'Mostrar tipos de widget'}):el('button',{class:'form-select widget-type-trigger',type:'button','aria-label':'Tipo de widget'});
+ const menu=el('div',{class:'widget-type-options',popover:'auto',role:'listbox','aria-label':'Tipos de widget'});
+ if(!editable)control.hidden=true;
+ const sync=()=>{if(!editable)trigger.textContent=getOptions().find(option=>option.value===control.value)?.text||'Todos los tipos';};
+ const render=()=>{
+  menu.replaceChildren();
+  getOptions().forEach(option=>{
+   menu.append(el('button',{type:'button',class:'widget-type-option',role:'option','aria-selected':String(control.value===option.value),text:option.text,onclick:()=>{control.value=option.value;sync();menu.hidePopover();control.dispatchEvent(new Event('change',{bubbles:true}));(editable?control:trigger).focus();}}));
+  });
+  if(!menu.childElementCount)menu.append(el('p',{class:'form-hint',text:'Escribe un tipo nuevo para crearlo al guardar.'}));
+ };
+ const open=()=>{
+  if(!editable&&typeof options==='function'){
+   const previous=control.value;control.replaceChildren(...getOptions().map(option=>el('option',{value:option.value,text:option.text})));control.value=previous;sync();
+  }
+  render();
+  if(!menu.matches(':popover-open'))menu.showPopover();
+  const rect=wrapper.getBoundingClientRect();
+  menu.style.width=Math.min(rect.width,window.innerWidth-24)+'px';
+  menu.style.left=Math.max(12,Math.min(rect.left,window.innerWidth-menu.offsetWidth-12))+'px';
+  menu.style.top=Math.min(rect.bottom+6,window.innerHeight-80)+'px';
+  menu.style.maxHeight=Math.max(60,Math.min(240,window.innerHeight-rect.bottom-18))+'px';
+ };
+ trigger.onclick=()=>menu.matches(':popover-open')?menu.hidePopover():open();
+ control.addEventListener('change',sync);
+ if(editable){control.addEventListener('click',open);control.addEventListener('input',open);}
+ wrapper.addEventListener('keydown',event=>{if(event.key==='ArrowDown'){event.preventDefault();open();menu.querySelector('button')?.focus();}});
+ menu.addEventListener('keydown',event=>{const buttons=[...menu.querySelectorAll('button')],index=buttons.indexOf(document.activeElement);if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();buttons[(index+(event.key==='ArrowDown'?1:-1)+buttons.length)%buttons.length]?.focus();}});
+ wrapper.append(control,trigger,menu);sync();return wrapper;
+}
+
+function changeWidgetLibraryType(ids,value){
+ const type=String(value||'').trim();if(!type||type.length>60)throw Error(localizeUiString('Indica un tipo de widget válido.'));
+ const selected=new Set(ids),changes=widgetLibrary().filter(entry=>selected.has(entry.id)&&entry.widgetType!==type).map(entry=>({entry,type:entry.widgetType,updatedAt:entry.updatedAt}));
+ if(!changes.length)return 0;
+ for(const change of changes){change.entry.widgetType=type;change.entry.updatedAt=Date.now();}
+ try{
+  saveData();const stored=JSON.parse(localStorage.getItem(APP.storageKey)||'null')?.widgetLibrary;
+  const byId=new Map((Array.isArray(stored)?stored:[]).map(entry=>[entry.id,entry]));
+  if(!Array.isArray(stored)||changes.some(change=>byId.get(change.entry.id)?.widgetType!==type))throw Error(localizeUiString('No se ha confirmado el guardado.'));
+ }catch(error){for(const change of changes){change.entry.widgetType=change.type;change.entry.updatedAt=change.updatedAt;}throw error;}
+ return changes.length;
+}
+function openWidgetLibraryBulkType(ids,onReturn){
+ const entries=widgetLibrary().filter(entry=>ids.includes(entry.id));if(!entries.length)return;
+ const modal=el('div',{class:'modal widget-library-bulk-type-modal',role:'dialog','aria-label':'Cambiar tipo'}),body=el('div',{class:'modal-body widget-library-bulk-columns'}),summary=el('div'),form=el('div');
+ const input=el('input',{class:'form-input',type:'text',maxlength:'60',placeholder:'Selecciona un tipo o escribe uno nuevo…','aria-label':'Tipo de destino'});
+ const common=entries.every(entry=>entry.widgetType===entries[0].widgetType)?entries[0].widgetType:'';input.value=common;
+ const status=el('p',{class:'form-hint',role:'status'}),names=el('ul',{class:'widget-library-bulk-names'});
+ entries.forEach(entry=>names.append(el('li',{text:localizedWidgetEntry(entry).title,i18n:false})));
+ summary.append(el('h3',{text:formatUiText('Widgets seleccionados: {count}',{count:entries.length})}),names);
+ form.append(taskFormGroup('Tipo de destino',widgetTypeDropdown(input,()=>widgetLibraryTypes().map(value=>({value,text:localizedWidgetType(value)})))),el('p',{class:'form-hint',text:'Solo cambia el tipo. Se conservan nombres, descripciones, favoritos, iframes y ubicaciones en las barras.'}),status);
+ const back=()=>onReturn(false);body.append(summary,form);
+ modal.append(el('div',{class:'modal-header'},[el('h2',{class:'modal-title',text:'Cambiar tipo'}),el('button',{class:'modal-close',text:'×','aria-label':'Cerrar',onclick:back})]),body,el('div',{class:'modal-footer'},[el('button',{class:'btn secondary',text:'Cancelar',onclick:back}),el('button',{class:'btn primary',text:'Aplicar a seleccionados',onclick:()=>{
+  try{const count=changeWidgetLibraryType(ids,input.value);onReturn(true);toast(formatUiText('Widgets actualizados: {count}',{count}),'success');}catch(error){status.textContent=error.message;input.focus();}
+ }})]));openModal(modal);input.focus();
+}
 function openWidgetLibrary() {
  const modal=el('div',{class:'modal widget-library-modal',role:'dialog','aria-labelledby':'modalTitle'}),body=el('div',{class:'modal-body widget-library-body'}),toolbar=el('div',{class:'widget-library-toolbar'}),search=el('input',{class:'form-input',type:'search',placeholder:'Rechercher…','aria-label':'Buscar widgets'}),filter=el('select',{class:'form-select','aria-label':'Tipo de widget'}),view=el('select',{class:'form-select','aria-label':'Vista de widgets'}),list=el('div',{class:'widget-library-list'});
- search.placeholder='Buscar widgets…';
+ search.placeholder=localizeUiString('Buscar widgets…');
+ const libraryCount=el('p',{class:'form-hint',role:'status','aria-live':'polite'});
  const sort=el('select',{class:'form-select','aria-label':'Ordenar widgets'});
  [['name-asc','Nombre A–Z'],['name-desc','Nombre Z–A'],['updated','Últimos modificados']].forEach(([value,text])=>sort.append(el('option',{value,text})));
  sort.value=['name-asc','name-desc','updated'].includes(state.data.settings.widgetLibrarySort)?state.data.settings.widgetLibrarySort:'name-asc';
- filter.append(el('option',{value:'',text:'Todos los tipos'}));
- [...new Set([...WIDGET_LIBRARY_TYPES,...widgetLibrary().map(e=>e.widgetType||'Otros')])].sort().forEach(value=>filter.append(el('option',{value,text:value})));
+ filter.append(el('option',{value:'',text:'Todos los tipos'}),el('option',{value:'__favorites__',text:'★ Favoritos'}));
+ const types=widgetLibraryTypes();
+ types.forEach(value=>filter.append(el('option',{value,text:value})));
+ filter.value=[...types,'__favorites__'].includes(state.data.settings.widgetLibraryTypeFilter)?state.data.settings.widgetLibraryTypeFilter:'';
  [['cards','Tarjetas'],['list','Tabla']].forEach(([value,text])=>view.append(el('option',{value,text})));
- const views=state.data.settings.widgetLibraryViews||{};view.value=views.all||'cards';
+ const views=state.data.settings.widgetLibraryViews||{};view.value=views[filter.value||'all']||'cards';
+ const selected=new Set();let selectionAnchor=null;
+ const selectedCount=el('span',{class:'form-hint',role:'status','aria-live':'polite'}),changeType=el('button',{class:'btn secondary',text:'Cambiar tipo',disabled:true}),clearSelection=el('button',{class:'btn secondary',text:'Deseleccionar',disabled:true});
+ const bulkBar=el('div',{class:'widget-library-bulk-toolbar'},[el('span',{class:'form-hint',text:'Ctrl/Alt: selección alterna · Mayús: seleccionar un tramo'}),selectedCount,clearSelection,changeType]);
+ const selectionNodes=()=>[...list.querySelectorAll('[data-widget-selection-id]')];
+ const syncSelection=()=>{
+  const nodes=selectionNodes(),visible=new Set(nodes.map(node=>node.dataset.widgetSelectionId));
+  for(const id of selected)if(!visible.has(id))selected.delete(id);
+  if(!visible.has(selectionAnchor))selectionAnchor=null;
+  nodes.forEach(node=>{const active=selected.has(node.dataset.widgetSelectionId);node.classList.toggle('widget-multiselected',active);if(node.tagName==='TR')node.setAttribute('aria-selected',String(active));node.setAttribute('aria-description',localizeUiString(active?'Seleccionado':'No seleccionado'));});
+  selectedCount.textContent=formatUiText('Widgets seleccionados: {count}',{count:selected.size});changeType.disabled=clearSelection.disabled=!selected.size;
+ };
+ const selectWidget=(id,event)=>{
+  const ids=selectionNodes().map(node=>node.dataset.widgetSelectionId),additive=event.ctrlKey||event.metaKey||event.altKey;
+  if(event.shiftKey&&selectionAnchor&&ids.includes(selectionAnchor)){
+   if(!additive)selected.clear();const a=ids.indexOf(selectionAnchor),b=ids.indexOf(id);ids.slice(Math.min(a,b),Math.max(a,b)+1).forEach(key=>selected.add(key));
+  }else{if(additive){selected.has(id)?selected.delete(id):selected.add(id);}else{selected.clear();selected.add(id);}selectionAnchor=id;}
+  syncSelection();
+ };
+ const bindSelection=(node,entry)=>{
+  if(entry.nativeType||!entry.id)return;node.dataset.widgetSelectionId=entry.id;node.tabIndex=0;
+  const interactive=target=>target.closest('button,a,input,select,textarea,[contenteditable="true"]');
+  node.addEventListener('click',event=>{if(interactive(event.target))return;event.preventDefault();selectWidget(entry.id,event);});
+  node.addEventListener('keydown',event=>{
+   if(interactive(event.target)||event.target!==node)return;
+   if(event.key===' '||event.key==='Enter'){event.preventDefault();selectWidget(entry.id,event);}
+   else if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='a'){event.preventDefault();event.stopPropagation();selectionNodes().forEach(item=>selected.add(item.dataset.widgetSelectionId));syncSelection();}
+   else if(event.key==='Escape'&&selected.size){event.preventDefault();event.stopPropagation();selected.clear();selectionAnchor=null;syncSelection();}
+  });
+ };
+ clearSelection.onclick=()=>{selected.clear();selectionAnchor=null;syncSelection();};
+ changeType.onclick=()=>{const ids=[...selected];if(ids.length)openWidgetLibraryBulkType(ids,changed=>{if(changed){const value=filter.value;filter.replaceChildren(el('option',{value:'',text:'Todos los tipos'}),el('option',{value:'__favorites__',text:'★ Favoritos'}),...widgetLibraryTypes().map(value=>el('option',{value,text:localizedWidgetType(value)})));if(value&&!Array.from(filter.options).some(option=>option.value===value))filter.append(el('option',{value,text:localizedWidgetType(value)}));filter.value=value;render();}openModal(modal);});};
  const render=()=>{
   list.textContent='';list.className='widget-library-list widget-library-view-'+view.value;
   let tableBody=null;
-  if(view.value==='list'){const table=el('table',{class:'widget-library-table'}),head=el('thead'),row=el('tr');['Widget','Web','Descripción','Acciones'].forEach(text=>row.append(el('th',{scope:'col',text})));head.append(row);tableBody=el('tbody');table.append(head,tableBody);list.append(table);}
-  const appendCard=card=>{if(!tableBody){list.append(card);return;}const row=el('tr'),title=el('td'),web=el('td'),description=el('td'),actions=el('td',{class:'widget-library-table-actions'});const name=card.querySelector('strong'),link=card.querySelector('.widget-library-domain'),desc=card.querySelector('.widget-library-description'),buttons=card.querySelector('.widget-library-actions');if(name)title.append(name);if(link)web.append(link);if(desc)description.append(desc);if(buttons)actions.append(buttons);else{const button=card.querySelector('button');if(button)actions.append(button);}row.append(title,web,description,actions);tableBody.append(row);};
+  if(view.value==='list'){const table=el('table',{class:'widget-library-table'}),head=el('thead'),row=el('tr');['Widget','Web','Descripción','Acciones'].forEach((text,index)=>row.append(el('th',{scope:'col',text,'data-sortable':index<3?'true':'false'})));head.append(row);tableBody=el('tbody');table.append(head,tableBody);list.append(table);}
+  const appendCard=(card,entry)=>{if(!tableBody){bindSelection(card,entry);list.append(card);return;}const row=el('tr'),title=el('td'),web=el('td'),description=el('td'),actions=el('td',{class:'widget-library-table-actions'});const name=card.querySelector('strong'),link=card.querySelector('.widget-library-domain'),desc=card.querySelector('.widget-library-description'),buttons=card.querySelector('.widget-library-actions');if(name)title.append(name);if(link)web.append(link);if(desc)description.append(desc);if(buttons)actions.append(buttons);else{const button=card.querySelector('button');if(button)actions.append(button);}row.append(title,web,description,actions);bindSelection(row,entry);tableBody.append(row);};
   const defaults=[['recent','Recientes','Los últimos favoritos abiertos.'],['stats','Estadísticas','Contadores y estado de tus marcadores.'],['tools','Widgets','Herramientas integradas del Dashboard.'],['notes',t('notesVisible'),'Muestra las notas elegidas.']].map(([nativeType,title,description])=>({nativeType,title,description,widgetType:'Por defecto',url:'',updatedAt:0}));
-  const entries=[...defaults,...widgetLibrary()].filter(e=>(!filter.value||(e.widgetType||'Otros')===filter.value)&&normalizeSearchText(e.title+' '+e.url+' '+(e.description||'')).includes(normalizeSearchText(search.value))).sort((a,b)=>sort.value==='updated'?b.updatedAt-a.updatedAt:(sort.value==='name-desc'?-1:1)*a.title.localeCompare(b.title,getLocale(),{sensitivity:'base',numeric:true}));
+  const entries=[...defaults,...widgetLibrary()].filter(e=>(filter.value==='__favorites__'?isWidgetLibraryFavorite(e):!filter.value||(e.widgetType||'Otros')===filter.value)&&normalizeSearchText(localizedWidgetEntry(e).title+' '+e.url+' '+(localizedWidgetEntry(e).description||'')).includes(normalizeSearchText(search.value))).sort((a,b)=>sort.value==='updated'?b.updatedAt-a.updatedAt:(sort.value==='name-desc'?-1:1)*localizedWidgetEntry(a).title.localeCompare(localizedWidgetEntry(b).title,getLocale(),{sensitivity:'base',numeric:true}));
+  libraryCount.textContent=formatUiText('Guardados: {total} · Integrados: {native} · Mostrando: {shown}',{total:widgetLibrary().length,native:defaults.length,shown:entries.length});
   if(!entries.length)list.append(el('p',{text:'No hay widgets con estos filtros.'}));
-  entries.forEach(entry=>{
-   const card=el('article',{class:'widget-library-card'}),description=el('p',{class:'widget-library-description',text:entry.description||''}),actions=el('div',{class:'widget-library-actions'});
-   if(entry.nativeType){card.append(el('strong',{text:entry.title}));if(entry.description)card.append(description);card.append(el('button',{class:'btn secondary',html:ICONS.plus+'<span>Agregar</span>',title:'Agregar a mi barra',disabled:panelCustomBlocks().length>=MAX_CUSTOM_PANEL_BLOCKS||panelCustomBlocks().some(b=>b.type===entry.nativeType),onclick:()=>addPanelCustomBlock(entry.nativeType)}));appendCard(card);return;}
+  entries.forEach(original=>{
+   const entry=localizedWidgetEntry(original);
+   const card=el('article',{class:'widget-library-card'}),description=el('p',{class:'widget-library-description',i18n:false,text:entry.description||''}),actions=el('div',{class:'widget-library-actions'});
+   const favorite=isWidgetLibraryFavorite(entry);
+   const favoriteButton=el('button',{class:'icon-btn',type:'button',text:favorite?'★':'☆',style:favorite?'color:var(--primary);font-size:20px':'font-size:20px',title:favorite?'Quitar de favoritos':'Marcar como favorito','aria-label':favorite?'Quitar de favoritos':'Marcar como favorito','aria-pressed':String(favorite),onclick:()=>{toggleWidgetLibraryFavorite(original);render();}});
+   if(entry.nativeType){card.append(el('strong',{text:entry.title}));if(entry.description)card.append(description);actions.append(favoriteButton,el('button',{class:'btn secondary',html:ICONS.plus+'<span>Agregar</span>',title:'Elegir barra de destino',onclick:()=>chooseWidgetSidebar(id=>addPanelCustomBlock(entry.nativeType,id),entry)}));card.append(actions);appendCard(card,original);return;}
    const iconButton=(icon,label,fn,danger=false)=>el('button',{class:'icon-btn'+(danger?' danger':''),type:'button',html:icon,title:label,'aria-label':label,onclick:fn});
-   actions.append(el('button',{class:'btn secondary',type:'button',html:ICONS.plus+'<span>Agregar</span>',title:'Agregar a mi barra',disabled:panelCustomBlocks().length>=MAX_CUSTOM_PANEL_BLOCKS,onclick:()=>addWidgetLibraryEntryToPanel(entry.id)}),iconButton(ICONS.duplicate,'Copiar código',()=>copyWidgetLibraryCode(entry)),iconButton(ICONS.edit,'Editar widget',()=>openWidgetLibraryForm(entry.id)),iconButton(ICONS.trash,'Eliminar widget',()=>confirmDeleteWidgetLibraryEntry(entry.id),true));
+   actions.append(el('button',{class:'btn secondary',type:'button',html:ICONS.plus+'<span>Agregar</span>',title:'Elegir barra de destino',onclick:()=>addWidgetLibraryEntryToPanel(entry.id)}),iconButton(ICONS.duplicate,'Copiar código',()=>copyWidgetLibraryCode(entry)),iconButton(ICONS.edit,'Editar widget',()=>openWidgetLibraryForm(entry.id)),iconButton(ICONS.trash,'Eliminar widget',()=>confirmDeleteWidgetLibraryEntry(entry.id),true));
+   const locations=sidebarWidgetLocations(original);if(locations.length)actions.append(el('small',{class:'widget-library-locations',text:'En: '+locations.map(bar=>(sidebarBars().indexOf(bar)+1)+' · '+bar.name).join(', ')}));
    const preview=el('div',{class:'widget-library-preview'}),previewButton=el('button',{class:'icon-btn',html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>',title:'Abrir vista previa','aria-label':'Abrir vista previa'});
    previewButton.onclick=()=>openWidgetLibraryPreview(entry,()=>{openModal(modal);});
-   preview.append(previewButton);
-   card.append(el('strong',{text:entry.title}),el('a',{class:'widget-library-domain',text:getDomain(entry.url),href:entry.url,target:'_blank',rel:'noopener noreferrer'}));if(entry.description)card.append(description);actions.prepend(previewButton);card.append(actions);appendCard(card);
+   preview.append(previewButton);actions.prepend(favoriteButton);
+   card.append(el('strong',{i18n:false,text:entry.title}),el('a',{class:'widget-library-domain',text:getDomain(entry.url),href:entry.url,target:'_blank',rel:'noopener noreferrer'}));if(entry.description)card.append(description);actions.prepend(previewButton);card.append(actions);appendCard(card,original);
   });
+  syncSelection();
  };
- filter.onchange=()=>{view.value=(state.data.settings.widgetLibraryViews||{})[filter.value||'all']||'cards';render();};
+ filter.onchange=()=>{state.data.settings.widgetLibraryTypeFilter=filter.value;saveData();view.value=(state.data.settings.widgetLibraryViews||{})[filter.value||'all']||'cards';render();};
  view.onchange=()=>{state.data.settings.widgetLibraryViews={...(state.data.settings.widgetLibraryViews||{}),[filter.value||'all']:view.value};saveData();render();};
  search.oninput=render;
  sort.onchange=()=>{state.data.settings.widgetLibrarySort=sort.value;saveData();render();};
- toolbar.append(search,filter,sort,view);body.append(el('p',{class:'form-hint',text:'Los widgets se guardan en tu copia completa. Las vistas previas contactan con el servicio externo solo al pulsarlas; no son capturas almacenadas. Algunos servicios bloquean su incrustación.'}),toolbar,list);
- modal.append(el('div',{class:'modal-header'},[el('h2',{class:'modal-title',id:'modalTitle',text:'Biblioteca de widgets'}),el('button',{class:'modal-close',text:'×','aria-label':'Cerrar',onclick:closeModal})]),body,el('div',{class:'modal-footer'},[el('button',{class:'btn',text:'Cerrar',onclick:closeModal}),el('button',{class:'btn primary',text:'Añadir widget',onclick:()=>openWidgetLibraryForm()})]));render();openModal(modal);
+ toolbar.append(search,widgetTypeDropdown(filter,()=>[{value:'',text:'Todos los tipos'},{value:'__favorites__',text:'★ Favoritos'},...widgetLibraryTypes().map(value=>({value,text:localizedWidgetType(value)}))]),sort,view);body.append(el('p',{class:'form-hint',text:'Marca la estrella para reunir widgets en Favoritos sin cambiar su tipo. Puedes usar la vista previa sin agregarlos: DashboardDP no guarda su contenido y libera el iframe al cerrar. El servicio externo puede gestionar sus propios datos.'}),toolbar,list);
+ body.insertBefore(libraryCount,list);body.insertBefore(bulkBar,list);
+ modal.append(el('div',{class:'modal-header'},[el('h2',{class:'modal-title',id:'modalTitle',text:'Biblioteca de widgets'}),el('button',{class:'modal-close',text:'×','aria-label':'Cerrar',onclick:closeModal})]),body,el('div',{class:'modal-footer'},[el('button',{class:'btn secondary',text:'Importar repositorio',onclick:openRepositoryImport}),el('button',{class:'btn',text:'Cerrar',onclick:closeModal}),el('button',{class:'btn primary',text:'Nuevo Widget',onclick:()=>openWidgetLibraryForm()})]));render();openModal(modal);
 }
 
 function openCustomIframeBlockForm(blockId = null) {
+  if(!blockId&&activeSidebar().kind==='default'){chooseWidgetSidebar(id=>{selectSidebar(id);openCustomIframeBlockForm();});return;}
   const editing = blockId ? panelCustomBlocks().find((block) => block.id === blockId && block.type === 'iframe') : null;
   const modal = el('div', { class: 'modal', role: 'dialog', 'aria-labelledby': 'modalTitle' });
   const header = el('div', { class: 'modal-header' });
@@ -5938,6 +7093,7 @@ function openCustomIframeBlockForm(blockId = null) {
   embedInput.value = editing ? (editing.embedCode || fallbackCode) : '';
   const widthInput = el('input', { class: 'form-input', type: 'text', inputmode: 'decimal', maxlength: '8', placeholder: '100% o 640', value: editing ? (normalizeIframeWidth(editing.width) || '100%') : '' });
   const heightInput = el('input', { class: 'form-input', type: 'number', min: '120', max: '1600', step: '20', placeholder: 'Se detecta del iframe si existe', value: editing ? String(normalizeIframeHeight(editing.height) || 320) : '' });
+  const dimensionOverrides=syncIframeDimensionFields(embedInput,widthInput,heightInput);
   body.append(taskFormGroup('Nombre del widget', titleInput), taskFormGroup('URL HTTPS o código iframe', embedInput), taskFormGroup('Ancho (px o %)', widthInput), taskFormGroup('Altura (px)', heightInput), el('p', { class: 'task-form-help', text: 'El código se conserva para que puedas editarlo después. El ancho acepta, por ejemplo, 100%, 360 o 640 px; se adapta al panel cuando falte espacio. En mosaico manual, ancho y altura actualizan el tamaño de la tarjeta. Se usa únicamente la dirección HTTPS del iframe.' }));
   const footer = el('div', { class: 'modal-footer' });
   footer.append(el('button', { class: 'btn secondary', text: 'Cancelar', onclick: closeModal }), el('button', { class: 'btn primary', text: editing ? 'Guardar' : 'Añadir', onclick: () => {
@@ -5959,9 +7115,9 @@ function openCustomIframeBlockForm(blockId = null) {
       const current = getManualPanelLayout(block) || { x: 0, y: 0, width: inputWidth, height };
       block.manualLayouts[layoutKey] = normalizeManualPanelLayout({ ...current, width: inputWidth, height });
     }
-    block.embedCode = buildCustomIframeCode(block);
-    if (!editing) state.data.panelCustomBlocks.push(block);
-    saveWidgetToLibrary(block);
+    block.embedCode = preserveCustomIframeCode(embedInput.value,block,dimensionOverrides);
+    if (!editing) {block.barId=activeSidebar().id;state.data.panelCustomBlocks.push(block);}
+    const savedEntry=saveWidgetToLibrary(block);if(savedEntry)block.libraryEntryId=savedEntry.id;
     saveData();
     renderPanel();
     closeModal();
@@ -5978,7 +7134,7 @@ function movePanelCustomBlock(blockId, direction) {
   if (index < 0 || target < 0 || target >= blocks.length) return;
   [blocks[index], blocks[target]] = [blocks[target], blocks[index]];
   blocks.forEach((block, order) => { block.order = order; });
-  state.data.panelCustomBlocks = blocks;
+  state.data.panelCustomBlocks = [...state.data.panelCustomBlocks.filter(block=>block.barId!==activeSidebar().id),...blocks];
   saveData();
   renderPanel();
 }
@@ -5992,7 +7148,7 @@ function confirmDeletePanelCustomBlock(blockId) {
   const body = el('div', { class: 'modal-body' });
   body.appendChild(el('p', { text: `¿Quieres quitar “${block.type === 'iframe' ? block.title : panelBlockTitle(block.type)}” de tu barra personalizada? Podrás volver a añadirlo cuando quieras.` }));
   const footer = el('div', { class: 'modal-footer' });
-  footer.append(el('button', { class: 'btn', text: 'Cancelar', onclick: closeModal }), el('button', { class: 'btn danger', text: 'Quitar', onclick: () => { state.data.panelCustomBlocks = panelCustomBlocks().filter((item) => item.id !== blockId); saveData(); closeModal(); renderPanel(); } }));
+  footer.append(el('button', { class: 'btn', text: 'Cancelar', onclick: closeModal }), el('button', { class: 'btn danger', text: 'Quitar', onclick: () => { state.data.panelCustomBlocks = state.data.panelCustomBlocks.filter((item) => item.id !== blockId); saveData(); closeModal(); renderPanel(); } }));
   modal.append(header, body, footer);
   openModal(modal);
 }
@@ -6074,14 +7230,42 @@ function renderStats() {
 // ratón fuera del modal nunca se confunde con un clic de cierre.
 let modalBackdropPressStarted = false;
 
+function categoryTreeSelector(select) {
+  const wrapper=el('div',{class:'category-tree-selector'}),trigger=el('button',{class:'form-select category-tree-trigger',type:'button','aria-haspopup':'tree','aria-expanded':'false'});
+  const menu=el('div',{class:'category-tree-menu',popover:'auto',role:'tree','aria-label':select.getAttribute('aria-label')||'Carpeta de destino'});
+  const expanded=new Set();
+  const sync=()=>{const category=getCategory(select.value);trigger.replaceChildren();if(category)trigger.append(el('span',{class:'category-item-dot',style:`background:${getCategoryColor(category)}`}));trigger.append(el('span',{text:category?.name||select.selectedOptions[0]?.textContent||'Ninguna (raíz)'}),el('span',{text:'▾'}));};
+  const render=()=>{
+    menu.replaceChildren();const allowed=new Set([...select.options].map(option=>option.value));
+    const choose=value=>{select.value=value;select.dispatchEvent(new Event('change',{bubbles:true}));sync();menu.hidePopover();trigger.focus();};
+    if(allowed.has(''))menu.append(el('button',{class:'workspace-category-head',type:'button',role:'treeitem',text:'Ninguna (raíz)',onclick:()=>choose('')}));
+    const walk=(parent,depth)=>getChildren(parent).forEach(category=>{
+      if(!allowed.has(category.id))return;
+      const row=el('div',{class:'category-tree-option',role:'treeitem','aria-selected':String(select.value===category.id),style:`padding-left:${8+depth*18}px`});
+      const children=getChildren(category.id).filter(child=>allowed.has(child.id));
+      if(children.length){row.setAttribute('aria-expanded',String(expanded.has(category.id)));row.append(el('button',{class:'tree-chevron'+(expanded.has(category.id)?' expanded':''),type:'button','aria-label':'Desplegar '+category.name,html:ICONS.chevronRight,onclick:()=>{expanded.has(category.id)?expanded.delete(category.id):expanded.add(category.id);render();}}));}
+      else row.append(el('span',{class:'tree-chevron leaf'}));
+      row.append(el('button',{class:'category-tree-choice',type:'button',onclick:()=>choose(category.id)},[el('span',{class:'category-item-dot',style:`background:${getCategoryColor(category)}`}),el('span',{class:'category-item-name',text:category.name}),el('span',{class:'category-item-count',text:String(getDirectCount(category.id))})]));menu.append(row);
+      if(expanded.has(category.id))walk(category.id,depth+1);
+    });walk(null,0);
+  };
+  trigger.onclick=()=>{if(menu.matches(':popover-open')){menu.hidePopover();return;}getCategoryPath(select.value).forEach(category=>expanded.add(category.id));render();menu.showPopover();const rect=trigger.getBoundingClientRect();menu.style.width=Math.min(Math.max(rect.width,280),innerWidth-24)+'px';menu.style.left=Math.max(12,Math.min(rect.left,innerWidth-menu.offsetWidth-12))+'px';menu.style.top=Math.max(12,Math.min(rect.bottom+4,innerHeight-menu.offsetHeight-12))+'px';trigger.setAttribute('aria-expanded','true');};
+  menu.addEventListener('toggle',()=>trigger.setAttribute('aria-expanded',String(menu.matches(':popover-open'))));
+  menu.addEventListener('keydown',event=>{if(event.key==='Escape'){menu.hidePopover();trigger.focus();}if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();const buttons=[...menu.querySelectorAll('button')],index=buttons.indexOf(document.activeElement);buttons[(index+(event.key==='ArrowDown'?1:-1)+buttons.length)%buttons.length]?.focus();}});
+  const label=select.id&&document.querySelector(`label[for="${select.id}"]`);if(label)trigger.setAttribute('aria-label',label.textContent);else trigger.setAttribute('aria-label',select.getAttribute('aria-label')||'Categoría');
+  select.before(wrapper);select.hidden=true;wrapper.append(select,trigger,menu);select.addEventListener('change',sync);sync();
+}
+
 function openModal(modal) {
   modalBackdropPressStarted = false;
   els.modalOverlay.textContent = '';
   els.modalOverlay.appendChild(modal);
+  modal.querySelectorAll('select:is(#bm-cat,#cat-parent,#moveCategory,#move-folder-parent)').forEach(categoryTreeSelector);
   els.modalOverlay.classList.remove('hidden');
   els.modalOverlay.classList.add('visible');
 
   const closeBtn = modal.querySelector('.modal-close');
+  translateStaticInterface();
   if (closeBtn) closeBtn.focus();
 }
 
@@ -6264,7 +7448,8 @@ function exportBookmarkAuditReport(results) {
   const lines = [
     '# Auditoría de favoritos de DashboardDP', '',
     `- Fecha: ${new Date().toLocaleString()}`,
-    `- Favoritos revisados: ${results.length}`,
+    `- Favoritos revisados: ${results.filter(item=>item.status!=='unchecked').length}`,
+    `- Sin comprobar: ${results.filter(item=>item.status==='unchecked').length}`,
     `- Candidatos a revisión manual: ${(counts.missing || 0) + (counts.youtube_missing || 0)}`, '',
     '> Un error de red, DNS, TLS, bloqueo del proveedor, VPN, autenticación o tiempo de espera no demuestra que una web haya desaparecido. DashboardDP nunca los selecciona automáticamente para borrar.', ''
   ];
@@ -6272,30 +7457,56 @@ function exportBookmarkAuditReport(results) {
   lines.push('', '## Detalle', '', '| Estado | Favorito | Categoría | Resultado | Dirección |', '|---|---|---|---|---|');
   results.forEach((item) => {
     const clean = (value) => String(value || '').replace(/\|/g, '\\|').replace(/[\r\n]+/g, ' ');
-    lines.push(`| ${clean(BOOKMARK_AUDIT_LABELS[item.status])} | ${clean(item.name)} | ${clean(item.category)} | ${clean(item.detail)} | ${clean(item.url)} |`);
+    lines.push(`| ${clean(BOOKMARK_AUDIT_LABELS[item.status]||'Sin comprobar')} | ${clean(item.name)} | ${clean(item.category)} | ${clean(item.detail)} | ${clean(item.url)} |`);
   });
   downloadTextFile(lines.join('\n'), `dashboarddp-auditoria-favoritos-${new Date().toISOString().slice(0, 10)}.md`, 'text/markdown;charset=utf-8');
   toast('Informe de auditoría descargado', 'success');
 }
 
-function persistBookmarkAuditResults(results) {
+function persistBookmarkAuditResults(results, { render = true } = {}) {
   const checkedAt = Date.now();
   const byId = new Map(results.map((result) => [result.bookmarkId, result]));
   state.data.bookmarks.forEach((bookmark) => {
     const result = byId.get(bookmark.id);
-    if (!result) return;
+    if (!result || result.url !== bookmark.url || !BOOKMARK_AUDIT_LABELS[result.status]) return;
+    if(result.checkedAt&&result.checkedAt<Number(bookmark.auditCheckedAt||0))return;
     bookmark.auditStatus = result.status;
     bookmark.auditDetail = result.detail || '';
     bookmark.auditHttpStatus = Number(result.httpStatus) || 0;
-    bookmark.auditCheckedAt = checkedAt;
+    bookmark.auditCheckedAt = result.checkedAt || checkedAt;
   });
   saveData();
-  renderCurrentView();
+  if(render)renderCurrentView();
+}
+
+function savedBookmarkAuditResults(){
+  return state.data.bookmarks.map(bookmark=>({bookmarkId:bookmark.id,name:bookmark.name,url:bookmark.url,category:bookmarkAuditCategoryName(bookmark),status:bookmark.auditStatus||'unchecked',detail:bookmark.auditDetail||'Todavía no se ha comprobado esta dirección.',httpStatus:bookmark.auditHttpStatus||0,checkedAt:bookmark.auditCheckedAt||0}));
+}
+
+function editAuditedBookmark(id){
+  const bookmark=getBookmark(id);if(!bookmark)return;
+  const titleInput=el('input',{class:'form-input',type:'text',value:bookmark.name,'aria-label':'Título del favorito'});
+  const modal=el('div',{class:'modal',role:'dialog'}),input=el('input',{class:'form-input',type:'url',value:bookmark.url,'aria-label':'URL del favorito'}),status=el('p',{class:'form-hint',role:'status'});
+  const save=el('button',{class:'btn primary',text:'Guardar y comprobar',onclick:async()=>{
+    if(!titleInput.value.trim()){status.textContent='El título del favorito es obligatorio.';titleInput.focus();return;}
+    let url;try{url=new URL(input.value.trim());if(!['http:','https:'].includes(url.protocol)||url.username||url.password)throw Error();}catch{status.textContent='Introduce una URL HTTP o HTTPS válida, sin credenciales.';return;}
+    if(!await requestBookmarkAuditPermission()){status.textContent='No se concedió permiso para comprobar la web. No se ha cambiado el favorito.';return;}
+    save.disabled=true;
+    const updated={...bookmark,name:titleInput.value.trim(),url:url.href,updatedAt:Date.now()};
+    ['auditStatus','auditDetail','auditHttpStatus','auditCheckedAt'].forEach(key=>delete updated[key]);
+    try{
+      if(nativeWritesEnabled())await syncDashboardBookmarkToNative(updated);
+      ['auditStatus','auditDetail','auditHttpStatus','auditCheckedAt'].forEach(key=>delete bookmark[key]);Object.assign(bookmark,updated);saveData();
+      const result=await auditOneBookmark({...bookmark},new AbortController().signal);result.checkedAt=Date.now();persistBookmarkAuditResults([result]);openBookmarkAudit();
+    }catch(error){status.textContent='No se pudo actualizar el favorito: '+error.message;save.disabled=false;}
+  }});
+  modal.append(el('div',{class:'modal-header'},[el('h2',{class:'modal-title',text:'Editar favorito'}),el('button',{class:'modal-close',text:'×','aria-label':'Cerrar',onclick:()=>openBookmarkAudit()})]),el('div',{class:'modal-body'},[taskFormGroup('Título del favorito',titleInput),taskFormGroup('URL del favorito',input),el('p',{class:'form-hint',text:nativeWritesEnabled()?'El título y la dirección también se guardarán en los favoritos del navegador.':'Solo se actualizará DashboardDP: activa la sincronización bidireccional en Ajustes para escribir también en el navegador.'}),status]),el('div',{class:'modal-footer'},[el('button',{class:'btn',text:'Cancelar',onclick:()=>openBookmarkAudit()}),save]));openModal(modal);
 }
 
 async function deleteAuditedBookmarks(results, selectedIds) {
   const selected = new Set(selectedIds);
-  const candidates = state.data.bookmarks.filter((bookmark) => selected.has(bookmark.id));
+  const audited=new Map(results.map(item=>[item.bookmarkId,item]));
+  const candidates = state.data.bookmarks.filter((bookmark) => selected.has(bookmark.id)&&audited.get(bookmark.id)?.url===bookmark.url);
   const removed = [];
   const failed = [];
   for (const bookmark of candidates) {
@@ -6323,14 +7534,15 @@ async function deleteAuditedBookmarks(results, selectedIds) {
 }
 
 function confirmDeleteAuditedBookmarks(results, selectedIds) {
-  const chosen = results.filter((item) => selectedIds.has(item.bookmarkId) && isAuditDeletionCandidate(item));
-  if (!chosen.length) { toast('Selecciona al menos un favorito 404 o inexistente', 'info'); return; }
+  const chosen = results.filter((item) => selectedIds.has(item.bookmarkId));
+  if (!chosen.length) { toast('Selecciona al menos un favorito', 'info'); return; }
   const modal = el('div', { class: 'modal', role: 'alertdialog' });
   const header = el('div', { class: 'modal-header' });
   header.append(el('h2', { class: 'modal-title', text: 'Confirmar eliminación' }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', onclick: () => openBookmarkAudit(results) }));
   const body = el('div', { class: 'modal-body' });
   body.append(
-    el('p', { text: `Vas a eliminar ${chosen.length} favoritos marcados como 404/410 o vídeo inexistente. Esta acción no se puede deshacer.` }),
+    el('p', { text: `Vas a retirar ${chosen.length} favoritos de tu biblioteca. Se conservará una copia en la Papelera durante 30 días.` }),
+    el('p',{class:'form-hint',text:chosen.some(item=>!isAuditDeletionCandidate(item))?'Has seleccionado enlaces cuya inexistencia no está confirmada. Un bloqueo o tiempo de espera no demuestra que estén caídos. Elimínalos solo si has decidido descartarlos.':'Los seleccionados tienen una respuesta de inexistencia confirmada.'}),
     el('p', { class: 'form-hint', text: nativeWritesEnabled() ? 'La sincronización bidireccional está activa: también se eliminarán sus marcadores vinculados del navegador.' : 'La sincronización bidireccional no está activa: se borrarán de DashboardDP, pero podrían reaparecer en una importación o sincronización posterior.' })
   );
   const footer = el('div', { class: 'modal-footer' });
@@ -6346,17 +7558,20 @@ function confirmDeleteAuditedBookmarks(results, selectedIds) {
 function openBookmarkAudit(initialResults = null) {
   const modal = el('div', { class: 'modal bookmark-audit-modal', role: 'dialog', 'aria-labelledby': 'bookmarkAuditTitle' });
   const controller = new AbortController();
-  let results = Array.isArray(initialResults) ? initialResults : [];
+  let results = Array.isArray(initialResults) ? initialResults.filter(item=>getBookmark(item.bookmarkId)?.url===item.url) : savedBookmarkAuditResults();
   let running = false;
-  const selectedIds = new Set();
+  const ui=state.data.settings.auditPanel||{};
+  const selectedIds = new Set((ui.selectedIds||[]).filter(id=>getBookmark(id)));
+  const remember=()=>{state.data.settings.auditPanel={query:search.value,filter:filter.value,selectedIds:[...selectedIds]};saveData();};
   const header = el('div', { class: 'modal-header' });
-  const closeAudit = () => { controller.abort(); closeModal(); };
+  const closeAudit = () => { controller.abort();persistBookmarkAuditResults(results,{render:false});remember();closeModal(); };
   header.append(el('h2', { class: 'modal-title', id: 'bookmarkAuditTitle', text: 'Auditoría de favoritos' }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', onclick: closeAudit }));
   const body = el('div', { class: 'modal-body bookmark-audit-body' });
   const intro = el('div', { class: 'bookmark-audit-intro' });
   intro.append(
     el('p', { text: 'Comprueba el estado de tus favoritos directamente desde el navegador. Los resultados no salen de tu equipo.' }),
-    el('p', { class: 'form-hint', text: 'Solo los 404/410 y los vídeos de YouTube confirmados como inexistentes se pueden seleccionar para borrar. «No concluyentes» no significa que el enlace esté caído: la comprobación no pudo decidirlo por bloqueo del ISP/VPN, DNS, TLS, permisos, red, servidor, tiempo de espera o dirección local/especial. Esos enlaces se conservan.' })
+    el('p', { class: 'form-hint', text: 'Importante: cada resultado refleja únicamente el momento de la comprobación. Una web disponible hoy puede fallar mañana, y un error de hoy puede ser temporal. Los indicadores se guardan con su fecha y no caducan automáticamente; pasa el ratón sobre ellos para verla. Repite la auditoría cuando necesites información actualizada y vuelve a comprobar los enlaces antes de eliminarlos. Cambiar la URL invalida el resultado anterior. No se ejecutan auditorías periódicas automáticas.' }),
+    el('p', { class: 'form-hint', text: 'Seleccionar candidatos solo marca 404/410 y vídeos confirmados como inexistentes. Puedes seleccionar otros enlaces manualmente, pero un resultado no concluyente no demuestra que estén caídos. Toda eliminación requiere confirmación.' })
   );
   const progress = el('div', { class: 'bookmark-audit-progress hidden' });
   const progressBar = el('div', { class: 'bookmark-audit-progress-bar' });
@@ -6368,9 +7583,11 @@ function openBookmarkAudit(initialResults = null) {
   const search = el('input', { class: 'form-input', type: 'search', placeholder: 'Buscar por nombre, categoría o dirección…' });
   const filter = el('select', { class: 'form-select', 'aria-label': 'Filtrar resultados' });
   [['all', 'Todos los resultados'], ['deletable', 'Solo 404 o inexistentes'], ['available', 'Disponibles'], ['restricted', 'Protegidos o restringidos'], ['uncertain', 'Red, tiempo de espera o servidor'], ['skipped', 'Locales o especiales']].forEach(([value, label]) => filter.appendChild(el('option', { value, text: label })));
+  filter.append(el('option',{value:'inconclusive',text:'Todos los no concluyentes'}),el('option',{value:'unchecked',text:'Sin comprobar'}));filter.value=ui.filter||'all';if(!filter.value)filter.value='all';search.value=ui.query||'';
   const selectCandidates = el('button', { class: 'btn secondary', type: 'button', text: 'Seleccionar candidatos' });
   const clearSelection = el('button', { class: 'btn', type: 'button', text: 'Deseleccionar' });
-  controls.append(search, filter, selectCandidates, clearSelection);
+  const selectAllResults=el('button',{class:'btn secondary',type:'button',text:'Seleccionar todos',title:'Selección manual de todos los resultados del filtro actual, incluidos los no concluyentes',onclick:()=>{if(running)return;const query=search.value.trim().toLowerCase();results.filter(item=>matchesFilter(item)&&(!query||`${item.name} ${item.url} ${item.category}`.toLowerCase().includes(query))).forEach(item=>selectedIds.add(item.bookmarkId));renderResults();remember();}});
+  controls.append(search, filter, selectCandidates, selectAllResults,clearSelection);
   const summary = el('div', { class: 'bookmark-audit-summary hidden' });
   const list = el('div', { class: 'bookmark-audit-list hidden' });
   const AUDIT_PAGE_SIZE = 160;
@@ -6383,7 +7600,7 @@ function openBookmarkAudit(initialResults = null) {
 
   const matchesFilter = (item) => {
     const mode = filter.value;
-    if (mode === 'inconclusive') return !['available', 'missing', 'youtube_missing'].includes(item.status);
+    if (mode === 'inconclusive') return !['available', 'missing', 'youtube_missing','unchecked'].includes(item.status);
     if (mode === 'deletable') return isAuditDeletionCandidate(item);
     if (mode === 'uncertain') return ['network_error', 'timeout', 'server_error'].includes(item.status);
     if (mode !== 'all') return item.status === mode;
@@ -6393,19 +7610,33 @@ function openBookmarkAudit(initialResults = null) {
     if (!filter.querySelector('option[value="inconclusive"]')) filter.appendChild(el('option', {value:'inconclusive',text:'Todos los no concluyentes'}));
     const counts = Object.fromEntries(Object.keys(BOOKMARK_AUDIT_LABELS).map((key) => [key, results.filter((item) => item.status === key).length]));
     summary.textContent = '';
-    [['Comprobados', results.length, 'Enlaces que han recibido un resultado durante esta auditoría.'], ['Disponibles', counts.available || 0, 'La comprobación recibió una respuesta válida.'], ['404/no disponibles', (counts.missing || 0) + (counts.youtube_missing || 0), 'Enlaces confirmados como inexistentes; son los únicos candidatos a borrar.'], ['No concluyentes', results.length - (counts.available || 0) - (counts.missing || 0) - (counts.youtube_missing || 0), 'No se pudo determinar si existe: red, permisos, ISP/VPN, DNS, TLS, servidor, espera o dirección especial. No se borra.']].forEach(([label, value, description], index) => summary.appendChild(el('button', { type: 'button', class: 'bookmark-audit-stat', title: description, 'aria-pressed': String(filter.value === ['all','available','deletable','inconclusive'][index]), onclick: () => { filter.value = ['all','available','deletable','inconclusive'][index]; visibleResultLimit = AUDIT_PAGE_SIZE; renderResults(); }, 'aria-label': `${label}: ${description}` }, [el('strong', { text: String(value) }), el('span', { text: label })])));
+    const checked=results.filter(item=>item.status!=='unchecked').length;
+    [['Comprobados', checked, 'Resultados guardados de la última comprobación de cada dirección.'], ['Disponibles', counts.available || 0, 'La comprobación recibió una respuesta válida.'], ['404/no disponibles', (counts.missing || 0) + (counts.youtube_missing || 0), 'Inexistencia confirmada; la selección automática solo incluye estos enlaces.'], ['No concluyentes', checked - (counts.available || 0) - (counts.missing || 0) - (counts.youtube_missing || 0), 'No se pudo determinar si existe. No incluye los favoritos sin comprobar.']].forEach(([label, value, description], index) => summary.appendChild(el('button', { type: 'button', class: 'bookmark-audit-stat', title: description, 'aria-pressed': String(filter.value === ['all','available','deletable','inconclusive'][index]), onclick: () => { filter.value = ['all','available','deletable','inconclusive'][index]; visibleResultLimit = AUDIT_PAGE_SIZE; renderResults();remember(); }, 'aria-label': `${label}: ${description}` }, [el('strong', { text: String(value) }), el('span', { text: label })])));
     const query = search.value.trim().toLowerCase();
     const visible = results.filter((item) => matchesFilter(item) && (!query || `${item.name} ${item.url} ${item.category}`.toLowerCase().includes(query)));
     list.textContent = '';
     if (!visible.length) list.appendChild(el('p', { class: 'bookmark-audit-empty', text: 'No hay resultados con este filtro.' }));
     visible.slice(0, visibleResultLimit).forEach((item) => {
       const candidate = isAuditDeletionCandidate(item);
-      const checkbox = el('input', { type: 'checkbox', checked: selectedIds.has(item.bookmarkId), disabled: !candidate, 'aria-label': `Seleccionar ${item.name}` });
-      checkbox.addEventListener('change', () => { checkbox.checked ? selectedIds.add(item.bookmarkId) : selectedIds.delete(item.bookmarkId); updateDeleteButton(); });
+      const checkbox = el('input', { type: 'checkbox', checked: selectedIds.has(item.bookmarkId), disabled: running, 'aria-label': `Seleccionar ${item.name}` });
+      checkbox.addEventListener('change', () => { checkbox.checked ? selectedIds.add(item.bookmarkId) : selectedIds.delete(item.bookmarkId); updateDeleteButton();remember(); });
       const copy = el('div', { class: 'bookmark-audit-copy' });
-      copy.append(el('strong', { text: item.name || item.url }), el('span', { text: item.url }), el('small', { text: `${item.category} · ${item.detail}` }));
-      const badge = el('span', { class: `bookmark-audit-badge ${candidate ? 'danger' : item.status}`, text: BOOKMARK_AUDIT_LABELS[item.status] });
-      list.appendChild(el('label', { class: `bookmark-audit-row${candidate ? ' candidate' : ''}` }, [checkbox, copy, badge]));
+      let safeUrl='';try{const parsed=new URL(item.url);if(['http:','https:'].includes(parsed.protocol)&&!parsed.username&&!parsed.password)safeUrl=parsed.href;}catch{}
+      const linkAttrs=safeUrl?{href:safeUrl,target:'_blank',rel:'noopener noreferrer'}:{};
+      copy.append(el('strong',{class:'compact-link-heading'},[el('span',{class:'compact-link-favicon','aria-hidden':'true',html:renderFavicon(getBookmark(item.bookmarkId)||{name:item.name,url:safeUrl},16)}),el('a',{...linkAttrs,text:item.name||item.url})]),el('a',{...linkAttrs,class:'bookmark-audit-url',text:item.url}),el('small', { text: `${item.category} · ${item.detail}${item.checkedAt?' · '+new Date(item.checkedAt).toLocaleString(getLocale()):''}` }));
+      const badge = el('span', { class: `bookmark-audit-badge ${candidate ? 'danger' : item.status}`, text: BOOKMARK_AUDIT_LABELS[item.status]||'Sin comprobar' });
+      const actions=el('div',{class:'bookmark-audit-actions'});
+      actions.append(el('a',{...linkAttrs,class:'icon-btn',title:'Vista previa en una pestaña nueva','aria-label':'Abrir favorito',html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>'}));
+      const refresh=el('button',{class:'icon-btn',type:'button',title:'Actualizar estado','aria-label':'Actualizar estado',html:ICONS.reset,disabled:running,onclick:async()=>{
+        if(running||!await requestBookmarkAuditPermission())return;
+        const bookmark=getBookmark(item.bookmarkId);if(!bookmark)return;
+        running=true;startButton.disabled=true;refresh.disabled=true;renderResults();
+        try{const result=await auditOneBookmark({...bookmark},controller.signal);if(controller.signal.aborted)return;result.checkedAt=Date.now();results=results.map(old=>old.bookmarkId===result.bookmarkId?result:old);persistBookmarkAuditResults([result]);}
+        catch(error){toast('No se pudo comprobar el enlace: '+error.message,'error');}
+        finally{running=false;startButton.disabled=false;if(modal.isConnected)renderResults();}
+      }});
+      actions.append(refresh,el('button',{class:'icon-btn',type:'button',title:'Editar dirección','aria-label':'Editar dirección',html:ICONS.edit,disabled:running,onclick:()=>{remember();editAuditedBookmark(item.bookmarkId);}}),el('button',{class:'bookmark-audit-discard',type:'button',text:'×',title:'Eliminar favorito','aria-label':'Eliminar favorito',disabled:running,onclick:()=>{remember();confirmDeleteAuditedBookmarks(results,new Set([item.bookmarkId]));}}));
+      list.appendChild(el('div', { class: `bookmark-audit-row${candidate ? ' candidate' : ''}` }, [checkbox, copy, badge,actions]));
     });
     if (visible.length > visibleResultLimit) {
       list.appendChild(el('button', { class: 'btn secondary bookmark-audit-more', type: 'button', text: `Mostrar ${Math.min(AUDIT_PAGE_SIZE, visible.length - visibleResultLimit)} resultados más (${visibleResultLimit} de ${visible.length})`, onclick: () => { visibleResultLimit += AUDIT_PAGE_SIZE; renderResults(); } }));
@@ -6414,17 +7645,19 @@ function openBookmarkAudit(initialResults = null) {
   };
   const updateDeleteButton = () => {
     deleteButton.classList.toggle('hidden', !results.length);
-    deleteButton.disabled = selectedIds.size === 0;
+    deleteButton.disabled = running || selectedIds.size === 0;
     deleteButton.querySelector('span').textContent = `Eliminar seleccionados (${selectedIds.size})`;
   };
-  search.addEventListener('input', () => { visibleResultLimit = AUDIT_PAGE_SIZE; renderResults(); });
-  filter.addEventListener('change', () => { visibleResultLimit = AUDIT_PAGE_SIZE; renderResults(); });
-  selectCandidates.addEventListener('click', () => { results.filter(isAuditDeletionCandidate).forEach((item) => selectedIds.add(item.bookmarkId)); renderResults(); });
-  clearSelection.addEventListener('click', () => { selectedIds.clear(); renderResults(); });
+  search.addEventListener('input', () => { visibleResultLimit = AUDIT_PAGE_SIZE; renderResults();remember(); });
+  filter.addEventListener('change', () => { visibleResultLimit = AUDIT_PAGE_SIZE; renderResults();remember(); });
+  selectCandidates.addEventListener('click', () => { results.filter(item=>matchesFilter(item)&&isAuditDeletionCandidate(item)).forEach((item) => selectedIds.add(item.bookmarkId)); renderResults();remember(); });
+  clearSelection.addEventListener('click', () => { selectedIds.clear(); renderResults();remember(); });
 
   const showCompleted = () => {
     running = false;
-    startButton.classList.add('hidden');
+    startButton.classList.remove('hidden');startButton.disabled=false;
+    startButton.textContent=results.some(item=>item.checkedAt)?'Actualizar auditoría':'Auditar favoritos';
+    intro.classList.toggle('hidden',results.some(item=>item.checkedAt));
     progress.classList.add('hidden');
     controls.classList.remove('hidden');
     summary.classList.remove('hidden');
@@ -6440,7 +7673,7 @@ function openBookmarkAudit(initialResults = null) {
     progress.classList.remove('hidden');
     intro.classList.add('hidden');
     const bookmarks = [...state.data.bookmarks];
-    results = [];
+    results = savedBookmarkAuditResults();renderResults();
     let nextIndex = 0;
     let completed = 0;
     const updateProgress = () => {
@@ -6450,9 +7683,11 @@ function openBookmarkAudit(initialResults = null) {
     const worker = async () => {
       while (nextIndex < bookmarks.length && !controller.signal.aborted) {
         const index = nextIndex++;
-        results[index] = await auditOneBookmark(bookmarks[index], controller.signal);
+        const result = await auditOneBookmark({...bookmarks[index]}, controller.signal);
+        if(controller.signal.aborted)break;
+        result.checkedAt=Date.now();results[index]=result;
         completed += 1;
-        if (completed === bookmarks.length || completed % 6 === 0) updateProgress();
+        if (completed === bookmarks.length || completed % 6 === 0) { updateProgress();persistBookmarkAuditResults(results,{render:false}); }
       }
     };
     await Promise.all(Array.from({ length: Math.min(6, Math.max(1, bookmarks.length)) }, worker));
@@ -6467,13 +7702,14 @@ function openBookmarkAudit(initialResults = null) {
   body.append(intro, progress, controls, summary, list);
   modal.append(header, body, footer);
   openModal(modal);
+  const observer=new MutationObserver(()=>{if(!modal.isConnected){controller.abort();persistBookmarkAuditResults(results,{render:false});remember();observer.disconnect();}});observer.observe(document.body,{childList:true,subtree:true});
 }
 
 function openBookmarkForm(id, prefill) {
   const editing = id ? getBookmark(id) : null;
   const pf = prefill || {};
 
-  const modal = el('div', { class: 'modal' });
+  const modal = el('div', { class: 'modal bookmark-form-modal' });
   const header = el('div', { class: 'modal-header' });
   header.append(el('h2', { class: 'modal-title', text: editing ? 'Editar favorito' : 'Nuevo favorito' }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', onclick: closeModal }));
 
@@ -6497,7 +7733,7 @@ function openBookmarkForm(id, prefill) {
   iconGroup.appendChild(el('label', { class: 'form-label', text: 'Icono del favorito' }));
   let selectedIcon = editing?.iconUrl || null;
   const iconPreview = el('span', { class: 'bookmark-icon-preview' });
-  const iconFile = el('input', { type: 'file', accept: 'image/png,image/jpeg,image/webp', hidden: '' });
+  const iconFile = el('input', { type: 'file', accept: 'image/png,image/jpeg,image/webp', hidden: true });
   const iconActions = el('div', { class: 'bookmark-icon-actions' });
   const uploadIconBtn = el('button', { class: 'btn secondary compact', type: 'button', text: 'Subir imagen' });
   const resetIconBtn = el('button', { class: 'btn secondary compact', type: 'button', text: 'Usar icono de la web' });
@@ -6589,6 +7825,12 @@ function openBookmarkForm(id, prefill) {
   collections.append(groupControl, workspaceControl);
   body.appendChild(collections);
 
+  const contentColumn = el('div', { class: 'bookmark-form-column' });
+  const optionsColumn = el('div', { class: 'bookmark-form-column bookmark-form-options' });
+  contentColumn.append(nameGroup, urlGroup, descGroup, tagsGroup);
+  optionsColumn.append(iconGroup, row, statusGroup, collections);
+  body.append(contentColumn, optionsColumn);
+
   const footer = el('div', { class: 'modal-footer' });
   footer.append(el('button', { class: 'btn', text: 'Cancelar', onclick: closeModal }));
   footer.append(el('button', {
@@ -6652,6 +7894,18 @@ function openBookmarkForm(id, prefill) {
 
   refreshIconPreview();
   setTimeout(() => nameInput.focus(), 50);
+}
+
+function openCategoryMove(id) {
+  const category=getCategory(id);if(!category)return;
+  const excluded=new Set([id,...getDescendantIds(id)]);
+  const select=el('select',{class:'form-select',id:'move-folder-parent','aria-label':'Carpeta de destino'});
+  select.append(el('option',{value:'',text:'Ninguna (raíz)'}));
+  const walk=(parent,depth)=>getChildren(parent).forEach(cat=>{if(excluded.has(cat.id))return;select.append(el('option',{value:cat.id,text:'— '.repeat(depth)+cat.name}));walk(cat.id,depth+1);});
+  walk(null,0);select.value=category.parentId||'';
+  const modal=el('div',{class:'modal'});
+  modal.append(el('div',{class:'modal-header'},[el('h2',{class:'modal-title',text:'Mover carpeta'}),el('button',{class:'modal-close',text:'×','aria-label':'Cerrar',onclick:closeModal})]),el('div',{class:'modal-body'},[el('label',{class:'form-label',for:'move-folder-parent',text:'Carpeta de destino'}),select,el('p',{class:'form-hint',text:nativeWritesEnabled()?'La carpeta y su contenido se moverán también en los marcadores del navegador.':'La sincronización bidireccional está desactivada. Actívala en Ajustes > Búsqueda y sincronización para moverla también en el navegador.'})]),el('div',{class:'modal-footer'},[el('button',{class:'btn',text:'Cancelar',onclick:closeModal}),el('button',{class:'btn primary',text:'Mover',onclick:()=>{updateCategory(id,{parentId:select.value});closeModal();}})]));
+  openModal(modal);select.focus();
 }
 
 function openCategoryForm(id, presetParentId) {
@@ -6745,7 +7999,7 @@ function openCategoryForm(id, presetParentId) {
 }
 
 function getDashboardExtensionVersion() {
-  return String(globalThis.chrome?.runtime?.getManifest?.().version || '1.10.48');
+  return String((globalThis.browser||globalThis.chrome)?.runtime?.getManifest?.().version || '—');
 }
 
 function compareDashboardVersions(left, right) {
@@ -6819,8 +8073,6 @@ function openDashboardUpdateGuide(releaseUrl = 'https://github.com/PraenaDP/Dash
 
 function openSettingsForm() {
   const modal = el('div', { class: 'modal settings-modal' });
-  const backupShortcut = el('button', {class:'btn secondary',text:'Copia completa y restauración',onclick:openCompleteBackupPanel});
-  modal.append(backupShortcut);
   const header = el('div', { class: 'modal-header' });
   header.append(el('h2', { class: 'modal-title', text: t('settings') }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', onclick: closeModal }));
 
@@ -6831,27 +8083,45 @@ function openSettingsForm() {
     ['Aspecto', 'settings-appearance'],
     ['Búsqueda y sincronización', 'settings-search'],
     ['Datos', 'settings-data'],
-    ['Ayuda', 'settings-info']
+    ['Ayuda', 'settings-info'],
+    ['Acerca de', 'settings-about']
   ];
   const settingsPanels = {};
+  const settingsContent=el('div',{class:'settings-content'});
   const selectSettingsSection = (id) => {
     settingsNav.querySelectorAll('button').forEach((button) => {
       button.classList.toggle('active', button.dataset.settingsTarget === id);
+      button.setAttribute('aria-selected',String(button.dataset.settingsTarget === id));
     });
     Object.entries(settingsPanels).forEach(([panelId, panel]) => {
       panel.classList.toggle('active', panelId === id);
+      panel.hidden=panelId!==id;
+      if(panelId==='settings-about'&&panelId!==id){
+        const supportPanel=panel.querySelector('.about-support-panel');
+        if(supportPanel){supportPanel.replaceChildren();supportPanel.hidden=true;panel.querySelector('[aria-controls="about-kofi-panel"]')?.setAttribute('aria-expanded','false');}
+      }
     });
+    settingsContent.scrollTop=0;
   };
   settingsSections.forEach(([label, id], index) => {
     settingsNav.appendChild(el('button', { type: 'button', class: index === 0 ? 'active' : '', text: label, onclick: () => {
       selectSettingsSection(id);
     }, 'data-settings-target': id }));
   });
-  body.appendChild(settingsNav);
+  settingsNav.setAttribute('role','tablist');
+  settingsNav.setAttribute('aria-orientation','vertical');
+  settingsNav.querySelectorAll('button').forEach(button=>{button.setAttribute('role','tab');button.setAttribute('aria-controls',button.dataset.settingsTarget);button.setAttribute('aria-selected',String(button.classList.contains('active')));});
+  settingsNav.addEventListener('keydown',event=>{
+    const buttons=[...settingsNav.querySelectorAll('button')],current=buttons.indexOf(document.activeElement);
+    if(current<0||!['ArrowDown','ArrowUp','Home','End'].includes(event.key))return;
+    event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?buttons.length-1:(current+(event.key==='ArrowDown'?1:-1)+buttons.length)%buttons.length;
+    buttons[next].click();buttons[next].focus();
+  });
+  body.append(settingsNav,settingsContent);
   settingsSections.forEach(([, id], index) => {
-    const panel = el('section', { class: `settings-section${index === 0 ? ' active' : ''}`, id });
+    const panel = el('section', { class: `settings-section${index === 0 ? ' active' : ''}`, id, role:'tabpanel',hidden:index!==0 });
     settingsPanels[id] = panel;
-    body.appendChild(panel);
+    settingsContent.appendChild(panel);
   });
   const group1 = el('div', { class: 'form-group' });
   group1.append(el('label', { class: 'form-label', for: 'set-name', text: t('dashboardName') }));
@@ -6974,6 +8244,7 @@ function openSettingsForm() {
     saveData();
     applyWallpaper();
     wpPreview.classList.remove('visible');
+    wpPreview.style.backgroundImage='';
     wpRemoveBtn.disabled = true;
     updateOpDisabled();
     toast('Fondo de pantalla eliminado', 'info');
@@ -7023,15 +8294,42 @@ function openSettingsForm() {
   sidebarAutoRevealLabel.append(sidebarAutoRevealInput, sidebarAutoRevealCopy);
   groupSidebarBehavior.append(el('label', { class: 'form-label', text: t('sidebarBehavior') }), sidebarAutoRevealLabel);
   settingsPanels['settings-principal'].appendChild(groupSidebarBehavior);
-
-  const groupInfo = el('div', { class: 'form-group' });
-  const infoActions = el('div', { class: 'settings-info-actions' });
-  infoActions.append(
-    el('button', { class: 'btn secondary', type: 'button', text: 'Ayuda y guía de uso', onclick: openHelpModal }),
-    el('button', { class: 'btn secondary', type: 'button', text: 'Acerca de DashboardDP', onclick: openAboutModal })
+  const settingRow=(title,description,control)=>{
+    const row=el('div',{class:'settings-option-row'}),copy=el('div',{class:'settings-option-copy'});
+    if(!control.id)control.id='setting-'+uid();
+    copy.append(el('label',{class:'form-label',for:control.id,text:title}));
+    if(description)copy.append(el('p',{class:'form-hint',text:description}));
+    row.append(copy,el('div',{class:'settings-option-control'},[control]));return row;
+  };
+  settingsPanels['settings-principal'].replaceChildren(
+    el('h3',{class:'settings-block-title',text:'Identidad e idioma'}),
+    settingRow(t('dashboardName'),'Nombre que identifica tu panel personal.',nameInput),
+    settingRow(t('yourName'),'Se utiliza en el saludo de la página de inicio.',greetingInput),
+    settingRow(t('language'),'Idioma de los controles y de las traducciones disponibles.',languageSelect),
+    el('h3',{class:'settings-block-title',text:'Saludo de Inicio'}),
+    settingRow('Mostrar saludo en Inicio','Puedes ocultarlo sin perder tu nombre configurado.',greetingVisibleInput),
+    settingRow('Tipografía del saludo','Elige el estilo de letra del saludo.',greetingFont),
+    settingRow('Tamaño del saludo (px)','Ajusta el tamaño entre 14 y 34 píxeles.',greetingSize),
+    el('h3',{class:'settings-block-title',text:'Navegación'}),
+    settingRow(t('sidebarAutoReveal'),t('sidebarAutoRevealHelp'),sidebarAutoRevealInput)
   );
-  groupInfo.append(el('label', { class: 'form-label', text: 'Documentación y privacidad' }), infoActions);
-  settingsPanels['settings-info'].appendChild(groupInfo);
+  const displayMode=el('select',{class:'form-select','aria-label':'Modo de color'},[
+    el('option',{value:'dark',text:'Oscuro'}),el('option',{value:'light',text:'Claro'})
+  ]);displayMode.value=state.data.settings.theme||'dark';
+  displayMode.onchange=()=>{state.data.settings.theme=displayMode.value;saveData();applyTheme(displayMode.value);};
+  groupA.prepend(settingRow('Modo de color','Cada tema incluye una versión clara y otra oscura.',displayMode));
+  groupA.classList.add('settings-theme-column');groupW.classList.add('settings-wallpaper-column');
+  wpPreview.setAttribute('role','img');wpPreview.setAttribute('aria-label','Vista previa completa del fondo de pantalla');
+  settingsPanels['settings-appearance'].replaceChildren(el('div',{class:'settings-appearance-layout'},[groupA,groupW]));
+  const fontSelect=el('select',{class:'form-select',id:'interface-font','aria-label':'Fuente de la interfaz'});
+  Object.entries(INTERFACE_FONTS).forEach(([id,[label,family]])=>fontSelect.append(el('option',{value:id,text:label,style:family?'font-family:'+family:''})));
+  fontSelect.value=INTERFACE_FONTS[state.data.settings.interfaceFont]?state.data.settings.interfaceFont:'default';
+  const fontPreview=el('p',{class:'form-hint',text:'DashboardDP · Aa Bb Cc · 0123456789'});
+  fontSelect.onchange=()=>{state.data.settings.interfaceFont=fontSelect.value;applyInterfaceFont();saveData();};
+  groupW.append(el('div',{class:'form-group interface-font-setting'},[el('label',{class:'form-label',for:'interface-font',text:'Fuente de la interfaz'}),fontSelect,el('p',{class:'form-hint',text:'Se usan fuentes instaladas en tu equipo. Si una no está disponible, se aplica una alternativa; no se descargan fuentes externas.'}),fontPreview]));
+
+  openHelpModal(settingsPanels['settings-info']);
+  openAboutModal(settingsPanels['settings-about']);
 
   const groupUpdates = el('div', { class: 'form-group' });
   const updateStatus = el('span', { class: 'form-hint', text: `Versión instalada: ${getDashboardExtensionVersion()}. La comprobación no descarga ni modifica la extensión.` });
@@ -7048,7 +8346,8 @@ function openSettingsForm() {
   const updateActions = el('div', { class: 'settings-info-actions' });
   updateActions.append(checkUpdateButton, openReleaseButton, el('button', { class: 'btn secondary', type: 'button', text: 'Cómo actualizar sin perder datos', onclick: () => { closeModal(); openDashboardUpdateGuide(); } }));
   groupUpdates.append(el('label', { class: 'form-label', text: 'Actualizaciones desde GitHub' }), updateStatus, updateActions);
-  settingsPanels['settings-info'].appendChild(groupUpdates);
+  settingsPanels['settings-about'].appendChild(groupUpdates);
+  groupUpdates.append(el('p',{class:'form-hint',text:'Instalación manual: descarga la versión oficial y recarga la extensión sin desinstalarla. Chrome Web Store: distribución prevista; no hay una ficha publicada configurada.'}));
 
   const dataPanel = settingsPanels['settings-data'];
   dataPanel.classList.add('settings-data-panel');
@@ -7087,12 +8386,14 @@ function openSettingsForm() {
     ),
     createDataCard(
       'Copias completas y restauración',
-      'El JSON completo conserva favoritos, categorías, fijados, grupos, espacios, widgets, notas, tareas, Papelera y ajustes. No incluye contraseñas, sesiones ni tokens OAuth.',
+      'Protege toda tu personalización: colores, ajustes, fondo guardado, favoritos y auditorías, fijados, grupos, espacios, biblioteca de widgets, notas, tareas y proyectos. Guarda el JSON fuera de la carpeta de la extensión. Las cuentas externas necesitan reconectarse; no se incluyen contraseñas ni tokens.',
       ICONS.duplicate,
       [
-        dataButton(ICONS.export, 'Crear copia completa (JSON)', () => { closeModal(); exportData(); }),
-        dataButton(ICONS.import, 'Restaurar copia completa o importar favoritos', () => { els.importFile.click(); })
-      ]
+        dataButton(ICONS.export, 'Descargar copia completa (.json)', () => { exportData(); }, 'primary'),
+        dataButton(ICONS.import, 'Restaurar copia completa (.json)', () => { els.importFile.click(); }),
+        dataButton(ICONS.link, 'Qué incluye y cómo recuperarla', openCompleteBackupPanel)
+      ],
+      'settings-data-backup'
     ),
     createDataCard(
       'Revisión y mantenimiento',
@@ -7108,7 +8409,9 @@ function openSettingsForm() {
       'Widgets guardados',
       'Gestiona tus widgets reutilizables y recupera los que ya no estén en la Barra Personal.',
       ICONS.duplicate,
-      [dataButton(ICONS.duplicate, 'Abrir biblioteca de widgets', openWidgetLibrary)]
+      [dataButton(ICONS.duplicate, 'Abrir biblioteca de widgets', openWidgetLibrary),
+       dataButton(ICONS.reset, 'Restaurar widgets del catálogo', openWidgetCatalogRestore),
+       dataButton(ICONS.trash, 'Recuperar widgets eliminados (Papelera)', openTrash)]
     ),
     createDataCard(
       'Zona de peligro',
@@ -7119,6 +8422,8 @@ function openSettingsForm() {
     )
   );
 
+  const backupCard=dataPanel.querySelector('.settings-data-backup');
+  if(backupCard){dataPanel.prepend(backupCard);backupCard.append(el('p',{class:'form-hint',text:'Restaurar reemplaza el estado actual tras confirmación. Exportar HTML, en Marcadores, solo guarda enlaces. Para actualizar, recarga la extensión: no la desinstales.'}));}
   const footer = el('div', { class: 'modal-footer' });
   footer.append(el('button', { class: 'btn', text: t('cancel'), onclick: closeModal }));
   footer.append(el('button', {
@@ -7156,111 +8461,34 @@ function openSettingsForm() {
   openModal(modal);
 }
 
-function openHelpModal() {
+function openHelpModal(target = null) {
   const modal = el('div', { class: 'modal help-modal', role: 'dialog', 'aria-labelledby': 'modalTitle' });
   const header = el('div', { class: 'modal-header' });
   header.append(el('h2', { class: 'modal-title', id: 'modalTitle', text: 'Ayuda y guía de uso' }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', onclick: openSettingsForm }));
   const body = el('div', { class: 'modal-body help-body' });
-  const topics = [
-    { group: 'Primeros pasos', title: 'Cómo usar esta guía', intro: 'Esta ayuda es una referencia operativa: cada apartado indica dónde está el control, qué hace al pulsarlo y qué resultado debes esperar.', blocks: [
-      ['Regla de lectura', 'Los nombres entre comillas corresponden al texto o a la leyenda del control en pantalla. Los botones de icono muestran su acción al pasar el ratón o al recibir foco con el teclado.', ['Selecciona una sección del árbol de la izquierda.', 'Lee primero el resultado esperado y después los pasos concretos.', 'Si un control requiere confirmación o permiso del navegador, la ventana lo indicará antes de cambiar datos.']],
-      ['Distribución de la pantalla', 'La barra superior sirve para buscar en la web; la barra lateral izquierda organiza y encuentra favoritos; el centro muestra la sección seleccionada; la barra derecha contiene la Barra por Defecto o la Barra Personal.', ['Pulsa una entrada de Navegación para cambiar la vista central.', 'Pulsa el icono de engranaje de la parte superior para abrir Ajustes.', 'Usa el botón de menú para contraer o revelar la barra izquierda cuando necesites más espacio.']]
-    ] },
-    { group: 'Primeros pasos', title: 'Ajustes, pestañas y guardado', intro: 'Ajustes no es una página única: cada pestaña muestra solo su propio tipo de configuración.', blocks: [
-      ['Abrir y cambiar de sección', 'En Ajustes, las pestañas Principal, Aspecto, Búsqueda y sincronización, Datos y Ayuda actúan como una navegación interna. Al pulsar una, el resto de sus campos se ocultan.', ['Pulsa el engranaje de la barra superior.', 'Pulsa el nombre de la pestaña que quieras configurar.', 'Cambia un control y guarda o confirma cuando el formulario muestre ese botón.']],
-      ['Qué ocurre al cerrar', 'Los ajustes, la organización y los cambios de contenido se guardan en el almacenamiento local del navegador. Cerrar una ventana sin pulsar su acción de guardar no confirma los cambios que estaban solo en el formulario.', ['Usa el botón Guardar, Aplicar o Confirmar de cada diálogo antes de cerrarlo.', 'Usa la X o el botón Cerrar solo cuando no quieras modificar ese formulario.', 'Antes de restaurar o restablecer datos, descarga una Copia completa desde Datos.']]
-    ] },
-    { group: 'Favoritos', title: 'Crear, abrir y editar un favorito', intro: 'Un favorito puede tener nombre, URL, categoría, etiquetas, color, icono propio, estado, grupo fijado y espacios de trabajo.', blocks: [
-      ['Añadir un favorito', 'El botón + abre el formulario de favorito. La dirección es necesaria para que DashboardDP pueda abrir y auditar la web.', ['Pulsa + en el lugar desde el que quieras crear el favorito.', 'Escribe un nombre y una dirección web válida.', 'Selecciona categoría, etiquetas y los destinos opcionales: fijado, grupo o espacio.', 'Pulsa Guardar para incorporarlo a la biblioteca.']],
-      ['Abrir y administrar', 'Pulsar el área principal de una tarjeta, fila o icono abre la URL y actualiza su actividad. El menú de acciones no abre la web: sirve para editar, duplicar, mover a Para después o eliminar.', ['Haz clic en el nombre, tarjeta o icono para abrir el enlace.', 'Pulsa el menú de acciones del favorito para ver las operaciones disponibles.', 'Elige Editar para cambiar sus datos o Eliminar para pedir confirmación antes de quitarlo.']],
-      ['Iconos y calidad', 'DashboardDP intenta usar primero la imagen de mayor resolución disponible en el almacén del navegador; si no existe, prueba el favicon de la web y después muestra iniciales. Un icono manual siempre tiene prioridad.', ['Pasa el ratón por un favorito en vista de iconos para ver nombre y URL.', 'Abre Editar si quieres sustituir el icono por una imagen propia.', 'Usa una imagen nítida cuadrada si la web no publica un favicon de calidad suficiente.']]
-    ] },
-    { group: 'Favoritos', title: 'Vistas, búsqueda y orden', intro: 'Las vistas cambian la presentación, no los datos. El orden seleccionado se guarda para que la lista reaparezca igual al volver.', blocks: [
-      ['Cambiar la vista', 'Los controles de cuadrícula, lista e iconos están junto al título de los listados. La vista de iconos elimina etiquetas de categoría para mostrar únicamente accesos compactos.', ['Pulsa el icono de cuadrícula para tarjetas.', 'Pulsa el icono de lista para filas con más contexto.', 'Pulsa el icono de puntos para accesos compactos; pasa el ratón por ellos para leer la web.']],
-      ['Ordenar el resultado', 'El selector de orden ofrece Personalizado, Nombre A–Z, Nombre Z–A, Uso mayor/menor y Acceso reciente/antiguo. Cada opción indica explícitamente el sentido.', ['Pulsa el selector situado junto a las vistas.', 'Elige el criterio y el sentido que necesites.', 'Elige Personalizado y arrastra elementos solo cuando la vista permita ordenar manualmente.']],
-      ['Buscar y salir de un filtro', 'La búsqueda de favoritos está encima de Categorías. Busca por nombre, dominio, URL, etiqueta y ruta de categoría; sus resultados aparecen en el área central.', ['Escribe en Buscar favoritos.', 'Pulsa un resultado para abrirlo o cambia la vista para revisarlo.', 'Pulsa Limpiar búsqueda o elige una entrada de Navegación para volver al listado normal.']]
-    ] },
-    { group: 'Favoritos', title: 'Categorías, subcategorías y etiquetas', intro: 'Las categorías son jerárquicas y su color puede aplicarse a sus hijos y a los favoritos asociados.', blocks: [
-      ['Crear y navegar', 'El botón + junto a Categorías abre la creación de categoría. Las flechas de una categoría expanden o contraen sus subcategorías; pulsar su nombre abre su contenido.', ['Pulsa + junto a Categorías para crear una categoría raíz o una subcategoría.', 'Elige una categoría padre, nombre y color.', 'Pulsa la flecha para expandir o contraer; pulsa el nombre para abrirla.']],
-      ['Filtrar mediante una etiqueta', 'La etiqueta de categoría que acompaña a un favorito en tarjetas y lista es un botón. No abre la web: abre una lista con los enlaces de esa categoría.', ['Pulsa la etiqueta de categoría de una tarjeta o fila.', 'Comprueba el título del listado para confirmar el filtro activo.', 'Pulsa Limpiar búsqueda o selecciona otra sección para abandonar el filtro.']],
-      ['Color e icono', 'El color elegido se refleja en la categoría y en los enlaces, salvo en grupos fijados, que conservan su propio color. La categoría no sustituye un icono manual del favorito.', ['Abre Editar categoría para cambiar color o jerarquía.', 'Activa la herencia de color si quieres que las subcategorías adopten el color padre.', 'Guarda y revisa el resultado en el listado central.']]
-    ] },
-    { group: 'Inicio', title: 'Fijados y grupos', intro: 'Inicio reúne los fijados sueltos y los grupos en una misma secuencia. Las carpetas de grupo no ocultan su identidad con favicons superpuestos.', blocks: [
-      ['Crear y configurar un grupo', 'El botón de carpeta con + abre el formulario de grupo. Puedes elegir nombre, color e icono visual: carpeta, trabajo, nube, vídeo, música o cuadrícula.', ['En Inicio, busca Fijados y Grupos.', 'Pulsa el botón de crear grupo.', 'Escribe el nombre, elige color e icono y guarda.', 'Edita un favorito y asígnalo al grupo para incorporarlo.']],
-      ['Abrir y editar contenido', 'Pulsar una carpeta muestra sus favoritos debajo de la fila de grupos. El botón de lápiz activa el Modo edición; el atajo E hace lo mismo cuando no estás escribiendo en un campo.', ['Pulsa una carpeta para desplegar o contraer su contenido.', 'Pulsa el lápiz para activar Modo edición; vuelve a pulsarlo para salir.', 'En modo edición, usa los controles visibles o arrastra los elementos.']],
-      ['Orden personalizado', 'El selector de Fijados y Grupos permite Personalizado, Nombre A–Z, Nombre Z–A, Fecha reciente a antigua y Fecha antigua a reciente.', ['Elige Personalizado.', 'Arrastra iconos y carpetas para decidir su secuencia.', 'Suelta un favorito en el centro de una carpeta para incorporarlo al grupo; suéltalo en un borde para reordenarlo.', 'Elige otro criterio cuando quieras que DashboardDP calcule el orden automáticamente.']]
-    ] },
-    { group: 'Inicio', title: 'Espacios de trabajo', intro: 'Un espacio abre un conjunto de enlaces para cambiar de contexto rápidamente.', blocks: [
-      ['Crear un espacio', 'El botón + del bloque Espacios de trabajo abre su formulario. El espacio no copia los favoritos: solo guarda qué favoritos abrir, junto con su nombre, color e icono.', ['Pulsa + en Espacios de trabajo.', 'Escribe nombre, elige color e icono y marca los favoritos incluidos.', 'Guarda el espacio.', 'Pulsa su tarjeta y confirma para abrir sus enlaces en pestañas separadas.']],
-      ['Ordenar espacios', 'Los espacios tienen su propio selector de orden; no comparten configuración con Fijados y Grupos.', ['Pulsa el selector de Espacios de trabajo.', 'Elige Nombre A–Z, Nombre Z–A, Fecha reciente a antigua o Fecha antigua a reciente.', 'Para tu propia disposición, elige Personalizado y arrastra las tarjetas.']],
-      ['Editar o eliminar', 'Cambiar o quitar un espacio no elimina los favoritos que contenía.', ['Abre la edición del espacio desde su control de lápiz.', 'Modifica enlaces, color o icono y guarda.', 'Usa Eliminar solo para borrar el contenedor del espacio.']]
-    ] },
-    { group: 'Importar y sincronizar', title: 'Copias, importación y restauración', intro: 'Las importaciones suman contenido. La restauración de copia completa reemplaza el estado actual después de darte la opción de protegerlo.', blocks: [
-      ['Copia completa', 'La Copia completa JSON conserva favoritos, categorías, fijados, espacios, tareas, notas, widgets, Papelera y ajustes. Es la opción recomendada antes de migrar de equipo, importar de forma masiva o restablecer.', ['Abre Ajustes > Datos.', 'Pulsa Descargar copia completa.', 'Guarda el archivo JSON fuera de la carpeta de la extensión.', 'Usa Restaurar copia solo cuando quieras sustituir el estado local.']],
-      ['Importar favoritos', 'La importación HTML o JSON de favoritos integra elementos en tu biblioteca sin borrar lo que ya existe. El asistente explica cómo exportar desde Brave, Chrome, Edge, Firefox, Vivaldi, Opera y otros.', ['Abre Ajustes > Datos.', 'Pulsa Importar desde otro navegador o selecciona un archivo HTML/JSON.', 'Elige el archivo que exportaste desde el otro navegador.', 'Revisa el resumen y confirma la integración.']],
-      ['Exportar para otro navegador', 'Exportar HTML crea un archivo de marcadores convencional; no incluye tareas, notas, widgets ni ajustes.', ['Abre Ajustes > Datos.', 'Pulsa Exportar HTML (marcadores).', 'Importa ese archivo desde el gestor de marcadores del navegador de destino.']],
-      ['Recuperar una eliminación', 'Las eliminaciones compatibles se mueven a la Papelera durante 30 días. El aviso posterior ofrece Deshacer durante nueve segundos; después puedes recuperar cada elemento desde Ajustes.', ['Después de eliminar, pulsa Deshacer en el aviso si todavía aparece.', 'Para recuperarlo más tarde, abre Ajustes > Datos > Revisión y mantenimiento.', 'Pulsa Abrir Papelera y localiza el elemento.', 'Pulsa Restaurar. Vaciar Papelera es la única acción definitiva y pide confirmación.']]
-    ] },
-    { group: 'Importar y sincronizar', title: 'Marcadores nativos y auditoría', intro: 'La sincronización funciona en el navegador donde instalaste DashboardDP. La auditoría se ejecuta solo cuando la inicias y no borra enlaces por sí sola.', blocks: [
-      ['Organización de Datos', 'Datos agrupa acciones por su finalidad para evitar mezclar operaciones distintas: Marcadores del navegador reúne sincronización, importación y HTML; Copias y restauración protege y recupera el estado completo; Revisión y mantenimiento contiene auditoría y revisión; Widgets guardados abre tu biblioteca; Zona de peligro mantiene el restablecimiento separado.', ['Abre Ajustes > Datos.', 'Elige primero el bloque que describe lo que quieres hacer.', 'Pulsa la acción concreta dentro de ese bloque.', 'Antes de Restaurar o Restablecer, descarga una Copia completa.']],
-      ['Sincronización bidireccional', 'Puedes vincular DashboardDP con una carpeta de marcadores nativos. Los cambios compatibles viajan en ambos sentidos después de configurar la carpeta y autorizar la escritura.', ['Abre Ajustes > Búsqueda y sincronización.', 'Selecciona la carpeta nativa de destino y activa la sincronización.', 'Pulsa sincronizar después de hacer cambios importantes o al detectar un cambio externo.', 'Si cambias de navegador o equipo, usa una Copia completa para trasladar tu biblioteca.']],
-      ['Ejecutar una auditoría', 'Auditar disponibilidad de favoritos solicita permiso opcional para consultar direcciones HTTP/HTTPS y clasifica el último resultado de cada enlace. Para no ralentizar bibliotecas grandes revisa como máximo seis enlaces a la vez y muestra el informe en bloques de 160 resultados.', ['Abre Ajustes > Datos.', 'Pulsa Auditar disponibilidad de favoritos.', 'Pulsa Comprobar favoritos y espera a que termine.', 'Pulsa Mostrar resultados más si quieres cargar el siguiente bloque.', 'Pulsa Exportar informe si quieres guardar el resultado en Markdown.']],
-      ['Leer y filtrar estados', 'En vista de tarjetas y lista, la insignia junto a la categoría muestra disponible, 404, vídeo de YouTube inexistente, protegido, servidor, espera, red o local/especial. Su leyenda incluye el detalle y la fecha.', ['Pasa el ratón por una insignia para leer el resultado.', 'Pulsa la insignia para filtrar todos los favoritos con ese mismo estado.', 'Pulsa Limpiar búsqueda o navega a otra sección para salir del filtro.']],
-      ['Borrado seguro', 'Solo HTTP 404/410 y vídeos de YouTube confirmados como inexistentes se pueden seleccionar como candidatos. Bloqueos de ISP/VPN, DNS, TLS, autenticación, servidor, red y espera no prueban que una web haya desaparecido.', ['Revisa primero el informe o la lista de candidatos.', 'Marca manualmente solo los enlaces que quieres quitar.', 'Confirma moverlos a la Papelera.', 'Si falla el borrado nativo vinculado, DashboardDP conserva el favorito para no desincronizar bibliotecas.', 'Usa Ajustes > Datos > Papelera para restaurar un favorito que no querías quitar.']]
-    ] },
-    { group: 'Productividad', title: 'Tareas y calendario', intro: 'Tareas, recordatorios y calendarios son datos locales, salvo que conectes voluntariamente un proveedor externo.', blocks: [
-      ['Tablero de tareas', 'El gestor usa columnas Por hacer, En curso y Hecho. Cada tarjeta admite prioridad, fecha, recordatorio, notas y orden.', ['Abre el Gestor de tareas desde su botón o el menú rápido.', 'Pulsa crear tarea y completa sus propiedades.', 'Arrastra una tarjeta a otra columna para cambiar su estado.', 'Usa las vistas de calendario para revisar fechas por mes, semana o agenda.']],
-      ['Calendarios e ICS', 'Puedes importar varios archivos ICS sin borrar eventos existentes. Los calendarios de solo lectura sirven para consultar, no como destino de escritura.', ['Abre el calendario.', 'Usa Importar ICS y selecciona uno o varios archivos .ics extraídos del ZIP.', 'Elige el calendario de destino cuando crees o edites un evento.', 'Exporta ICS si necesitas trasladar eventos a otra aplicación.']],
-      ['Google y Microsoft', 'Las conexiones son personales y opcionales. Requieren que configures tu propio cliente OAuth; DashboardDP no guarda contraseñas ni opera un servidor de calendario.', ['Abre Ajustes > Búsqueda y sincronización.', 'Sigue la guía de la conexión elegida y autoriza solo la cuenta que quieras usar.', 'Pulsa Sincronizar para enviar y recuperar cambios.', 'Si aparece un error de fecha, revisa que el evento tenga fecha y hora válidas antes de reintentarlo.']],
-      ['Google Calendar: activar la API', 'Crear un Client ID OAuth no activa automáticamente Google Calendar API. Debes habilitarla una vez en el mismo proyecto de Google Cloud que creó ese Client ID.', ['Abre Google Cloud Console con la cuenta propietaria del proyecto OAuth.', 'Ve a APIs y servicios > Biblioteca, busca Google Calendar API y pulsa Habilitar.', 'Comprueba que el proyecto seleccionado es el mismo de tu Client ID y espera unos minutos.', 'Vuelve a DashboardDP y pulsa Sincronizar otra vez.', 'Si aparece «Google Calendar API has not been used in project…», la API está desactivada o se habilitó en otro proyecto.', 'Si aparece access_denied durante las pruebas, añade tu correo en Google Auth Platform > Audience como usuario de prueba.']]
-    ] },
-    { group: 'Productividad', title: 'Notas adhesivas y Markdown', intro: 'Una nota es de tipo Formato o Markdown. El tipo y su contenido fuente se conservan para que puedas reabrirla y seguir editando sin conversiones.', blocks: [
-      ['Nota de Formato', 'Formato usa el editor visual y permite familia tipográfica, tamaño, color, negrita, cursiva, título, listas, imágenes y otros controles.', ['Crea o edita una nota.', 'Pulsa Formato.', 'Selecciona fuente y tamaño antes o después de escribir.', 'Guarda: la tarjeta y la edición en línea respetarán la tipografía elegida.']],
-      ['Nota Markdown', 'Markdown conserva el texto que escribes. Vista previa interpreta títulos, listas, enlaces, imágenes, citas, código y tareas.', ['Crea o edita una nota y pulsa Markdown.', 'Escribe el texto fuente, por ejemplo # Título o - [ ] Tarea.', 'Pulsa Vista previa para comprobar el resultado sin convertir la nota.', 'Guarda y vuelve a abrir la nota: seguirá en Markdown.']],
-      ['Tareas en Markdown', 'Las líneas - [ ] y - [x] se renderizan como casillas reales. Al marcarlas, el estado se guarda localmente y la tarea completada aparece tachada.', ['Abre la Vista previa o una nota visible Markdown.', 'Pulsa la casilla de la tarea.', 'Comprueba que el texto queda tachado.', 'Recarga el Dashboard: la casilla debe mantener su estado.']],
-      ['Notas visibles', 'Activa Mostrar en mi barra personalizada para mostrar una nota en el bloque Notas visibles. Las notas visuales se pueden editar en línea y cambiar de altura con el tirador inferior; el lápiz abre el editor completo.', ['Edita una nota y activa Mostrar en mi barra personalizada.', 'En Barra Personal añade el bloque Notas visibles si aún no existe.', 'Pulsa MD en una tarjeta Markdown para abrir su fuente.', 'Pulsa el lápiz para cambiar formato, colores, imágenes o el tipo de nota.']]
-    ] },
-    { group: 'Paneles y widgets', title: 'Barras y vistas de panel', intro: 'Las medidas de las barras y las decisiones de vista se recuerdan entre sesiones.', blocks: [
-      ['Redimensionar y ocultar', 'La barra izquierda y el panel derecho se ajustan arrastrando su borde. La izquierda puede revelarse al acercar el ratón; la derecha se puede ocultar o ampliar.', ['Coloca el cursor en el borde de la barra.', 'Arrastra hasta alcanzar el ancho deseado.', 'Pulsa el control de vista amplia del panel derecho para ocupar el ancho útil de la ventana.', 'Vuelve a pulsarlo para regresar sin perder el ancho lateral.']],
-      ['Barra por Defecto y Barra Personal', 'La barra por Defecto muestra los bloques estándar. La Barra Personal permite una composición elegida por ti y no borra la configuración estándar.', ['Pulsa el control de cambio de barra en el panel derecho.', 'Elige Barra por Defecto o Barra Personal.', 'En Barra Personal pulsa + para añadir un bloque, hasta un máximo de nueve.', 'Usa los controles de cada bloque para moverlo, editarlo o quitarlo; quitarlo no borra sus datos.']],
-      ['Vistas independientes', 'Vertical, cuadrícula y mosaico se guardan por separado para barra lateral y vista amplia. El mosaico manual conserva posiciones y tamaños en cada modo.', ['Elige una vista con sus botones de icono.', 'En mosaico, arrastra el tirador superior de un bloque para moverlo.', 'Arrastra la esquina inferior derecha para cambiar su tamaño.', 'Pulsa Restablecer mosaico, situado a la izquierda de las vistas, para reiniciar solo la composición actual.']]
-    ] },
-    { group: 'Paneles y widgets', title: 'Widgets, iframes y clima', intro: 'Los bloques embebidos se mantienen separados y solo admiten direcciones HTTPS.', blocks: [
-      ['Añadir un iframe propio', 'Un iframe puede crearse desde una URL HTTPS o desde código iframe completo. DashboardDP extrae la dirección, título, ancho y alto para poder editarlo después y lo conserva automáticamente en tu Biblioteca de widgets.', ['Abre Barra Personal y pulsa +.', 'Elige Iframe propio.', 'Pega una URL HTTPS o el código iframe.', 'Configura título y tamaño, y guarda.']],
-      ['Biblioteca de widgets', 'La Biblioteca de widgets guarda cada widget que creas aunque luego quites su bloque de la Barra Personal. Sirve para recuperar configuraciones anteriores, mantener versiones alternativas y copiar su código reutilizable.', ['En el selector Añadir bloque, pulsa Biblioteca de widgets para recuperar o crear un widget.', 'En Ajustes > Datos, pulsa Biblioteca de widgets para gestionarla en cualquier momento.', 'Pulsa Añadir a mi barra para recuperar una entrada, o Editar y Eliminar de la biblioteca para administrarla.', 'Quitar un bloque de la barra no borra su entrada guardada.']],
-      ['Si un iframe aparece vacío', 'Algunos servicios impiden que su contenido se muestre dentro de otra página. Eso pertenece a la política del servicio, no a la configuración de DashboardDP.', ['Pulsa Abrir en una pestaña en el bloque si está disponible.', 'Confirma que la URL funciona fuera del iframe.', 'Sustituye el widget por otro servicio que permita incrustación si necesitas verlo dentro del panel.']],
-      ['Clima', 'El widget del tiempo usa una localización elegida por ti; su icono se adapta al bloque para no ocupar una superficie desproporcionada.', ['Abre la configuración del widget del tiempo.', 'Introduce una ciudad o ubicación.', 'Guarda y espera a la siguiente actualización del widget.']]
-    ] },
-    { group: 'Personalización', title: 'Tema, fondo y saludo', intro: 'Estas opciones cambian el aspecto sin modificar favoritos, tareas ni notas.', blocks: [
-      ['Tema y fondo', 'Aspecto reúne el tema, skin y fondo. Una imagen de fondo se combina con superficies translúcidas para conservar contraste y bordes redondeados.', ['Abre Ajustes > Aspecto.', 'Elige tema o skin.', 'Usa Subir imagen para seleccionar un fondo propio o Quitar fondo para volver al aspecto sin imagen.', 'Guarda los cambios y revisa contraste en las secciones que uses.']],
-      ['Saludo de Inicio', 'El saludo Buenas días/tardes/noches es opcional. Puedes elegir fuente, incluidas Neon Love y alternativas similares, y su tamaño.', ['Abre Ajustes > Principal.', 'Activa o desactiva Mostrar saludo.', 'Elige la fuente en el selector.', 'Ajusta el tamaño y guarda; al desactivarlo también desaparece su espacio visual.']]
-    ] },
-    { group: 'Búsqueda y privacidad', title: 'Búsqueda web, permisos y datos', intro: 'DashboardDP guarda tu información en el navegador y solo realiza conexiones externas después de una acción o autorización tuya.', blocks: [
-      ['Buscar en la web', 'La barra superior está disponible en todas las secciones. El selector permite Google, DuckDuckGo, Bing, Brave y YouTube.', ['Elige el motor en el selector.', 'Escribe la consulta.', 'Pulsa Buscar o Enter para abrir el resultado en el motor elegido.']],
-      ['Sugerencias web', 'Las sugerencias son opcionales. Al activarlas, el texto se consulta directamente con el motor elegido mientras escribes; DashboardDP no crea un historial propio ni usa servidor propio.', ['Abre Ajustes > Búsqueda y sincronización.', 'Activa Sugerencias de búsqueda web.', 'Concede el permiso del motor si el navegador lo solicita.', 'Desactiva la opción en el mismo lugar si no quieres recibir sugerencias.']],
-      ['Actualizaciones desde GitHub', 'DashboardDP puede consultar de forma voluntaria la última Release pública de GitHub. La comprobación nunca descarga ni sustituye archivos: el navegador protege la extensión contra actualizaciones automáticas no verificadas.', ['Abre Ajustes > Ayuda.', 'Pulsa Comprobar actualizaciones y concede solo el permiso para consultar api.github.com si el navegador lo pide.', 'Si existe una Release más reciente, descarga una Copia completa y abre una terminal dentro del clon de DashboardDP.', 'Ejecuta git pull --ff-only origin main y pulsa Recargar en la página de extensiones. Si Git detecta cambios locales, revísalos antes de continuar.']],
-      ['Privacidad y resolución de problemas', 'Favoritos, notas, tareas, ajustes y widgets viven en el almacenamiento local del navegador. Borrar los datos de la extensión o usar Restablecer puede eliminarlos.', ['Descarga una Copia completa antes de una limpieza importante.', 'Recarga la extensión desde la página de extensiones si una modificación no aparece.', 'Si un calendario o iframe falla, revisa su guía o prueba abrir la dirección fuera del Dashboard.']]
-    ] },
-    { group: 'Búsqueda y privacidad', title: 'Apoyo voluntario', intro: 'DashboardDP puede mostrar un único enlace oficial de Ko-fi, siempre opcional y configurado por el autor de la versión publicada.', blocks: [
-      ['Dónde aparece', 'Cuando el autor ha configurado un perfil oficial, el apoyo se muestra en Ajustes > Ayuda > Acerca de DashboardDP y de forma discreta en el pie. Si no aparece, la versión no tiene ningún enlace de donación activo.', ['Abre Ajustes y pulsa Ayuda.', 'Pulsa Acerca de DashboardDP.', 'Pulsa Abrir Ko-fi solo si quieres visitar el perfil del autor.']],
-      ['Qué no hace', 'Una donación no desbloquea funciones, no instala contenido, no cambia permisos ni envía tus datos de DashboardDP. El botón abre Ko-fi en una pestaña externa.', ['No introduzcas datos de pago dentro de DashboardDP.', 'Verifica el perfil de Ko-fi antes de donar.', 'Cierra la pestaña externa si no deseas continuar.']]
-    ] }
-  ];
-  topics.push({ group: 'Seguridad y recuperación', title: 'Importaciones y auditorías seguras', intro: 'La versión 1.10.48 refuerza la validación de copias y las conexiones externas.', blocks: [
-    ['Restaurar una copia', 'Los identificadores de marcadores solo son válidos en su perfil de origen. Al restaurar una copia se eliminan esos vínculos, también de la Papelera, y se desactiva la escritura nativa.', ['Descarga una Copia completa antes del cambio.', 'Abre Ajustes > Datos > Copias y restauración y selecciona tu archivo.', 'Confirma la restauración.', 'Abre Marcadores del navegador, elige nuevamente la carpeta de destino y activa la escritura solo si lo deseas.', 'Renueva aparte tus conexiones de calendario.']],
-    ['Archivos admitidos', 'Las importaciones se limitan a 25 MB. Se rechazan estructuras incorrectas, identificadores duplicados y categorías circulares. Los colores y las notas se sanean antes de mostrarlos.', ['Selecciona tu copia JSON o archivo HTML de marcadores.', 'Si aparece un error de estructura, conserva el original y revisa el archivo antes de volver a importar.', 'Una copia exportada contiene información personal; guárdala fuera del repositorio público.']],
-    ['Resultados no concluyentes', 'Las direcciones privadas reconocidas se omiten. Las redirecciones no se siguen automáticamente para evitar saltos a la red local; aparecen como protegidas o restringidas. Un dominio puede resolver a una IP privada, por lo que esto no garantiza aislamiento de red.', ['Inicia la auditoría solo sobre favoritos de confianza.', 'Pasa el ratón sobre la insignia para conocer el motivo.', 'Si indica redirección, abre el favorito manualmente y comprueba el destino.', 'Mantén los enlaces con bloqueo de ISP, VPN, red o permisos; esos estados no demuestran que la página haya desaparecido.']]
-  ] });
+  const topics = dashboardHelpTopics(getLanguage());
   const tree = el('aside', { class: 'help-tree', 'aria-label': 'Índice de ayuda' });
   const reader = el('article', { class: 'help-reader', tabindex: '0' });
   const groups = [...new Set(topics.map((topic) => topic.group))];
-  const showTopic = (topic, button) => {
+  const search=el('input',{class:'form-input',type:'search',placeholder:'Buscar en la ayuda','aria-label':'Buscar en la ayuda'});search.placeholder=localizeUiString('Buscar en la ayuda');
+  const results=el('p',{class:'form-hint',role:'status','aria-live':'polite'}),searchBox=el('div',{class:'help-search-box'},[search,results]);tree.append(searchBox);
+  const buttons=new Map(),history=[];let current=null;
+  const showTopic = (topic, button,remember=true) => {
+    button=button||buttons.get(topic.id);
+    if(button?.hidden){search.value='';filterTopics();}
+    if(remember&&current&&current.id!==topic.id)history.push(current.id);current=topic;
+    if(button)button.closest('details').open=true;
     tree.querySelectorAll('.help-topic').forEach((item) => item.classList.toggle('active', item === button));
+    tree.querySelectorAll('.help-topic').forEach(item=>item===button?item.setAttribute('aria-current','page'):item.removeAttribute('aria-current'));
     reader.textContent = '';
+    const back=el('button',{class:'btn secondary',text:'Volver al artículo anterior',disabled:!history.length,onclick:()=>{const previousId=history.pop();const previous=topics.find(item=>item.id===previousId);if(previous)showTopic(previous,null,false);}});
+    reader.append(el('div',{class:'help-article-navigation'},[back,el('span',{class:'form-hint',text:topic.group})]));
     reader.append(el('h2', { text: topic.title }));
     if (topic.intro) reader.append(el('p', { class: 'help-reader-intro', text: topic.intro }));
     topic.blocks.forEach(([heading, text, steps = []]) => {
-      const section = el('section', { class: 'help-section' }, [el('h3', { text: heading }), el('p', { text })]);
+      const section = el('section', { class: 'help-section' });
+      if(heading)section.append(el('h3',{text:heading}));
+      if(text)section.append(el('p',{text}));
       if (steps.length) {
         const list = el('ol', { class: 'help-steps' });
         steps.forEach((step) => list.appendChild(el('li', { text: step })));
@@ -7268,46 +8496,90 @@ function openHelpModal() {
       }
       reader.appendChild(section);
     });
+    const related=topics.filter(item=>item.group===topic.group&&item.id!==topic.id);
+    if(related.length){const section=el('section',{class:'help-related'},[el('h3',{text:'Artículos relacionados'})]);related.forEach(item=>section.append(el('button',{class:'help-topic',text:item.title,onclick:()=>showTopic(item)})));reader.append(section);}
     reader.scrollTop = 0;
+    try{localStorage.setItem(APP.storageKey+':help-article',topic.id);}catch{}
   };
   groups.forEach((group, index) => {
     const details = el('details', { class: 'help-tree-group', open: index === 0 ? '' : null });
     details.appendChild(el('summary', { text: group }));
     topics.filter((topic) => topic.group === group).forEach((topic) => {
       const button = el('button', { class: 'help-topic', type: 'button', text: topic.title, onclick: () => showTopic(topic, button) });
+      button.dataset.helpArticle=topic.id;buttons.set(topic.id,button);
       details.appendChild(button);
-      if (topic === topics[0]) setTimeout(() => showTopic(topic, button), 0);
     });
     tree.appendChild(details);
   });
+  const filterTopics=()=>{
+    const query=normalizeSearchText(search.value);let count=0;
+    topics.forEach(topic=>{const match=!query||normalizeSearchText([topic.group,topic.title,topic.intro,...topic.blocks.flatMap(block=>[block[0],block[1],...block[2]])].join(' ')).includes(query);buttons.get(topic.id).hidden=!match;if(match)count++;});
+    tree.querySelectorAll('.help-tree-group').forEach(group=>{group.hidden=![...group.querySelectorAll('[data-help-article]')].some(button=>!button.hidden);if(query&&!group.hidden)group.open=true;});
+    results.textContent=formatUiText('Artículos: {count} de {total}',{count,total:topics.length});
+  };
+  search.oninput=filterTopics;filterTopics();
+  let initial=topics[0];try{initial=topics.find(topic=>topic.id===localStorage.getItem(APP.storageKey+':help-article'))||initial;}catch{}
+  showTopic(initial,null,false);
   body.append(tree, reader);
+  if(target?.nodeType===1){target.classList.add('settings-help-panel');target.append(body);return;}
   modal.append(header, body);
   openModal(modal);
 }
 
-function openAboutModal() {
+function openAboutModal(target = null) {
   const modal = el('div', { class: 'modal about-modal', role: 'dialog', 'aria-labelledby': 'modalTitle' });
   const header = el('div', { class: 'modal-header' });
   header.append(el('h2', { class: 'modal-title', id: 'modalTitle', text: 'Acerca de DashboardDP' }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', onclick: openSettingsForm }));
   const body = el('div', { class: 'modal-body about-body' });
   body.append(
-    el('p', { class: 'about-version', text: `DashboardDP · extensión local · versión ${globalThis.chrome?.runtime?.getManifest?.().version || '1.8.2'}` }),
+    el('p', { class: 'about-version', text: `DashboardDP · versión ${getDashboardExtensionVersion()}` }),
     el('section', { class: 'help-section' }, [el('h3', { text: 'Licencia y derechos' }), el('p', { text: 'Copyright © 2026 David (PraenaDP). DashboardDP se distribuye bajo GPL-3.0-only: puedes usarlo, estudiarlo, modificarlo y redistribuirlo, incluso comercialmente, siempre que las redistribuciones derivadas mantengan la misma licencia GPL y proporcionen su código fuente. Se entrega sin garantía.' })]),
     el('section', { class: 'help-section' }, [el('h3', { text: 'Privacidad y seguridad' }), el('p', { text: 'DashboardDP guarda sus datos en el navegador. No opera un servidor propio ni recibe tus favoritos, tareas, notas ni calendarios. Las integraciones externas solo se conectan cuando la persona las configura y autoriza con el proveedor correspondiente.' })]),
     el('section', { class: 'help-section' }, [el('h3', { text: 'Uso de widgets propios' }), el('p', { text: 'Los widgets iframe son enlaces elegidos por quien usa la extensión. Cada persona es responsable de revisar la procedencia y las condiciones del servicio que embeba.' })])
   );
   const supportUrl = getSupportUrl();
+  body.prepend(el('section',{class:'help-section'},[
+    el('h3',{text:'Tu espacio personal, en una nueva pestaña'}),
+    el('p',{text:'DashboardDP reúne favoritos, espacios de trabajo, proyectos, tareas locales, notas, widgets y calendarios opcionales en un panel personal. Desarrollado por David · PraenaDP.'}),
+    el('div',{class:'about-support-actions'},[
+      el('a',{class:'btn secondary',href:'https://github.com/PraenaDP',target:'_blank',rel:'noopener noreferrer',text:'Perfil de GitHub'}),
+      el('a',{class:'btn secondary',href:'https://github.com/PraenaDP/DashboardDP',target:'_blank',rel:'noopener noreferrer',text:'Repositorio oficial'})
+    ])
+  ]));
+  body.append(el('section',{class:'help-section'},[
+    el('h3',{text:'Atribuciones y servicios externos'}),
+    el('p',{text:'Catppuccin utiliza las paletas Latte y Mocha, copyright © 2021 Catppuccin, bajo licencia MIT. Los otros temas son adaptaciones visuales propias: no incluyen código, logotipos ni tipografías de Cloudflare, Spotify o Xataka y no implican afiliación.'}),
+    el('a',{href:'https://github.com/catppuccin/palette/blob/main/LICENSE',target:'_blank',rel:'noopener noreferrer',text:'Licencia MIT de Catppuccin'}),
+    el('a',{href:'https://github.com/PraenaDP/DashboardDP/blob/main/LICENSE.md',target:'_blank',rel:'noopener noreferrer',text:'Licencia de DashboardDP'}),
+    el('p',{text:'Las páginas incrustadas y las integraciones externas mantienen sus propias licencias y políticas. Una copia completa permite recuperar tus datos; desinstalar la extensión puede eliminar el almacenamiento local.'})
+  ]));
   if (supportUrl) {
     const supportSection = el('section', { class: 'help-section about-support-section' });
+    const supportPanel=el('div',{class:'about-support-panel',hidden:true});
+    const supportButton=el('button',{class:'btn kofi-coffee-button',type:'button',text:'☕ Invítame a un café','aria-expanded':'false','aria-controls':'about-kofi-panel',onclick:()=>{
+      const opening=supportPanel.hidden;
+      supportPanel.replaceChildren();supportPanel.hidden=!opening;supportButton.setAttribute('aria-expanded',String(opening));
+      if(opening){
+        const embedUrl=new URL(supportUrl);embedUrl.pathname=embedUrl.pathname.replace(/\/$/,'')+'/';
+        embedUrl.search=new URLSearchParams({hidefeed:'true',widget:'true',embed:'true',preview:'true'}).toString();
+        supportPanel.append(el('iframe',{src:embedUrl.href,title:'Apoyar a PraenaDP en Ko-fi',referrerpolicy:'no-referrer',sandbox:'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox'}));
+      }
+    }});
+    supportPanel.id='about-kofi-panel';
     supportSection.append(
       el('h3', { text: 'Apoyar DashboardDP' }),
       el('p', { text: 'DashboardDP es gratuito y se mantiene de forma independiente. Si te resulta útil y quieres colaborar con su continuidad, puedes invitar al autor a un café mediante Ko-fi. La donación es completamente voluntaria y no desbloquea ni limita ninguna función.' }),
       el('div', { class: 'about-support-actions' }, [
-        el('a', { class: 'btn secondary', href: supportUrl, target: '_blank', rel: 'noopener noreferrer', text: 'Abrir Ko-fi' })
-      ])
+        supportButton
+      ]),
+      el('p',{class:'form-hint',text:'Al pulsar el botón se abre el panel de donación de Ko-fi, no el perfil del autor. Ko-fi puede recibir tu IP y usar sus propias cookies. DashboardDP no recibe datos de pago.'}),
+      supportPanel
     );
     body.appendChild(supportSection);
+  } else {
+    body.append(el('section',{class:'help-section'},[el('h3',{text:'Apoyar DashboardDP'}),el('p',{text:'Espacio reservado para Ko-fi. El enlace de donaciones todavía no está configurado. Todas las funciones seguirán disponibles sin donar.'})]));
   }
+  if(target?.nodeType===1){target.append(body);return;}
   modal.append(header, body);
   openModal(modal);
 }
@@ -9616,43 +10888,35 @@ function externalLink(url, label) {
 
 function calendarSetupSteps(provider) {
   const steps = {
-    es: {
-      google: ['En Google Cloud crea un proyecto personal y activa Google Calendar API.', 'Configura la pantalla de consentimiento para pruebas personales y crea una credencial OAuth de tipo Aplicación web.', 'Copia exactamente la URI de redirección de abajo en “URIs de redirección autorizados”. No uses ni copies una clave secreta.', 'Copia el Client ID, pégalo aquí y pulsa “Guardar y conectar”.'],
-      microsoft: ['En Microsoft Entra registra una aplicación personal para cuentas Microsoft personales y profesionales.', 'En Autenticación añade la URI de redirección de abajo como plataforma Aplicación de una sola página (SPA).', 'En Permisos API añade Microsoft Graph → Permisos delegados → Calendars.ReadWrite. No crees un Client Secret.', 'Copia el Application (client) ID, pégalo aquí y pulsa “Guardar y conectar”.']
-    },
-    en: {
-      google: ['In Google Cloud, create a personal project and enable Google Calendar API.', 'Set up the consent screen for personal testing and create a Web application OAuth credential.', 'Copy the redirect URI below exactly into “Authorized redirect URIs”. Do not use or copy a client secret.', 'Copy the Client ID, paste it here, and select “Save and connect”.'],
-      microsoft: ['In Microsoft Entra, register a personal app for personal and work Microsoft accounts.', 'Under Authentication, add the redirect URI below as a Single-page application (SPA) platform.', 'Under API permissions, add Microsoft Graph → Delegated permissions → Calendars.ReadWrite. Do not create a client secret.', 'Copy the Application (client) ID, paste it here, and select “Save and connect”.']
-    },
-    ca: {
-      google: ['A Google Cloud crea un projecte personal i activa Google Calendar API.', 'Configura la pantalla de consentiment per a proves personals i crea una credencial OAuth de tipus Aplicació web.', 'Copia exactament la URI de redirecció de sota a “URIs de redirecció autoritzats”. No facis servir cap clau secreta.', 'Copia el Client ID, enganxa’l aquí i prem “Desa i connecta”.'],
-      microsoft: ['A Microsoft Entra registra una aplicació personal per a comptes Microsoft personals i professionals.', 'A Autenticació afegeix la URI de redirecció de sota com a plataforma SPA.', 'A Permisos API afegeix Microsoft Graph → Permisos delegats → Calendars.ReadWrite. No creïs cap Client Secret.', 'Copia l’Application (client) ID, enganxa’l aquí i prem “Desa i connecta”.']
-    },
-    eu: {
-      google: ['Google Cloud-en sortu proiektu pertsonal bat eta aktibatu Google Calendar API.', 'Konfiguratu baimen-pantaila proba pertsonaletarako eta sortu Web aplikazio motako OAuth kredentziala.', 'Kopiatu beheko birbideratze URIa zehazki “Authorized redirect URIs” eremuan. Ez erabili gako sekreturik.', 'Kopiatu Client IDa, itsatsi hemen eta sakatu “Gorde eta konektatu”.'],
-      microsoft: ['Microsoft Entra-n erregistratu aplikazio pertsonal bat Microsoft kontu pertsonal eta profesionaletarako.', 'Autentifikazioan gehitu beheko birbideratze URIa SPA plataforma gisa.', 'API baimenetan gehitu Microsoft Graph → Delegated permissions → Calendars.ReadWrite. Ez sortu Client Secretrik.', 'Kopiatu Application (client) IDa, itsatsi hemen eta sakatu “Gorde eta konektatu”.']
-    },
-    de: {
-      google: ['Erstelle in Google Cloud ein persönliches Projekt und aktiviere die Google Calendar API.', 'Richte den Zustimmungsbildschirm für persönliche Tests ein und erstelle eine OAuth-Anmeldung vom Typ Webanwendung.', 'Kopiere die untenstehende Weiterleitungs-URI exakt in „Autorisierte Weiterleitungs-URIs“. Verwende kein Client Secret.', 'Kopiere die Client ID, füge sie hier ein und wähle „Speichern und verbinden“.'],
-      microsoft: ['Registriere in Microsoft Entra eine persönliche App für private und geschäftliche Microsoft-Konten.', 'Füge unter Authentifizierung die untenstehende Weiterleitungs-URI als SPA-Plattform hinzu.', 'Füge unter API-Berechtigungen Microsoft Graph → Delegierte Berechtigungen → Calendars.ReadWrite hinzu. Erstelle kein Client Secret.', 'Kopiere die Application (client) ID, füge sie hier ein und wähle „Speichern und verbinden“.']
-    },
-    fr: {
-      google: ['Dans Google Cloud, créez un projet personnel et activez Google Calendar API.', 'Configurez l’écran de consentement pour les essais personnels et créez un identifiant OAuth de type application Web.', 'Copiez exactement l’URI de redirection ci-dessous dans « URI de redirection autorisées ». N’utilisez aucune clé secrète.', 'Copiez le Client ID, collez-le ici et choisissez « Enregistrer et connecter ».'],
-      microsoft: ['Dans Microsoft Entra, enregistrez une application personnelle pour les comptes Microsoft personnels et professionnels.', 'Dans Authentification, ajoutez l’URI de redirection ci-dessous comme plateforme SPA.', 'Dans Autorisations API, ajoutez Microsoft Graph → Autorisations déléguées → Calendars.ReadWrite. Ne créez pas de Client Secret.', 'Copiez l’Application (client) ID, collez-le ici et choisissez « Enregistrer et connecter ».']
-    },
-    it: {
-      google: ['In Google Cloud crea un progetto personale e abilita Google Calendar API.', 'Configura la schermata di consenso per i test personali e crea credenziali OAuth di tipo Applicazione web.', 'Copia esattamente l’URI di reindirizzamento qui sotto in “URI di reindirizzamento autorizzati”. Non usare un Client Secret.', 'Copia il Client ID, incollalo qui e scegli “Salva e connetti”.'],
-      microsoft: ['In Microsoft Entra registra un’app personale per account Microsoft personali e aziendali.', 'In Autenticazione aggiungi l’URI di reindirizzamento qui sotto come piattaforma SPA.', 'In Autorizzazioni API aggiungi Microsoft Graph → Autorizzazioni delegate → Calendars.ReadWrite. Non creare un Client Secret.', 'Copia l’Application (client) ID, incollalo qui e scegli “Salva e connetti”.']
-    },
-    pt: {
-      google: ['No Google Cloud cria um projeto pessoal e ativa a Google Calendar API.', 'Configura o ecrã de consentimento para testes pessoais e cria credenciais OAuth de tipo Aplicação Web.', 'Copia exatamente o URI de redirecionamento abaixo em “URIs de redirecionamento autorizados”. Não uses Client Secret.', 'Copia o Client ID, cola-o aqui e seleciona “Guardar e ligar”.'],
-      microsoft: ['No Microsoft Entra regista uma aplicação pessoal para contas Microsoft pessoais e profissionais.', 'Em Autenticação adiciona o URI de redirecionamento abaixo como plataforma SPA.', 'Em Permissões de API adiciona Microsoft Graph → Permissões delegadas → Calendars.ReadWrite. Não cries Client Secret.', 'Copia o Application (client) ID, cola-o aqui e seleciona “Guardar e ligar”.']
-    },
-    gl: {
-      google: ['En Google Cloud crea un proxecto persoal e activa Google Calendar API.', 'Configura a pantalla de consentimento para probas persoais e crea unha credencial OAuth de tipo Aplicación web.', 'Copia exactamente a URI de redirección de abaixo en “URIs de redirección autorizados”. Non uses unha clave secreta.', 'Copia o Client ID, pégao aquí e preme “Gardar e conectar”.'],
-      microsoft: ['En Microsoft Entra rexistra unha aplicación persoal para contas Microsoft persoais e profesionais.', 'En Autenticación engade a URI de redirección de abaixo como plataforma SPA.', 'En Permisos API engade Microsoft Graph → Permisos delegados → Calendars.ReadWrite. Non crees un Client Secret.', 'Copia o Application (client) ID, pégao aquí e preme “Gardar e conectar”.']
-    }
-  };
+  "es": {
+    "google": [
+      "En Google Cloud crea un proyecto personal y activa Google Calendar API.",
+      "Configura la pantalla de consentimiento para pruebas personales y crea una credencial OAuth de tipo Aplicación web.",
+      "Copia exactamente la URI de redirección de abajo en “URIs de redirección autorizados”. No uses ni copies una clave secreta.",
+      "Copia el Client ID, pégalo aquí y pulsa “Guardar y conectar”."
+    ],
+    "microsoft": [
+      "En Microsoft Entra registra una aplicación personal para cuentas Microsoft personales y profesionales.",
+      "En Autenticación añade la URI de redirección de abajo como plataforma Aplicación de una sola página (SPA).",
+      "En Permisos API añade Microsoft Graph → Permisos delegados → Calendars.ReadWrite. No crees un Client Secret.",
+      "Copia el Application (client) ID, pégalo aquí y pulsa “Guardar y conectar”."
+    ]
+  },
+  "en": {
+    "google": [
+      "In Google Cloud, create a personal project and enable Google Calendar API.",
+      "Set up the consent screen for personal testing and create a Web application OAuth credential.",
+      "Copy the redirect URI below exactly into “Authorized redirect URIs”. Do not use or copy a client secret.",
+      "Copy the Client ID, paste it here, and select “Save and connect”."
+    ],
+    "microsoft": [
+      "In Microsoft Entra, register a personal app for personal and work Microsoft accounts.",
+      "Under Authentication, add the redirect URI below as a Single-page application (SPA) platform.",
+      "Under API permissions, add Microsoft Graph → Delegated permissions → Calendars.ReadWrite. Do not create a client secret.",
+      "Copy the Application (client) ID, paste it here, and select “Save and connect”."
+    ]
+  }
+};
   return (steps[getLanguage()] || steps.es)[provider];
 }
 
@@ -10083,20 +11347,11 @@ function openTaskManager(view) {
   const body = el('div', { class: 'modal-body task-manager-body' });
   const toolbar = el('div', { class: 'task-manager-toolbar' });
   const content = el('div', { class: 'task-manager-content' });
-  const addBtn = el('button', { class: 'btn primary', html: ICONS.plus + '<span>Nueva tarea local</span>' });
   const projectsBtn = el('button', { class: 'btn secondary', text: 'Mis proyectos', onclick: () => { closeModal(); openProjectManager('ideas'); } });
   const googleBtn = el('button', { class: 'btn secondary', text: 'Google Tasks', onclick: () => openGoogleTasksSetup() });
   header.append(el('h2', { class: 'modal-title', id: 'modalTitle', text: 'Tareas locales' }), el('button', { class: 'modal-close', 'aria-label': 'Cerrar', text: '×', onclick: closeModal }));
-  toolbar.append(addBtn);
   body.append(toolbar, content); modal.append(header, body);
   const render = () => { content.textContent = ''; renderSimpleLocalTasks(content, render); };
-  addBtn.addEventListener('click', () => {
-    const input = el('input', {class:'form-input',placeholder:'Escribe una tarea',maxlength:'180'});
-    const form = el('div',{class:'modal'},[el('div',{class:'modal-body'},[input]),el('div',{class:'modal-footer'},[
-      el('button',{class:'btn',text:'Cancelar',onclick:()=>openTaskManager()}),
-      el('button',{class:'btn primary',text:'Añadir',onclick:()=>{if(!input.value.trim())return;state.data.tasks.push({id:uid(),title:input.value.trim(),status:'todo',createdAt:Date.now(),updatedAt:Date.now(),order:tasks().length});saveData();openTaskManager();}})
-    ])]); openModal(form); input.focus();
-  });
   render(); openModal(modal);
   activeTaskManagerRefresh = () => { if (!document.body.contains(modal)) { activeTaskManagerRefresh = null; return; } render(); };
 }
@@ -10199,19 +11454,13 @@ function initWidgetToggles() {
   widgets.forEach(({ btn, panel }) => {
     btn.addEventListener('click', () => {
       const open = !panel.classList.contains('hidden');
-      widgets.forEach((w) => {
-        w.btn.classList.remove('active');
-        w.btn.setAttribute('aria-expanded', 'false');
-        w.panel.classList.add('hidden');
-      });
-      setPanelCalendarWidgetOpen(false);
+      btn.classList.toggle('active', !open);
+      btn.setAttribute('aria-expanded', String(!open));
+      panel.classList.toggle('hidden', open);
+      if (panel === els.widgetCalendar) setPanelCalendarWidgetOpen(!open);
       if (!open) {
-        btn.classList.add('active');
-        btn.setAttribute('aria-expanded', 'true');
-        panel.classList.remove('hidden');
         if (panel === els.widgetWeather) loadWeather();
         if (panel === els.widgetCalendar) {
-          setPanelCalendarWidgetOpen(true);
           renderCalendar();
         }
       }
@@ -10612,6 +11861,7 @@ function initCalendarWidget() {
   calYear = now.getFullYear();
   calMonth = now.getMonth();
   els.calPrev.addEventListener('click', () => {
+    if(typeof shiftCalendarDate==='function'){sidebarCalendarDate=shiftCalendarDate(sidebarCalendarDate||new Date(),-1,'month');renderCalendar();return;}
     calMonth--;
     if (calMonth < 0) {
       calMonth = 11;
@@ -10620,6 +11870,7 @@ function initCalendarWidget() {
     renderCalendar();
   });
   els.calNext.addEventListener('click', () => {
+    if(typeof shiftCalendarDate==='function'){sidebarCalendarDate=shiftCalendarDate(sidebarCalendarDate||new Date(),1,'month');renderCalendar();return;}
     calMonth++;
     if (calMonth > 11) {
       calMonth = 0;
@@ -10631,6 +11882,8 @@ function initCalendarWidget() {
 }
 
 function renderCalendar() {
+  if(typeof renderSystemSidebar==='function'){renderSystemSidebar();return;}
+  const openFull=document.getElementById('calOpenFull');if(openFull)openFull.onclick=()=>openCalendarManager('year',new Date(calYear,calMonth,1));
   const locale = getLocale();
   const DOW = Array.from({ length: 7 }, (_, index) => new Intl.DateTimeFormat(locale, { weekday: 'short' })
     .format(new Date(2024, 0, index + 1))
@@ -10644,7 +11897,7 @@ function renderCalendar() {
   const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
   const today = new Date();
   const taskDays = new Map();
-  tasks().filter((task) => task.dueAt).forEach((task) => {
+  calendarEventsOnly().filter((task) => task.dueAt).forEach((task) => {
     const key = taskDateKey(task.dueAt);
     taskDays.set(key, (taskDays.get(key) || 0) + 1);
   });
@@ -10658,7 +11911,7 @@ function renderCalendar() {
     const count = taskDays.get(`${calYear}-${calMonth}-${d}`) || 0;
     const day = el('button', { class: 'cal-day' + (isToday ? ' today' : '') + (count ? ' has-tasks' : ''), text: String(d), title: count ? `${count} tarea${count === 1 ? '' : 's'} con vencimiento` : '' });
     if (count) day.appendChild(el('span', { class: 'cal-task-dot', text: String(count) }));
-    day.addEventListener('click', () => openTaskManager('calendar'));
+    day.addEventListener('click', () => openCalendarManager('day',new Date(calYear,calMonth,d)));
     els.calGrid.appendChild(day);
   }
   const total = startOffset + daysInMonth;
@@ -11227,7 +12480,7 @@ function initBrowserIntegration() {
   consumePendingCaptures(api);
 
   if (state.data.settings.nativeBookmarkMode) syncNativeBookmarks(false);
-  else showNativeBookmarkChoice(api);
+  else if (!state.data.settings.initialSetupComplete) showNativeBookmarkChoice(api);
 }
 
 /* ============================================================
@@ -11236,6 +12489,14 @@ function initBrowserIntegration() {
 
 function init() {
   initData();
+  initializePublicWidgetCatalog();
+  // Compatibilidad con copias ya restauradas antes de guardar esta marca.
+  // No implica permiso para importar ni escribir marcadores del navegador.
+  if (!state.data.settings.initialSetupComplete && !state.data.settings.nativeBookmarkMode
+    && Number(state.data.settings.lastBackupAt) > 0) {
+    state.data.settings.initialSetupComplete = true;
+    saveData();
+  }
   loadPersonalCalendarConnections().then(() => {
     updateCalendarSyncButton();
     initSmartCalendarSync();

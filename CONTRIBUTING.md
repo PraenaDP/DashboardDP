@@ -14,7 +14,9 @@ Incluye el navegador y su versión, los pasos para reproducir el problema y el r
 
 ## Proponer mejoras
 
-Explica qué problema resuelve la propuesta y cómo debería comportarse. Para cambios visibles, actualiza también la Ayuda integrada, el README y la especificación según el contrato de documentación del proyecto.
+Explica qué problema resuelve la propuesta y cómo debería comportarse. Una descripción de uso, un ejemplo público o una captura sin datos personales son suficientes para comenzar. No necesitas clonar el proyecto, preparar código ni ejecutar comprobaciones internas para proponer una mejora.
+
+La revisión de cambios debe conservar datos y personalizaciones, actualizar la guía por tareas y respetar las medidas de seguridad. Las herramientas de `tools` son comprobaciones internas del mantenimiento, no pasos de instalación ni de uso.
 
 ## Licencia de contribuciones
 

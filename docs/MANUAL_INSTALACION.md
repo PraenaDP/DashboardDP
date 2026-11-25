@@ -1,66 +1,47 @@
-# Manual de instalación
+# Instalar, actualizar y recuperar DashboardDP
 
-DashboardDP se instala localmente como extensión sin empaquetar. No requiere crear una cuenta, enviar favoritos a un servidor ni instalar un programa adicional.
+## Instalar en Brave, Chrome o Edge
 
-## Navegadores compatibles
+Descarga el ZIP de [Releases](https://github.com/PraenaDP/DashboardDP/releases) y descomprímelo en una carpeta permanente. No necesitas Git ni ejecutar comandos. Firefox no es compatible con esta distribución.
 
-- Brave
-- Google Chrome
-- Microsoft Edge
-
-Firefox no es compatible con esta versión. No intentes cargar la carpeta en Firefox.
-
-## Antes de empezar
-
-1. Descarga el ZIP de una versión desde la página **Releases** del repositorio.
-2. Descomprímelo en una carpeta permanente de tu equipo. No uses una carpeta temporal o de Descargas que vayas a eliminar.
-3. Comprueba que la carpeta elegida contiene `manifest.json`, `dashboard` y este repositorio.
-
-## Brave
-
-1. Abre `brave://extensions`.
+1. Abre `brave://extensions`, `chrome://extensions` o `edge://extensions`.
 2. Activa **Modo desarrollador**.
-3. Pulsa **Cargar sin empaquetar**.
-4. Elige la carpeta que contiene `manifest.json`.
-5. Abre una pestaña nueva: DashboardDP aparecerá como tu nueva pestaña.
+3. Pulsa **Cargar sin empaquetar** y elige la carpeta que contiene `manifest.json`.
+4. Abre una pestaña nueva. Elige incorporar los marcadores actuales o comenzar con una biblioteca vacía.
 
-## Google Chrome
+Conserva la carpeta y no la muevas después de instalar. Esta distribución manual no procede de Chrome Web Store.
 
-1. Abre `chrome://extensions`.
-2. Activa **Modo de desarrollador**.
-3. Pulsa **Cargar sin empaquetar**.
-4. Elige la carpeta que contiene `manifest.json`.
-5. Abre una pestaña nueva.
+## Actualizar
 
-## Microsoft Edge
+1. En **Ajustes → Acerca de**, comprueba si hay una nueva versión. La consulta a GitHub es opcional.
+2. Descarga una **Copia completa** desde **Ajustes → Datos** y guárdala fuera de la carpeta de la extensión.
+3. Descarga la nueva release y cierra las pestañas del dashboard.
+4. Sustituye los archivos dentro de **la misma carpeta ya cargada**.
+5. Pulsa **Recargar** en la página de extensiones y abre una pestaña nueva.
+6. Revisa favoritos, biblioteca, notas, tareas y personalización.
 
-1. Abre `edge://extensions`.
-2. Activa **Modo de desarrollador**.
-3. Pulsa **Cargar sin empaquetar**.
-4. Elige la carpeta que contiene `manifest.json`.
-5. Abre una pestaña nueva.
+No desinstales la extensión ni cargues la descarga temporal como otra instalación. Los datos viven en el perfil del navegador; una segunda instalación puede tener otro almacenamiento.
 
-## Primer inicio y privacidad
+## Cambiar de equipo, navegador o perfil
 
-- Al primer inicio puedes elegir importar los marcadores actuales o comenzar con una biblioteca vacía.
-- Tus favoritos, notas, tareas, widgets y ajustes se guardan en el perfil local del navegador.
-- Antes de importar, restaurar o restablecer, descarga una **Copia completa** desde **Ajustes → Datos**.
-- Las conexiones de Google Calendar y Microsoft 365 son opcionales y solo se activan si las configuras personalmente.
+1. Guarda una copia completa y una segunda copia privada en otra ubicación.
+2. Instala DashboardDP en el destino.
+3. En **Ajustes → Datos → Copias y restauración**, selecciona **Restaurar copia completa** y revisa la confirmación.
+4. Comprueba biblioteca, grupos, espacios, tareas, proyectos y notas.
+5. Elige nuevamente la carpeta de marcadores y activa escritura bidireccional solo si lo deseas. Los identificadores del perfil anterior se descartan para evitar escribir en otra carpeta.
+6. Autoriza otra vez las conexiones de calendario: sus tokens no viajan en el JSON.
 
-## Actualizar DashboardDP
+La restauración completa reemplaza el estado de DashboardDP; no es una combinación selectiva. Exporta antes el estado del destino si contiene cambios que quieras conservar.
 
-1. Abre **Ajustes → Ayuda → Actualizaciones desde GitHub** y pulsa **Comprobar actualizaciones**. El navegador puede solicitar permiso únicamente para consultar `api.github.com`.
-2. Si hay una Release nueva, pulsa **Abrir actualización**. DashboardDP no descarga ni reemplaza archivos por sí mismo.
-3. Descarga una **Copia completa** desde **Ajustes → Datos**.
-4. Descarga el ZIP de la Release y descomprímelo fuera de la carpeta actual.
-5. Sustituye los archivos de la carpeta de la extensión por los de la nueva versión, conservando exactamente la carpeta elegida al instalarla.
-6. Vuelve a `brave://extensions`, `chrome://extensions` o `edge://extensions` y pulsa el icono de recargar de DashboardDP.
-7. Abre una nueva pestaña y revisa que tus datos sigan presentes.
+## Respaldo externo recomendado
 
-Los favoritos, notas, tareas y ajustes se guardan en el perfil local del navegador, no entre los archivos de la extensión. Si usas **Cargar sin empaquetar** sobre una carpeta distinta, el navegador puede tratarla como otra instalación; en ese caso restaura la Copia completa en la instalación nueva. Mantener la misma carpeta y usar Recargar conserva la instalación y reduce ese riesgo.
+Exporta después de cambios importantes y antes de actualizar o restablecer. Mantén una copia reciente y otra anterior en una ubicación privada: almacenamiento externo o una carpeta con historial de versiones. El JSON no está cifrado. No uses GitHub como almacén de copias personales.
 
-## Actualización segura y recuperación — 1.11.1
+Comprueba periódicamente la restauración en un perfil de navegador separado, sin activar escritura de marcadores ni conectar cuentas. Mantén intacto tu perfil habitual. Una copia que no se ha abierto y revisado no debe darse por validada.
 
-Antes de actualizar, abre Ajustes > Copia completa y restauración y descarga el JSON completo. Actualiza en la misma carpeta y recarga desde la página de extensiones. **No desinstales para actualizar: puedes perder los datos locales.** Si usas Git: `git pull --ff-only origin main`; no fuerces cambios locales.
+## Si algo no aparece
 
-Para recuperar el estado, selecciona el JSON desde Restaurar copia completa y revisa la confirmación. No uses el HTML de marcadores para recuperar widgets o colores. Consulta la [guía detallada](GUIA_USO_ACTUAL.md).
+- Verifica navegador, perfil y carpeta cargada.
+- Recarga la extensión; no la desinstales.
+- Antes de restaurar una copia antigua, exporta el estado actual.
+- Consulta la [guía de uso](GUIA_DE_USO.md) y [Privacidad](../PRIVACIDAD.md).

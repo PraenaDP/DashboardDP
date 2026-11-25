@@ -4,15 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DashboardDP</title>
-  <style>
-    body { width: 260px; margin: 0; padding: 20px; background: #110d2a; color: #f5f2ff; font: 14px system-ui, sans-serif; }
-    p { margin: 0 0 14px; line-height: 1.45; }
-    button { width: 100%; border: 0; border-radius: 9px; padding: 10px; background: #8e58d7; color: white; font-weight: 700; cursor: pointer; }
-  </style>
+  <link rel="stylesheet" href="dashboard/styles.css">
+  <link rel="stylesheet" href="dashboard/themes-extra.css">
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <p>Abriendo DashboardDP…</p>
-  <button type="button" id="openDashboard">Abrir Dashboard</button>
+  <header><strong>DashboardDP</strong><input id="search" class="form-input" type="search" aria-label="Buscar accesos" placeholder="Buscar accesos…"></header>
+  <nav id="views" aria-label="Vista de accesos"></nav>
+  <main id="collections"></main>
+  <footer><span id="status" role="status"></span><button class="btn secondary" type="button" id="openDashboard">Abrir Dashboard</button></footer>
   <script src="popup.js"></script>
+  <script src="dashboard/favicon-contrast.js"></script>
 </body>
 </html>

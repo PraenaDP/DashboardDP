@@ -1,67 +1,25 @@
-# DashboardDP 1.11.4
-
-- Corregido el guardado al editar un widget cuya firma coincide con otra entrada: se actualiza el ID seleccionado, no otra entrada.
-- Vista Lista sustituida por Tabla: columnas estables de widget, web, descripción y acciones, incluso con campos vacíos.
-- Acciones a la derecha y desplazamiento horizontal en pantallas estrechas.
-- Sintaxis y regresión de edición probadas con datos simulados; sin datos personales.
-
-# DashboardDP 1.11.3
-
-- Biblioteca unificada con bloques Por defecto, descripción, tipos y filtros.
-- Orden por nombre A–Z/Z–A y últimos modificados, con preferencia persistente.
-- Listas/tarjetas compactas, iconos con leyenda y previsualización grande bajo demanda.
-- Sandbox uniforme; retirada excepción ToolkitsApp. No se añaden catálogos personales ni nuevos widgets externos.
-- Guías y especificación actualizadas.
-
-# DashboardDP 1.11.2
-
-- Mostrar grupos fijados vacíos incluso sin enlaces fijados.
-- Favoritos visibles en el árbol lateral, desplegables y arrastrables a grupos de Inicio.
-- Renombrado y eliminación con confirmación desde el árbol, reutilizando sincronización nativa.
-- Iconos compactos de 14 px en las acciones del árbol.
-- Guía y especificación actualizadas; sin copias personales JSON.
-
-# DashboardDP 1.11.1
-
-- Filtros clicables en los contadores de auditoría, sin cerrar la ventana.
-- Filtro de estado de auditoría debajo del orden de favoritos, incluyendo Sin auditar.
-- Selección de calendarios siempre abierta y modal ampliado.
-- Cabecera de proyectos, tareas y cierres ajustados.
-- Guía de uso con pasos de copia/restauración y límites conocidos.
-- Distribución sin copias personales JSON.
-
-# DashboardDP 1.11.0
-
-- Bandeja de ideas y proyectos locales con Kanban, recursos y selección por categorías.
-- Tareas locales separadas de eventos, selección múltiple, estados y envío a proyectos.
-- Calendario ampliado con vistas diaria por horas, semanal, mensual y anual; colores locales.
-- Acceso visible a copia completa y restauración de personalización JSON.
-- Ajustes visuales y ayuda de activación de Google Calendar API.
-
-## Actualizar sin perder datos
-Antes de actualizar: Ajustes > Copia completa y restauración > Descargar copia completa. Actualiza los archivos en la MISMA carpeta y pulsa Recargar en brave://extensions, edge://extensions o chrome://extensions. NO desinstales la extensión: desinstalar elimina su almacenamiento.
-
-## Límites conocidos
-Los colores personalizados son locales, no se sincronizan con Google. La integración Google Tasks es un enlace externo, no una API. Las mejoras nuevas no cuentan todavía con una validación visual completa ni con prueba de sincronización remota extremo a extremo. La copia completa requiere reconectar cuentas externas; no exporta tokens.
-
-## Privacidad de esta distribución
-No se incluyen copias JSON personales, perfiles de navegador ni datos de sesión. La semilla de marcadores está vacía.
-
----
-
 # Historial de cambios
 
-## Próxima publicación pública
+## 1.11.5 — 25 de noviembre de 2026
+
+- Catálogo público de 1.309 herramientas únicas con metadatos ES/EN; 129 referencias PhET con atribución CC BY-NC 4.0. Mapas con vistas mundiales, sin ubicaciones personales.
+- Panel lateral del navegador con fijados, grupos, espacios, búsqueda y tres vistas; no abre automáticamente otra pestaña del dashboard.
+- Hasta nueve barras independientes, notas, reproductor, calendario y herramientas abiertas simultáneamente.
+- Biblioteca con selección múltiple, cambio de tipo por lotes, conservación de iframe, vistas previas bajo demanda y recuperación del catálogo.
+- Importación HTML/dinámica, pasos Compartir → Embed configurables, borrador reanudable, coincidencias y descarte individual o por selección.
+- Auditoría persistente, enlaces clicables, edición de título/URL, comprobación individual y selección manual.
+- Calendario anual, mensual, semanal y diario por horas, sistemas de calendario y festividades por país.
+- Proyectos Kanban, tareas locales de entrada directa, notas y organización de favoritos mediante menús contextuales y movimientos de carpetas.
+- Ajustes reorganizados, ocho temas claros/oscuros, fuentes locales y 46 artículos de ayuda ES/EN con buscador, historial y temas relacionados.
+- Botón voluntario «Invítame a un café» y reporte privado de vulnerabilidades en GitHub; sin scripts remotos de Ko-fi en la extensión.
+- Galería con datos ficticios, manuales bilingües y exclusión de copias privadas en la distribución.
+- Pruebas locales en Brave con conexiones externas bloqueadas: no implican certificación de seguridad, aprobación de Chrome Web Store ni garantía de cada proveedor.
+
+### Documentación y licencia
 
 - Licencia migrada de CC BY-NC-SA 4.0 a GPL-3.0-only, apropiada para software de código abierto.
 - Documentación pública ampliada con descripción del producto, menús, manual de instalación y criterios de compatibilidad.
 - Firefox se declara explícitamente no compatible; se retira su declaración específica del manifiesto Chromium.
-
-## Próximo lanzamiento — Estructura de apoyo voluntario
-
-- Enlace de apoyo preparado para Ko-fi, desactivado hasta que el autor configure su perfil oficial.
-- La llamada a la acción aparece únicamente en Acerca de DashboardDP y en el pie, abre una pestaña externa y no afecta a funciones, permisos ni datos locales.
-- Se documenta el procedimiento de configuración y publicación segura del enlace.
 
 ## 1.10.48 — Auditoría local y correcciones de seguridad
 

@@ -8,11 +8,16 @@ La configuración, la biblioteca de favoritos, las notas, los resultados de audi
 
 ## Conexiones que decide la persona usuaria
 
+- **Apoyo en Ko-fi:** en Acerca de, el panel de donaciones se carga únicamente al pulsar «Invítame a un café». Ko-fi puede recibir IP, datos técnicos y usar sus propias cookies o proveedores de pago. DashboardDP no recibe los datos de pago ni incluye este panel en las copias personales. Cerrar el panel libera su iframe; no elimina cookies del proveedor. El botón gráfico del README abre ese panel de donación en Ko-fi.
 - **Auditoría de favoritos:** pide permiso opcional para consultar HTTP/HTTPS únicamente al iniciar una auditoría. Cada dirección se consulta desde el navegador para clasificar su disponibilidad. No se envía la lista a un servicio de DashboardDP.
 - **Sugerencias de búsqueda:** al activarlas se envía al buscador elegido únicamente el texto que se está escribiendo.
 - **Calendarios:** Google Calendar y Microsoft 365 se conectan solo tras configurar y autorizar la cuenta. Las sesiones no se incluyen en las copias completas.
 - **Widgets:** el iframe indicado por la persona se carga desde su propio proveedor. DashboardDP solo admite URLs HTTPS y los muestra aislados.
 - **Meteorología:** el widget consulta Open-Meteo para la ciudad elegida.
+- **Festividades:** la consulta voluntaria a Nager.Holidays solicita países y festivos por país y año. No incluye eventos personales. El proveedor recibe IP y datos técnicos habituales; los resultados se guardan localmente y pueden variar por región.
+- **Importador de repositorios:** consulta las páginas públicas del sitio elegido. El modo dinámico usa una pestaña temporal y el permiso opcional de scripting; no está diseñado para recopilar herramientas privadas mediante inicio de sesión. El borrador de la última búsqueda se conserva aparte de la biblioteca.
+- **Actualizaciones:** comprobar una versión consulta `api.github.com`, tras autorización. No descarga ni sustituye automáticamente los archivos de una instalación manual.
+- **Tipografías e idiomas:** el selector usa fuentes instaladas, sin Google Fonts ni descargas remotas. Las traducciones guardadas no requieren un servicio externo. No se envían textos personales para traducirlos.
 - **Favicons:** se intenta usar el almacén local; si no tiene el icono, puede consultarse `/favicon.ico` en la web guardada. El proveedor recibe esa petición y la dirección IP como en cualquier conexión web.
 
 Los proveedores externos pueden registrar IP y datos técnicos. “Sin servidor propio” no significa “sin conexiones externas”. Una web guardada puede incluir información sensible en su dirección: al auditarla se consulta esa URL directamente. La auditoría omite direcciones privadas reconocidas y no sigue redirecciones, pero no garantiza detectar un dominio que resuelva a una IP privada.

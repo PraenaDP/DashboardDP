@@ -1,5 +1,7 @@
 # Datos y copias de seguridad personales
 dashboard-backup-*.json
+dashboarddp-*.json
+*-copia-completa-*.json
 marcadores-*.html
 *.zip
 
@@ -15,3 +17,5 @@ playwright-report/
 isolated-profile-*/
 .env
 .env.*
+docs/PREPARACION_RELEASE.md
+docs/VALIDACION_LOCAL.md

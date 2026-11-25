@@ -88,11 +88,8 @@ api.contextMenus.onClicked.addListener(async (info, tab) => {
   }
 });
 
-if (api.action && api.action.onClicked) {
-  api.action.onClicked.addListener(() => {
-    api.tabs.create({ url: api.runtime.getURL('dashboard/index.html') }).catch(() => {});
-  });
-}
+// Let the browser dock the shortcuts next to the current page; no new tab.
+if(api.sidePanel?.setPanelBehavior)api.sidePanel.setPanelBehavior({openPanelOnActionClick:true}).catch(error=>console.warn('Side panel:',error));
 
 api.runtime.onMessage.addListener((message, sender) => {
   if (!message || !isTrustedDashboardSender(sender)) return;

@@ -1,0 +1,359 @@
+{
+  "version": "1.11.5",
+  "catalogWidgets": 1309,
+  "catalogSha256": "906645a712b2e65178d211c95519a6ec20619b96bbf888e2e738ec8dc77d14a1",
+  "files": [
+    {
+      "path": "manifest.json",
+      "bytes": 1471,
+      "sha256": "d227f08244e7d1e4cc8c2707afeb3baad1af0a0c6cdacaa7c01bff533cebed17"
+    },
+    {
+      "path": "background.js",
+      "bytes": 8060,
+      "sha256": "5520cccec5b7f22f58dedab57800ae29411721911d826333099ffa9f7ccc2243"
+    },
+    {
+      "path": "popup.html",
+      "bytes": 838,
+      "sha256": "743a4684c83970480128f46c44e11ced046fdb8ba6b95d921402bf772022565f"
+    },
+    {
+      "path": "popup.js",
+      "bytes": 8566,
+      "sha256": "9fe2969f1d04d1df04febdf2e9dfcdab83f21a57e2d4a188125a161916252ecd"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7587,
+      "sha256": "846386f2f9431096427da472c5700aeee3cf17b882f8ebef1b8d1317c17eb09c"
+    },
+    {
+      "path": "LICENSE.md",
+      "bytes": 35150,
+      "sha256": "e57f1c320b8cf8798a7d2ff83a6f9e06a33a03585f6e065fea97f1d86db84052"
+    },
+    {
+      "path": "NOTICE.md",
+      "bytes": 652,
+      "sha256": "0ccc7eec75856a4577e1c123d882d269d0190928c739f6955fbc7aefd1ac3a8e"
+    },
+    {
+      "path": "THIRD-PARTY-NOTICES.md",
+      "bytes": 3102,
+      "sha256": "3f6beda9a1ee953f365bb5008a2c39959ac3341c0239f9d54daf1c07349cb8d2"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 3908,
+      "sha256": "50ba182595e0e3f283c8c088eea6ae6698690aae23f47c3d34676148e752693a"
+    },
+    {
+      "path": "PRIVACIDAD.md",
+      "bytes": 4784,
+      "sha256": "c6107f0038ba1f32cde9025832eba5732c7e992f74d19fb5597047c6dc73939f"
+    },
+    {
+      "path": "SECURITY.md",
+      "bytes": 2520,
+      "sha256": "1dc5a0565253850abfa86ede43013cf583a3915f9572e62bd81dc3348d11190e"
+    },
+    {
+      "path": "SUPPORT.md",
+      "bytes": 1861,
+      "sha256": "8c144246f40b3cbe70b4e2aedb11e33c427b5cbbade5f0740b3dfdf36bf4de54"
+    },
+    {
+      "path": "INTEGRACIONES_CALENDARIO.md",
+      "bytes": 7464,
+      "sha256": "7cb2e5728126fd4e8be3d366abdafc8a3d76e4c78a6a670dd91e2f72c5a4de53"
+    },
+    {
+      "path": "ESPECIFICACION.md",
+      "bytes": 31729,
+      "sha256": "4872c2127ff0c03fa2696c5e59df379a056d8d8cd20ecfd2314e369572ab61fa"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 1293,
+      "sha256": "c27b02b4ee9b8a058e2ad02376a7040b5e00c6aae42cb9ebc44f899c4bdedb79"
+    },
+    {
+      "path": "docs/MANUAL_INSTALACION.md",
+      "bytes": 3042,
+      "sha256": "f9c4e2c2d1ae23b04f382f6635b184671bdc64f84a869e36b2edfb3006aefcfe"
+    },
+    {
+      "path": "docs/GUIA_DE_USO.md",
+      "bytes": 55574,
+      "sha256": "8937dd3a566975c021cbbe19641a53e57629d02686737edd1ee7bd7c5b5edf28"
+    },
+    {
+      "path": "docs/USER_GUIDE.md",
+      "bytes": 55316,
+      "sha256": "c8a73b6f0dc130d597629d0ae8cb0a2b39a5385ca491a32faebf0da0f9a445c7"
+    },
+    {
+      "path": "dashboard/js/bookmarks_data.js",
+      "bytes": 62,
+      "sha256": "aed33c035a74b9ba02d989fcebeefc5db9ff9f1a1ebf35fdaad856b6adce0e7d"
+    },
+    {
+      "path": "icons/icon-16.png",
+      "bytes": 796,
+      "sha256": "793e51baeb7f7d253938541339c7f94cb90b14bda236ae19b8747a37dd6efa39"
+    },
+    {
+      "path": "icons/icon-32.png",
+      "bytes": 1932,
+      "sha256": "a769233595b127d1f87d8c5d0ccfe4a4c782088e11ea60d935363dd46cc5833d"
+    },
+    {
+      "path": "icons/icon-48.png",
+      "bytes": 3280,
+      "sha256": "f639f39eb9169e3819f467d3b7873e5cbb39cf5e2ffe8f7eb8a6be7a247a22ec"
+    },
+    {
+      "path": "icons/icon-96.png",
+      "bytes": 8874,
+      "sha256": "73f5848b18f63b18a1f70395a037eb81871fb7ada20c4951998d62837d15764f"
+    },
+    {
+      "path": "icons/icon-128.png",
+      "bytes": 14835,
+      "sha256": "882b49fd515cd16af7250b5ef50ea0f1480f1d9b67aacb48072c9407921a7e10"
+    },
+    {
+      "path": "popup.css",
+      "bytes": 7236,
+      "sha256": "b7b6a00b2e75a8ebc9d1c33235be02ffdcecab3294d7eb50ea54094250925e5e"
+    },
+    {
+      "path": "docs/images/acerca-de.png",
+      "bytes": 137453,
+      "sha256": "0d27c47310476727dc5bfa48a71ad2a53e71ca1dbda741418b0fea2c8896718c"
+    },
+    {
+      "path": "docs/images/ajustes-aspecto.png",
+      "bytes": 121438,
+      "sha256": "56d85efa06c060e4b20c650df42a74a5dd41e412816e3414aed440dd02576cd8"
+    },
+    {
+      "path": "docs/images/auditoria.png",
+      "bytes": 145807,
+      "sha256": "7aa7d67db3179c025427b8211a3094e81139c03ceef17a1f8320870115a6d6c3"
+    },
+    {
+      "path": "docs/images/ayuda.png",
+      "bytes": 155793,
+      "sha256": "38c9836e1e711732a2e786b36a33b17ccfae4197f6a1e2e21b7fe9c698ce63c8"
+    },
+    {
+      "path": "docs/images/biblioteca-widgets.png",
+      "bytes": 144264,
+      "sha256": "13255640fd2f27accfa3d998047823acf5b6e6383594f571b1523ae22e3990b8"
+    },
+    {
+      "path": "docs/images/calendario-anual.png",
+      "bytes": 99073,
+      "sha256": "f92c1dd4aa01b4404ece2f5b3d9655c02fc59868fc5503c24d584dc1b1544718"
+    },
+    {
+      "path": "docs/images/calendario-diario.png",
+      "bytes": 73882,
+      "sha256": "bd88685d9b9a8407129540d0a97fd704fc8a31b7190afa2a8e3810b4ccc11b63"
+    },
+    {
+      "path": "docs/images/configurar-lectura.png",
+      "bytes": 118073,
+      "sha256": "dca62a2e039348c8d4e56a112ffd66602fb508aeec1e61615989f91cff12bf29"
+    },
+    {
+      "path": "docs/images/favoritos-iconos.png",
+      "bytes": 67987,
+      "sha256": "7d109fff1ff6437f7f2c7400ca1eb15d09f8f8f18f9e7c9efd257917c43c9a95"
+    },
+    {
+      "path": "docs/images/favoritos-lista.png",
+      "bytes": 91359,
+      "sha256": "1f3c9cdbe163e88a28241a63874b3ae1212fed66112c5dad75071c6bc3a9aaab"
+    },
+    {
+      "path": "docs/images/favoritos-tarjetas.png",
+      "bytes": 83215,
+      "sha256": "a58793e688bc7a7ed063bf511a471ab5ed96b4fea6803475ecea4d79ef6c5cb1"
+    },
+    {
+      "path": "docs/images/grupos-espacios.png",
+      "bytes": 83940,
+      "sha256": "a149dd26c77c08827b06a5ce8a2b71111a16acb12e968b6a70478240427ac75f"
+    },
+    {
+      "path": "docs/images/importador.png",
+      "bytes": 105294,
+      "sha256": "2ab0d7d8d4d6e00d41083cfb6e7e52435739e3820145606767ed299b4af3c4b7"
+    },
+    {
+      "path": "docs/images/inicio-claro-oscuro.png",
+      "bytes": 76353,
+      "sha256": "d65521d95f5e63caeb5897a290c86d5ab24d77274489f2141f21ed2b9dd2e2f7"
+    },
+    {
+      "path": "docs/images/inicio-claro.png",
+      "bytes": 81856,
+      "sha256": "bd90f4c2a21f9303bdc0b4c51db6b3d154db953794ed08f9eca8856a4fab4c36"
+    },
+    {
+      "path": "docs/images/inicio-oscuro.png",
+      "bytes": 80957,
+      "sha256": "ec9393ea2a1f001ee749f9e27495a63df356da839393c25fc2fba107d661f4d4"
+    },
+    {
+      "path": "docs/images/kofi-coffee.svg",
+      "bytes": 496,
+      "sha256": "d44f71522dd2cde040cefb031fc495e7288b3c85176b53982f692b18c76ee541"
+    },
+    {
+      "path": "docs/images/notas.png",
+      "bytes": 119586,
+      "sha256": "fd996473b154dd5c23f66144712bfaceb4d81fd8cccf33ef8e0ea6ea94a88925"
+    },
+    {
+      "path": "docs/images/panel-lateral.png",
+      "bytes": 13898,
+      "sha256": "f1a0dc1c4f70335d524d633672dc3d5a25013b101b2df8ef5ae6c2c4e2c8f39c"
+    },
+    {
+      "path": "docs/images/papelera.png",
+      "bytes": 120592,
+      "sha256": "83f8c1c2087911a0be0ef986d2a06c1421ea48fb2d06ef84885402e4dbce5651"
+    },
+    {
+      "path": "docs/images/proyectos.png",
+      "bytes": 80428,
+      "sha256": "93d61804b5861b8ed09871ff193208d22046489849d0316b05ed477bf4eada7a"
+    },
+    {
+      "path": "docs/images/tareas-kanban.png",
+      "bytes": 40987,
+      "sha256": "6d0f504542a998f210f5913567999447e3b31cc326311ea2413811feb7d517b4"
+    },
+    {
+      "path": "docs/images/temas.png",
+      "bytes": 125104,
+      "sha256": "ec1bbc96376940215d2324bffa1f12d7ceae4541c9fa2c6ab68897314d1c070d"
+    },
+    {
+      "path": "docs/VALIDACION_1.11.5.md",
+      "bytes": 3538,
+      "sha256": "b6cd3d581389534c73f45bced9d42841cdd7580c92c553739dea9d67982f02c9"
+    },
+    {
+      "path": "docs/GUIA_USO_ACTUAL.md",
+      "bytes": 453,
+      "sha256": "ef4f2cad2039467fba559da97ed803f7174ce472373b685c03ce04e5c8eb9730"
+    },
+    {
+      "path": "docs/TEMAS_Y_APARIENCIA.md",
+      "bytes": 684,
+      "sha256": "1b38de26742d3160a68a58f0efd9c3480b66c657ad2c7ce6f74c4ddc9292d68b"
+    },
+    {
+      "path": "dashboard/app.js",
+      "bytes": 618779,
+      "sha256": "172f1db316affeba4efd905d8a3b3b8d2152fd5d705df941c2e64091a6420870"
+    },
+    {
+      "path": "dashboard/calculations-import.js",
+      "bytes": 21725,
+      "sha256": "789b877682ceb919ebd98c91c7ad0e3503a36f05ef6cf7d3ed68113a9fc608f3"
+    },
+    {
+      "path": "dashboard/calendar-view.js",
+      "bytes": 21542,
+      "sha256": "96a22ba68ec230b06ae7b43ae2a5e4cfddc672a7510ec8a6227f42a4ea229b7d"
+    },
+    {
+      "path": "dashboard/favicon-contrast.js",
+      "bytes": 2098,
+      "sha256": "4e9e3b6212fc500b9f5b18d96547af95e2bf721141ff56c58a75ef8efd445911"
+    },
+    {
+      "path": "dashboard/help-content.js",
+      "bytes": 145487,
+      "sha256": "5a367ccfda1de0e9c2cd573ede7d193adccbeb07c1d3e6e3bdca7cd496a28bbd"
+    },
+    {
+      "path": "dashboard/i18n-extra.js",
+      "bytes": 42716,
+      "sha256": "d26c7d1bfb960e468b6b6f23b9e81b809c036b99b8bf90738f4de04cfe8b9d81"
+    },
+    {
+      "path": "dashboard/i18n-release.js",
+      "bytes": 14542,
+      "sha256": "ecd0bc4c4d0e15ba7730fba4c7969602dc6c2d6415818b59106c054dd35d5f10"
+    },
+    {
+      "path": "dashboard/index.html",
+      "bytes": 35729,
+      "sha256": "81c8437f8866ec4c3f566c850aeebdca3d9344e2d75d4f595782f45ba508d32c"
+    },
+    {
+      "path": "dashboard/projects.js",
+      "bytes": 24610,
+      "sha256": "fd53334670d29682660aae5bae24f0ed83f86af0a7203125c0a9a2436d52a926"
+    },
+    {
+      "path": "dashboard/repository-import.js",
+      "bytes": 32464,
+      "sha256": "e21369ba188d13282333ad85ba528db2397d91f274d4eb75626274521bd16243"
+    },
+    {
+      "path": "dashboard/repository-phet.js",
+      "bytes": 8208,
+      "sha256": "caa26d2b6896af3f299cfb656930cc43a4dca6d6e54f111a8f53e3fca862ff3f"
+    },
+    {
+      "path": "dashboard/repository-session.js",
+      "bytes": 19375,
+      "sha256": "436307be9ede43cbd94defd8da031e7becf29861a6916fedf2ebed1d8f1b7261"
+    },
+    {
+      "path": "dashboard/repository-toolkits.js",
+      "bytes": 4396,
+      "sha256": "b08464445eb4a1543f11e3dcef41478d1326974eefddcb57560d3d2bf9f9f12b"
+    },
+    {
+      "path": "dashboard/settings-layout.css",
+      "bytes": 7647,
+      "sha256": "3243d9536fe0e59711529a1705e2586136374dd061d3232e5761d366267e9aba"
+    },
+    {
+      "path": "dashboard/sidebar-bars.js",
+      "bytes": 9693,
+      "sha256": "6d348d5dca6f065184ebbafeea3e36ae79c2325749fb5faf732aed50d4f11029"
+    },
+    {
+      "path": "dashboard/styles.css",
+      "bytes": 189702,
+      "sha256": "d02a979636c4680fdab9e26264260a885eeef437301736f0a57ee904052c6500"
+    },
+    {
+      "path": "dashboard/table-sort.js",
+      "bytes": 2508,
+      "sha256": "c052940ddee044962620ce63104795a3e166ce992b5efd6f32636acf8df431c2"
+    },
+    {
+      "path": "dashboard/themes-extra.css",
+      "bytes": 9418,
+      "sha256": "95eae71bb53a80e7be89695def5fff59395ad7e338b5b1557467ce46490ce355"
+    },
+    {
+      "path": "dashboard/widget-catalog.js",
+      "bytes": 1741281,
+      "sha256": "383895be0fed6fd9c829d9558f6bc8c4ed7ace48d039faefa2773d48caa12501"
+    }
+  ],
+  "privateDataIncluded": false,
+  "publicationPerformed": false
+}

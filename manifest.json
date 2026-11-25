@@ -1,10 +1,12 @@
 {
   "action": {
-    "default_popup": "popup.html",
     "default_title": "Dashboard"
   },
   "background": {
     "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "popup.html"
   },
   "chrome_url_overrides": {
     "newtab": "dashboard/index.html"
@@ -39,7 +41,9 @@
     "https://api.bing.com/*",
     "https://search.brave.com/*"
   ],
+  "optional_permissions": ["scripting"],
   "permissions": [
+    "sidePanel",
     "bookmarks",
     "contextMenus",
     "favicon",
@@ -49,5 +53,5 @@
     "notifications",
     "identity"
   ],
-  "version": "1.11.4"
+  "version": "1.11.5"
 }

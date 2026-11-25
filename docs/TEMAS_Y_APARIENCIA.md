@@ -1,33 +1,10 @@
-# Galería de temas
+# Temas y apariencia
 
-DashboardDP incluye cuatro temas de referencia. Cada imagen compara el mismo tema en **modo claro a la izquierda** y **modo oscuro a la derecha**.
+DashboardDP incluye Default, Vercelin, Youtubin, Grafanin, Cloudflerin, Spotin, Xakatin y Catppuccin, cada uno con modo claro y oscuro.
 
-## Default
+Abre **Ajustes → Aspecto**, elige tema y modo de color, revisa el fondo y selecciona una fuente instalada. Guarda para aplicar. Consulta los pasos completos en [Aspecto, fuentes e idiomas](GUIA_DE_USO.md#11-aspecto-fuentes-e-idiomas).
 
-![Tema Default, modo claro y oscuro](https://raw.githubusercontent.com/PraenaDP/DashboardDP/main/docs/images/tema-default.png)
+![Temas oscuros](images/temas.png)
+![Default claro y oscuro](images/inicio-claro-oscuro.png)
 
-## Vercelin
-
-![Tema Vercelin, modo claro y oscuro](https://raw.githubusercontent.com/PraenaDP/DashboardDP/main/docs/images/tema-vercelin.png)
-
-## Youtubin
-
-![Tema Youtubin, modo claro y oscuro](https://raw.githubusercontent.com/PraenaDP/DashboardDP/main/docs/images/tema-youtubin.png)
-
-## Grafanin
-
-![Tema Grafanin, modo claro y oscuro](https://raw.githubusercontent.com/PraenaDP/DashboardDP/main/docs/images/tema-grafanin.png)
-
-## Personalización visual
-
-| Ajuste | Dónde se cambia | Resultado |
-| --- | --- | --- |
-| Tema | **Ajustes → Aspecto** | Selecciona Default, Vercelin, Youtubin o Grafanin. |
-| Modo claro u oscuro | **Ajustes → Aspecto** | Ajusta fondos, bordes, textos y controles a la luminosidad elegida. |
-| Color de acento | **Ajustes → Aspecto** | Personaliza botones, foco, etiquetas y elementos seleccionados. |
-| Fondo del dashboard | **Ajustes → Aspecto** | Permite usar color o imagen y regular la opacidad para conservar la legibilidad. |
-| Saludo de Inicio | **Ajustes → Aspecto** | Se puede mostrar u ocultar, elegir fuente y modificar su tamaño. |
-| Vistas de favoritos | Selector situado en cada listado | Alterna tarjetas, lista o iconos; cada sección conserva su preferencia. |
-| Barra derecha | Control de la barra derecha | Alterna barra estándar o personal; cada una recuerda su propia disposición. |
-
-> Las muestras usan una instalación limpia de DashboardDP. No incluyen favoritos, notas, widgets ni credenciales personales.
+Las capturas muestran la interfaz sin datos privados. Las [atribuciones](../THIRD-PARTY-NOTICES.md) explican las licencias y la independencia respecto de las marcas que inspiran algunos temas.

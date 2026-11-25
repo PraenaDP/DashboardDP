@@ -1,6 +1,6 @@
 # Seguridad de DashboardDP
 
-La versión 1.10.48 tiene una auditoría local documentada en [AUDITORIA_SEGURIDAD_2026-09-07.md](AUDITORIA_SEGURIDAD_2026-09-07.md). La revisión detectó y corrigió fallos; no acredita seguridad total ni autorización para publicar en una tienda.
+El [alcance de validación de 1.11.5](docs/VALIDACION_1.11.5.md) describe las comprobaciones, evidencias y límites de esta distribución. La revisión detecta y corrige fallos; no acredita seguridad total ni autorización para publicar en una tienda.
 
 ## Principios aplicados
 
@@ -10,18 +10,16 @@ La versión 1.10.48 tiene una auditoría local documentada en [AUDITORIA_SEGURID
 - La auditoría excluye direcciones locales, privadas y especiales reconocidas y no sigue redirecciones; solicita el permiso de red al iniciarla. No garantiza detectar dominios que resuelvan a una dirección privada.
 - Ningún secreto, token, contraseña, copia de datos o exportación de marcadores debe entrar en el repositorio.
 
-## Comprobación antes de publicar
+## Validación del proyecto
 
-Ejecuta desde la raíz de la extensión:
+Las comprobaciones de mantenimiento se conservan en `tools/`, separadas de las instrucciones de instalación. Incluyen revisión estática y pruebas de comportamiento en perfiles aislados con conexiones externas bloqueadas. No requieren que quien utiliza DashboardDP ejecute scripts.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\verify-extension.ps1
-```
-
-El proceso comprueba sintaxis y declaraciones estáticas, sin modificar datos. No demuestra que una función sea segura por encontrar su nombre en el código. Para pruebas de comportamiento se incluye `tools/security-regression.cjs`, que requiere Playwright y crea un perfil aislado con conexiones HTTP/HTTPS bloqueadas. El informe de auditoría describe su uso y límites.
+Una comprobación por nombres de funciones no demuestra seguridad. Los informes deben distinguir lo probado, los servicios simulados, los fallos y los escenarios pendientes. La revisión histórica no cubre automáticamente las funciones añadidas después ni implica aprobación de Chrome Web Store.
 
 ## Informar de un problema
 
-Si detectas una vulnerabilidad, no publiques pasos de explotación ni información personal. Comunícala de forma privada al mantenedor del proyecto, incluyendo la versión afectada, el navegador y una descripción mínima para reproducirla. El mantenedor debe confirmar la recepción, corregirla antes de publicarla y anotar la corrección en el historial de cambios.
+Si detectas una vulnerabilidad, utiliza el [reporte privado de vulnerabilidades de GitHub](https://github.com/PraenaDP/DashboardDP/security/advisories/new), habilitado en este repositorio. También puedes entrar en **Security → Advisories → Report a vulnerability**. Necesitas iniciar sesión en GitHub; no hace falta publicar un correo de contacto.
 
-Pendiente antes de publicar: definir un contacto privado real de seguridad y soporte. El texto anterior no sustituye ese canal.
+Incluye la versión afectada, el navegador, los pasos mínimos para reproducir el problema y su posible impacto. No adjuntes tu copia completa, contraseñas, tokens ni datos personales. No publiques detalles de explotación en una incidencia pública. El mantenedor debe revisar el informe y coordinar la corrección y divulgación antes de publicar los detalles.
+
+Para errores ordinarios, consultas y propuestas que no sean vulnerabilidades, utiliza [Issues](https://github.com/PraenaDP/DashboardDP/issues).

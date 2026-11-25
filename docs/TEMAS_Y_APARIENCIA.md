@@ -1,10 +1,10 @@
-# Temas y apariencia
+# Themes and appearance
 
-DashboardDP incluye Default, Vercelin, Youtubin, Grafanin, Cloudflerin, Spotin, Xakatin y Catppuccin, cada uno con modo claro y oscuro.
+DashboardDP includes Default, Vercelin, Youtubin, Grafanin, Cloudflerin, Spotin, Xakatin, and Catppuccin, each with light and dark modes.
 
-Abre **Ajustes → Aspecto**, elige tema y modo de color, revisa el fondo y selecciona una fuente instalada. Guarda para aplicar. Consulta los pasos completos en [Aspecto, fuentes e idiomas](GUIA_DE_USO.md#11-aspecto-fuentes-e-idiomas).
+Open **Settings → Appearance**, choose a theme and color mode, preview the background, select a locally installed font, and save. See the [appearance chapter](USER_GUIDE.md#11-appearance-fonts-and-languages) for details.
 
-![Temas oscuros](images/temas.png)
-![Default claro y oscuro](images/inicio-claro-oscuro.png)
+![Dark themes](images/temas.png)
+![Default theme in light and dark modes](images/inicio-claro-oscuro.png)
 
-Las capturas muestran la interfaz sin datos privados. Las [atribuciones](../THIRD-PARTY-NOTICES.md) explican las licencias y la independencia respecto de las marcas que inspiran algunos temas.
+The screenshots contain no private data. See [third-party notices](../THIRD-PARTY-NOTICES.md) for licenses and attribution.

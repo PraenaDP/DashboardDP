@@ -1,47 +1,33 @@
-# Instalar, actualizar y recuperar DashboardDP
+# Install, update, and recover DashboardDP
 
-## Instalar en Brave, Chrome o Edge
+## Install
 
-Descarga el ZIP de [Releases](https://github.com/PraenaDP/DashboardDP/releases) y descomprímelo en una carpeta permanente. No necesitas Git ni ejecutar comandos. Firefox no es compatible con esta distribución.
+1. Download the named DashboardDP ZIP from [GitHub Releases](https://github.com/PraenaDP/DashboardDP/releases) and extract it to a permanent folder.
+2. Open `brave://extensions`, `chrome://extensions`, or `edge://extensions` and enable **Developer mode**.
+3. Select **Load unpacked** and choose the folder containing `manifest.json`.
+4. Open a new tab. Choose whether to import existing browser bookmarks or start with an empty bookmark collection.
 
-1. Abre `brave://extensions`, `chrome://extensions` o `edge://extensions`.
-2. Activa **Modo desarrollador**.
-3. Pulsa **Cargar sin empaquetar** y elige la carpeta que contiene `manifest.json`.
-4. Abre una pestaña nueva. Elige incorporar los marcadores actuales o comenzar con una biblioteca vacía.
+This is a manual desktop installation, not a Chrome Web Store installation. Keep the folder in place after installation.
 
-Conserva la carpeta y no la muevas después de instalar. Esta distribución manual no procede de Chrome Web Store.
+## Update without losing data
 
-## Actualizar
+1. Open **Settings → Data → Full backup** and download a complete JSON backup. Keep it outside the extension folder.
+2. Close DashboardDP tabs and extract the new release files into the **same installation folder**.
+3. Select **Reload** on the browser's extensions page. Do not uninstall DashboardDP or load a second copy from a new folder.
+4. Open a new tab and check **Settings → About**, your bookmarks, and the widget library.
 
-1. En **Ajustes → Acerca de**, comprueba si hay una nueva versión. La consulta a GitHub es opcional.
-2. Descarga una **Copia completa** desde **Ajustes → Datos** y guárdala fuera de la carpeta de la extensión.
-3. Descarga la nueva release y cierra las pestañas del dashboard.
-4. Sustituye los archivos dentro de **la misma carpeta ya cargada**.
-5. Pulsa **Recargar** en la página de extensiones y abre una pestaña nueva.
-6. Revisa favoritos, biblioteca, notas, tareas y personalización.
+Existing personal widgets are not automatically overwritten. To add missing entries from the bundled library, use **Settings → Data → Saved widgets → Restore catalog**.
 
-No desinstales la extensión ni cargues la descarga temporal como otra instalación. Los datos viven en el perfil del navegador; una segunda instalación puede tener otro almacenamiento.
+## Move to another browser, profile, or computer
 
-## Cambiar de equipo, navegador o perfil
+Export a full backup from the old installation. Install DashboardDP in the destination, then use **Settings → Data → Restore full backup (.json)**. Restoring replaces the destination's DashboardDP data: export that installation first if you need to keep it.
 
-1. Guarda una copia completa y una segunda copia privada en otra ubicación.
-2. Instala DashboardDP en el destino.
-3. En **Ajustes → Datos → Copias y restauración**, selecciona **Restaurar copia completa** y revisa la confirmación.
-4. Comprueba biblioteca, grupos, espacios, tareas, proyectos y notas.
-5. Elige nuevamente la carpeta de marcadores y activa escritura bidireccional solo si lo deseas. Los identificadores del perfil anterior se descartan para evitar escribir en otra carpeta.
-6. Autoriza otra vez las conexiones de calendario: sus tokens no viajan en el JSON.
+Check folders, groups, workspaces, notes, tasks, projects, and widgets after restoring. Reconnect any calendar accounts and select the browser bookmark folder again before enabling write-back. Backups do not include account tokens, and imported browser bookmark identifiers are detached for safety.
 
-La restauración completa reemplaza el estado de DashboardDP; no es una combinación selectiva. Exporta antes el estado del destino si contiene cambios que quieras conservar.
+## Keep a private backup
 
-## Respaldo externo recomendado
+The ZIP contains the application, not your personal data. Keep a recent full JSON backup and an earlier version in a private location outside the installation folder. Bookmark HTML exports are not a substitute for a full backup. The JSON is unencrypted; do not attach it to a GitHub issue.
 
-Exporta después de cambios importantes y antes de actualizar o restablecer. Mantén una copia reciente y otra anterior en una ubicación privada: almacenamiento externo o una carpeta con historial de versiones. El JSON no está cifrado. No uses GitHub como almacén de copias personales.
+If an update does not appear, verify that you replaced files in the folder used by the installed extension and reloaded it. If something is missing after a restore, check that the backup belongs to the intended browser profile before restoring again.
 
-Comprueba periódicamente la restauración en un perfil de navegador separado, sin activar escritura de marcadores ni conectar cuentas. Mantén intacto tu perfil habitual. Una copia que no se ha abierto y revisado no debe darse por validada.
-
-## Si algo no aparece
-
-- Verifica navegador, perfil y carpeta cargada.
-- Recarga la extensión; no la desinstales.
-- Antes de restaurar una copia antigua, exporta el estado actual.
-- Consulta la [guía de uso](GUIA_DE_USO.md) y [Privacidad](../PRIVACIDAD.md).
+See the [user guide](USER_GUIDE.md) for day-to-day use.
